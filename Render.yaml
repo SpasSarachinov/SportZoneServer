@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: sportzone-api
-    env: docker
-    plan: free
-    dockerfilePath: ./SportZoneServer.API/Dockerfile
-    autoDeploy: true

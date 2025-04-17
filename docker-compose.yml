@@ -1,10 +1,33 @@
 version: "3.8"
+
 services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sportzone-db
+    environment:
+      SA_PASSWORD: "${SA_PASSWORD}"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    networks:
+      - sportzone-network
+
   sportzone.api:
     build:
       context: .
       dockerfile: SportZoneServer.API/Dockerfile
     ports:
-      - "5000:80"
+      - "5000:10000"
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
+      DB_CONNECTION: "Server=db,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${SA_PASSWORD};TrustServerCertificate=True;"
+      PORT: "10000"
+    depends_on:
+      - db
+    networks:
+      - sportzone-network
+
+networks:
+  sportzone-network:
+    driver: bridge

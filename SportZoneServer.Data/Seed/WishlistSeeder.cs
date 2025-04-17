@@ -1,0 +1,30 @@
+using SportZoneServer.Data.Entities;
+
+namespace SportZoneServer.Data.Seed
+{
+    public static class WishlistSeeder
+    {
+        public static async Task SeedAsync(ApplicationDbContext db)
+        {
+            if (db.WishlistItems.Any()) return;
+
+            List<User> users = db.Users.Take(5).ToList();
+            List<Product> products = db.Products.Skip(5).Take(5).ToList();
+
+            foreach (var user in users)
+            {
+                foreach (var product in products)
+                {
+                    db.WishlistItems.Add(new WishlistItem
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = user.Id,
+                        ProductId = product.Id
+                    });
+                }
+            }
+
+            await db.SaveChangesAsync();
+        }
+    }
+}

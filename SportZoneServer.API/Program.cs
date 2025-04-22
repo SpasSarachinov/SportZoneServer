@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using SportZoneServer.Data;
 using SportZoneServer.Data.Entities;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,11 +26,19 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 
 builder.Services.AddCors(options =>
 {
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
     options.AddPolicy("AllowReactFrontend", policy =>
     {
-        policy.WithOrigins("https://sportzone-client.onrender.com")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy
+            .WithOrigins("https://sportzone-client.onrender.com")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
@@ -44,7 +53,17 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("AllowAll");
     app.MapOpenApi();
+    app.MapScalarApiReference(
+        options =>
+        {
+            options
+                .WithTitle("Sport Zone Server Documentation")
+                .WithTheme(ScalarTheme.Moon)
+                .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+        }
+    );
 }
 
 if (app.Environment.IsProduction())

@@ -69,7 +69,7 @@ if (app.Environment.IsDevelopment())
             options
                 .WithTitle("Sport Zone Server Documentation")
                 .WithTheme(ScalarTheme.Moon)
-                .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+                .WithDefaultHttpClient(ScalarTarget.Shell, ScalarClient.Curl);
         }
     );
 }

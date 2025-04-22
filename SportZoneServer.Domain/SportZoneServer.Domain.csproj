@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\SportZoneServer.Common\SportZoneServer.Common.csproj" />
     <ProjectReference Include="..\SportZoneServer.Core\SportZoneServer.Core.csproj" />
   </ItemGroup>
 

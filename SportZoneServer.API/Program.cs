@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using SportZoneServer.Data;
 using SportZoneServer.Data.Entities;
 using Scalar.AspNetCore;
+using SportZoneServer.API.Middlewares;
 using SportZoneServer.API.ServiceExtensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -12,10 +13,12 @@ Env.Load();
 
 builder.Services.AddOpenApi();
 builder.Services.AddCustomServices();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
+builder.Services.AddControllers();
 
 builder.Services
-    .AddIdentity<User, IdentityRole<Guid>>(options => { })
+    .AddIdentity<User, IdentityRole<Guid>>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
@@ -59,6 +62,8 @@ builder.WebHost.ConfigureKestrel(options =>
 
 WebApplication app = builder.Build();
 
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseCors("AllowAll");
@@ -84,6 +89,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapIdentityApi<User>();
+app.MapControllers();
+
 
 using (IServiceScope scope = app.Services.CreateScope())
 {

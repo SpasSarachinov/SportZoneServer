@@ -6,14 +6,17 @@ namespace SportZoneServer.Data.Seed
     {
         public static async Task SeedAsync(ApplicationDbContext db)
         {
-            if (db.Reviews.Any()) return;
+            if (db.Reviews.Any())
+            {
+                return;
+            }
 
             List<User> users = db.Users.Take(5).ToList();
             List<Product> products = db.Products.Take(5).ToList();
 
-            foreach (var user in users)
+            foreach (User user in users)
             {
-                foreach (var product in products)
+                foreach (Product product in products)
                 {
                     db.Reviews.Add(new Review
                     {

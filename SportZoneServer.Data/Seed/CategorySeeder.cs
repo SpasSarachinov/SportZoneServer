@@ -6,9 +6,12 @@ namespace SportZoneServer.Data.Seed
     {
         public static async Task SeedAsync(ApplicationDbContext db)
         {
-            if (db.Categories.Any()) return;
+            if (db.Categories.Any())
+            {
+                return;
+            }
 
-            var categories = new[]
+            Category[] categories = new[]
             {
                 new Category { Id = Guid.NewGuid(), Name = "Фитнес" },
                 new Category { Id = Guid.NewGuid(), Name = "Тенис" },

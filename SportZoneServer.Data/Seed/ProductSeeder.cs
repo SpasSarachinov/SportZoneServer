@@ -6,11 +6,14 @@ namespace SportZoneServer.Data.Seed
     {
         public static async Task SeedAsync(ApplicationDbContext db)
         {
-            if (db.Products.Any()) return;
+            if (db.Products.Any())
+            {
+                return;
+            }
 
-            var categories = db.Categories.ToList();
+            List<Category> categories = db.Categories.ToList();
 
-            var products = new List<Product>
+            List<Product> products = new List<Product>
             {
                 new() { Name = "Гира 10kg", Description = "Удобна хексагонална гира", ImageUrl = "https://example.com/dumbbell.jpg", Price = 25.99m, Quantity = 10, CategoryId = categories.First(c => c.Name == "Фитнес").Id },
                 new() { Name = "Лост за набирания", Description = "За монтаж на стена", ImageUrl = "https://example.com/pullup.jpg", Price = 39.99m, Quantity = 5, CategoryId = categories.First(c => c.Name == "Фитнес").Id },
@@ -24,7 +27,7 @@ namespace SportZoneServer.Data.Seed
                 new() { Name = "Ски щеки", Description = "Алуминиеви, олекотени", ImageUrl = "https://example.com/ski-poles.jpg", Price = 24.99m, Quantity = 14, CategoryId = categories.First(c => c.Name == "Ски").Id }
             };
 
-            foreach (var p in products)
+            foreach (Product p in products)
             {
                 p.Id = Guid.NewGuid();
             }

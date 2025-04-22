@@ -4,25 +4,33 @@ using Microsoft.AspNetCore.Identity;
 using SportZoneServer.Data;
 using SportZoneServer.Data.Entities;
 using Scalar.AspNetCore;
+using SportZoneServer.API.ServiceExtensions;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 Env.Load();
 
 builder.Services.AddOpenApi();
+builder.Services.AddCustomServices();
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication();
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION")!));
 
-builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
+builder.Services
+    .AddIdentity<User, IdentityRole<Guid>>(options => { })
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services
+    .AddDbContext<ApplicationDbContext>(
+        options =>
+            options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION")!)
+    );
+
+builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = false;
     options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 1;
-})
-.AddEntityFrameworkStores<ApplicationDbContext>()
-.AddDefaultTokenProviders();
+});
 
 builder.Services.AddCors(options =>
 {
@@ -42,14 +50,14 @@ builder.Services.AddCors(options =>
     });
 });
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+string port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(int.Parse(port));
 });
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
@@ -75,10 +83,11 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapIdentityApi<User>();
 
-using (var scope = app.Services.CreateScope())
+using (IServiceScope scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    ApplicationDbContext db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     await db.Database.MigrateAsync();
 }
 

@@ -7,12 +7,15 @@ namespace SportZoneServer.Data.Seed
     {
         public static async Task SeedAsync(ApplicationDbContext db)
         {
-            if (db.Orders.Any()) return;
+            if (db.Orders.Any())
+            {
+                return;
+            }
 
             List<User> users = db.Users.Take(5).ToList();
             List<Product> products = db.Products.Take(3).ToList();
 
-            foreach (var user in users)
+            foreach (User user in users)
             {
                 Order order = new Order
                 {
@@ -23,7 +26,7 @@ namespace SportZoneServer.Data.Seed
                     Items = new List<OrderItem>()
                 };
 
-                foreach (var product in products)
+                foreach (Product product in products)
                 {
                     order.Items.Add(new OrderItem
                     {

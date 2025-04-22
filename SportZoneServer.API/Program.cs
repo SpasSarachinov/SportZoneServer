@@ -12,7 +12,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(Environment.GetEnvironmentVariable("DB_CONNECTION")!));
+    options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION")!));
 
 builder.Services.AddIdentity<User, IdentityRole<Guid>>(options =>
 {

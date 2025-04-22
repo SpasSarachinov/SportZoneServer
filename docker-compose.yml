@@ -2,27 +2,30 @@ version: "3.8"
 
 services:
   db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: postgres:16
     container_name: sportzone-db
+    restart: unless-stopped
     environment:
-      SA_PASSWORD: "${SA_PASSWORD}"
-      ACCEPT_EULA: "Y"
-      MSSQL_PID: "Express"
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
     ports:
-      - "1433:1433"
+      - "${DB_PORT}:${DB_PORT}"
     networks:
       - sportzone-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
 
   sportzone.api:
     build:
       context: .
       dockerfile: SportZoneServer.API/Dockerfile
     ports:
-      - "5000:10000"
+      - "${PORT}:${PORT}"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
-      DB_CONNECTION: "Server=db,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${SA_PASSWORD};TrustServerCertificate=True;"
-      PORT: "10000"
+      ASPNETCORE_ENVIRONMENT: "${ASPNETCORE_ENVIRONMENT}"
+      ASPNETCORE_URLS: "http://*:${PORT}"
+      DB_CONNECTION: "Host=db;Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
     depends_on:
       - db
     networks:
@@ -31,3 +34,6 @@ services:
 networks:
   sportzone-network:
     driver: bridge
+
+volumes:
+  postgres-data:

@@ -17,9 +17,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/out .
 
-ENV PORT=10000
-ENV ASPNETCORE_URLS=http://*:$PORT
-
 EXPOSE 10000
 
 ENTRYPOINT ["dotnet", "SportZoneServer.API.dll"]

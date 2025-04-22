@@ -8,6 +8,5 @@ services:
 
 databases:
   - name: sportzone-db
-    databaseName: SportZoneDb
-    user: sa
+    databaseName: sportzonedb
     plan: free

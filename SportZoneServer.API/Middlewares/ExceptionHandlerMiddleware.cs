@@ -37,14 +37,14 @@ public class ExceptionHandlerMiddleware
 
             await context.Response.WriteAsync(errorResponse.ToJson());
         }
-        catch (Exception)
+        catch (Exception e)
         {
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             context.Response.ContentType = _responseContentType;
 
             await context.Response.WriteAsync(new ErrorDetails()
                 .SetStatusCode(context.Response.StatusCode)
-                .SetMessage(_internalServerError)
+                .SetMessage(e.Message)
                 .ToJson());
         }
     }

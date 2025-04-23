@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-using SportZoneServer.API.Helpers;
-using SportZoneServer.Data.Entities;
 using SportZoneServer.Data.Interfaces;
 using SportZoneServer.Data.Repositories;
 using SportZoneServer.Domain.Interfaces;
@@ -13,12 +10,14 @@ namespace SportZoneServer.API.ServiceExtensions
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             // SERVICES
-            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
             // REPOS
             services.AddScoped<IUserRepository, UserRepository>();
-            
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
             return services;
         }
     }

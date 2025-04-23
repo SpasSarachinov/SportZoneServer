@@ -9,7 +9,7 @@ using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class UserService(IUserRepository userRepository, IAuthService authService) : IUserService
+public class UserService(IUserRepository userRepository) : IUserService
 {
     public async Task<IEnumerable<UserResponse>?> GetAsync()
     {

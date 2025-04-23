@@ -17,7 +17,7 @@ public class AppException : Exception
     {
         if (args != null && args.Length > 0)
         {
-            Args = new List<object>(args);
+            Args = new(args);
         }
 
         Args.AddRange(args);

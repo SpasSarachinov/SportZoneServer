@@ -17,7 +17,7 @@ namespace SportZoneServer.Data.Seed
 
             foreach (User user in users)
             {
-                Order order = new Order
+                Order order = new()
                 {
                     Id = Guid.NewGuid(),
                     UserId = user.Id,
@@ -28,7 +28,7 @@ namespace SportZoneServer.Data.Seed
 
                 foreach (Product product in products)
                 {
-                    order.Items.Add(new OrderItem
+                    order.Items.Add(new()
                     {
                         Id = Guid.NewGuid(),
                         ProductId = product.Id,

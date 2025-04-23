@@ -12,7 +12,7 @@ using SportZoneServer.Data;
 namespace SportZoneServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250423141735_Init")]
+    [Migration("20250423153004_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -165,6 +165,15 @@ namespace SportZoneServer.Data.Migrations
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("RefreshTokenExpiryTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Role")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

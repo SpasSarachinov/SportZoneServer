@@ -5,15 +5,14 @@ namespace SportZoneServer.Data.Entities
     public class User
     {
         public Guid Id { get; init; } = Guid.NewGuid();
-        
         public required string Email { get; set; } 
-        
-        public required string PasswordHash { get; set; } 
-        
+        public required string PasswordHash { get; set; }
+        public string? Role { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiryTime { get; set; }        
+         
         public ICollection<Order> Orders { get; set; } = new List<Order>();
-
         public ICollection<WishlistItem> Wishlist { get; set; } = new List<WishlistItem>();
-
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

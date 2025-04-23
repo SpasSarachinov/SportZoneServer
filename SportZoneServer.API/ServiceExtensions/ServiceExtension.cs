@@ -14,11 +14,11 @@ namespace SportZoneServer.API.ServiceExtensions
         {
             // SERVICES
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IEmailSender<User>, DummyEmailSender>();
+            services.AddTransient<IAuthService, AuthService>();
 
             // REPOS
             services.AddScoped<IUserRepository, UserRepository>();
-
+            
             return services;
         }
     }

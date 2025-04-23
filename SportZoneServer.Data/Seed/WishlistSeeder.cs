@@ -18,7 +18,7 @@ namespace SportZoneServer.Data.Seed
             {
                 foreach (Product product in products)
                 {
-                    db.WishlistItems.Add(new WishlistItem
+                    db.WishlistItems.Add(new()
                     {
                         Id = Guid.NewGuid(),
                         UserId = user.Id,

@@ -11,8 +11,8 @@ namespace SportZoneServer.Data.Seed
                 return;
             }
 
-            Category[] categories = new[]
-            {
+            Category[] categories =
+            [
                 new Category { Id = Guid.NewGuid(), Name = "Фитнес" },
                 new Category { Id = Guid.NewGuid(), Name = "Тенис" },
                 new Category { Id = Guid.NewGuid(), Name = "Футбол" },
@@ -23,7 +23,7 @@ namespace SportZoneServer.Data.Seed
                 new Category { Id = Guid.NewGuid(), Name = "Катерене" },
                 new Category { Id = Guid.NewGuid(), Name = "Гмуркане" },
                 new Category { Id = Guid.NewGuid(), Name = "Ски" }
-            };
+            ];
 
             db.Categories.AddRange(categories);
             await db.SaveChangesAsync();

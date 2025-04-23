@@ -15,7 +15,7 @@ namespace SportZoneServer.Data
 
             await CategorySeeder.SeedAsync(db);
             await ProductSeeder.SeedAsync(db);
-            await UserSeeder.SeedAsync(scope.ServiceProvider);
+            await UserSeeder.SeedAsync(db);
             await ReviewSeeder.SeedAsync(db);
             await OrderSeeder.SeedAsync(db);
             await WishlistSeeder.SeedAsync(db);

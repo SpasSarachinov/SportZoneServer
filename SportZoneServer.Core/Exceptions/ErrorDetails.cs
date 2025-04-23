@@ -26,7 +26,7 @@ public class ErrorDetails
         {
             if (Args == null)
             {
-                Args = new List<object>();
+                Args = [];
             }
             Args.AddRange(args);
         }

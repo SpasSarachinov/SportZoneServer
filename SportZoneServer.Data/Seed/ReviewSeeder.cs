@@ -18,7 +18,7 @@ namespace SportZoneServer.Data.Seed
             {
                 foreach (Product product in products)
                 {
-                    db.Reviews.Add(new Review
+                    db.Reviews.Add(new()
                     {
                         Id = Guid.NewGuid(),
                         UserId = user.Id,

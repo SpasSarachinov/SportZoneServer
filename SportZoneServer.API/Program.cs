@@ -1,8 +1,6 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using SportZoneServer.Data;
-using SportZoneServer.Data.Entities;
 using Scalar.AspNetCore;
 using SportZoneServer.API.Middlewares;
 using SportZoneServer.API.ServiceExtensions;
@@ -13,27 +11,13 @@ Env.Load();
 
 builder.Services.AddOpenApi();
 builder.Services.AddCustomServices();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAuthorization();
 builder.Services.AddControllers();
-
-builder.Services
-    .AddIdentity<User, IdentityRole<Guid>>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
 
 builder.Services
     .AddDbContext<ApplicationDbContext>(
         options =>
             options.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION")!)
     );
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Password.RequireDigit = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 1;
-});
 
 builder.Services.AddCors(options =>
 {
@@ -72,7 +56,6 @@ if (app.Environment.IsDevelopment())
         options =>
         {
             options
-                .WithTitle("Sport Zone Server Documentation")
                 .WithTheme(ScalarTheme.Moon)
                 .WithDefaultHttpClient(ScalarTarget.Shell, ScalarClient.Curl);
         }
@@ -85,16 +68,16 @@ if (app.Environment.IsProduction())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapIdentityApi<User>();
 app.MapControllers();
 
 
 using (IServiceScope scope = app.Services.CreateScope())
 {
     ApplicationDbContext db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    if (Environment.GetEnvironmentVariable("DROP_DB_ON_RUN") == "1")
+    {
+        await db.Database.EnsureDeletedAsync(); 
+    }
     await db.Database.MigrateAsync();
 }
 

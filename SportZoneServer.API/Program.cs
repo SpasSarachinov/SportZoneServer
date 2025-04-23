@@ -66,7 +66,7 @@ builder.WebHost.ConfigureKestrel(options =>
 
 WebApplication app = builder.Build();
 
-//app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
@@ -78,6 +78,7 @@ if (app.Environment.IsDevelopment())
             options
                 .WithTheme(ScalarTheme.Moon)
                 .WithDefaultHttpClient(ScalarTarget.Shell, ScalarClient.Curl);
+            
         }
     );
 }

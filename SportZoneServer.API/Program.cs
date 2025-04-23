@@ -99,7 +99,7 @@ using (IServiceScope scope = app.Services.CreateScope())
     ApplicationDbContext db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     if (Environment.GetEnvironmentVariable("DROP_DB_ON_RUN") == "1")
     {
-        await DatabaseUtils.TruncateAllTablesAsync(db); 
+        await DatabaseUtils.TruncateAllTablesSafeAsync(db); 
     }
     await db.Database.MigrateAsync();
 }

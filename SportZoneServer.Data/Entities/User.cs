@@ -1,6 +1,6 @@
 namespace SportZoneServer.Data.Entities
 {
-    public class User
+    public class User : GenericEntity
     {
         public Guid Id { get; init; } = Guid.NewGuid();
         public required string Email { get; set; } 

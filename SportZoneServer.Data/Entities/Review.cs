@@ -1,6 +1,6 @@
 namespace SportZoneServer.Data.Entities
 {
-    public class Review
+    public class Review : GenericEntity
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 

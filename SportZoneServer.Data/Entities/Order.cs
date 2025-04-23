@@ -2,7 +2,7 @@ using SportZoneServer.Core.Enums;
 
 namespace SportZoneServer.Data.Entities
 {
-    public class Order
+    public class Order : GenericEntity
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 

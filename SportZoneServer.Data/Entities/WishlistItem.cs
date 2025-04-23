@@ -1,6 +1,6 @@
 namespace SportZoneServer.Data.Entities
 {
-    public class WishlistItem
+    public class WishlistItem : GenericEntity
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 

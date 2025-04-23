@@ -20,6 +20,8 @@ namespace SportZoneServer.Data.Seed
             {
                 Email = "admin@sportzone.com",
                 PasswordHash = "temporaryPasswordHash",
+                Names = "Admin",
+                Phone = "0872123199",
                 Role = "Admin"
             };
             admin.PasswordHash = hasher.HashPassword(admin, "Admin123!");
@@ -31,6 +33,8 @@ namespace SportZoneServer.Data.Seed
                 {
                     Email = $"customer{i}@sportzone.com",
                     PasswordHash = "temporaryPasswordHash",
+                    Names = "Customer",
+                    Phone = $"087212312{i}",
                     Role = "Customer"
                 };
                 customer.PasswordHash = hasher.HashPassword(customer, $"Customer{i}123!");

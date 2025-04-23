@@ -12,7 +12,7 @@ using SportZoneServer.Data;
 namespace SportZoneServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250423153004_Init")]
+    [Migration("20250423162623_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -163,7 +163,15 @@ namespace SportZoneServer.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Names")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("text");
 

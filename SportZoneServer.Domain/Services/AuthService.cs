@@ -26,6 +26,8 @@ public class AuthService(ApplicationDbContext context) : IAuthService
         {
             Email = request.Email,
             PasswordHash = "temporaryPasswordHash",
+            Names = request.Names,
+            Phone = request.Phone,
         };
         
         string hashedPassword = new PasswordHasher<User>()
@@ -40,7 +42,6 @@ public class AuthService(ApplicationDbContext context) : IAuthService
         return new()
         {
             Email = request.Email,
-            PasswordHash = hashedPassword,
         };
     }
 

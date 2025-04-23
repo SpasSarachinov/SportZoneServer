@@ -9,4 +9,10 @@ public class RegisterUserRequest
     
     [Required]
     public required string Password { get; set; } 
+    
+    [Required]
+    public required string Names { get; set; } 
+    
+    [Required]
+    public required string Phone { get; set; } 
 }

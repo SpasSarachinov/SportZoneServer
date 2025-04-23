@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using SportZoneServer.Core.Enums;
 using SportZoneServer.Data.Entities;
 
 namespace SportZoneServer.Data.Seed
@@ -22,7 +23,7 @@ namespace SportZoneServer.Data.Seed
                 PasswordHash = "temporaryPasswordHash",
                 Names = "Admin",
                 Phone = "0872123199",
-                Role = "Admin"
+                Role = Roles.Admin,
             };
             admin.PasswordHash = hasher.HashPassword(admin, "Admin123!");
             users.Add(admin);
@@ -35,7 +36,7 @@ namespace SportZoneServer.Data.Seed
                     PasswordHash = "temporaryPasswordHash",
                     Names = "Customer",
                     Phone = $"087212312{i}",
-                    Role = "Customer"
+                    Role = Roles.RegisteredCustomer
                 };
                 customer.PasswordHash = hasher.HashPassword(customer, $"Customer{i}123!");
                 users.Add(customer);

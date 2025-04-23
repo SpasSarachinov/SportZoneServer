@@ -178,8 +178,8 @@ namespace SportZoneServer.Data.Migrations
                     b.Property<DateTime?>("RefreshTokenExpiryTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Role")
-                        .HasColumnType("text");
+                    b.Property<int?>("Role")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

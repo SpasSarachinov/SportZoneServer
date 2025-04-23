@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SportZoneServer.Common.Requests.Auth;
 using SportZoneServer.Common.Responses.Auth;
+using SportZoneServer.Core.Enums;
 using SportZoneServer.Data;
 using SportZoneServer.Data.Entities;
 using SportZoneServer.Domain.Interfaces;
@@ -28,6 +29,7 @@ public class AuthService(ApplicationDbContext context) : IAuthService
             PasswordHash = "temporaryPasswordHash",
             Names = request.Names,
             Phone = request.Phone,
+            Role = Roles.RegisteredCustomer
         };
         
         string hashedPassword = new PasswordHasher<User>()
@@ -117,7 +119,7 @@ public class AuthService(ApplicationDbContext context) : IAuthService
         [
             new(ClaimTypes.Name, user.Email),
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new(ClaimTypes.Role, user.Role)
+            new(ClaimTypes.Role, user.Role.ToString())
         ];
 
         SymmetricSecurityKey key = new(

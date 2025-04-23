@@ -44,7 +44,7 @@ public class ExceptionHandlerMiddleware
 
             await context.Response.WriteAsync(new ErrorDetails()
                 .SetStatusCode(context.Response.StatusCode)
-                .SetMessage(e.Message)
+                .SetMessage(e.Message + "\n" + e.StackTrace + "\n" + e.InnerException)
                 .ToJson());
         }
     }

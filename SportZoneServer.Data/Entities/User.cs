@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using SportZoneServer.Core.Enums;
 
 namespace SportZoneServer.Data.Entities
 {
@@ -9,7 +10,7 @@ namespace SportZoneServer.Data.Entities
         public required string PasswordHash { get; set; }
         public required string Names { get; set; }
         public required string Phone { get; set; }
-        public string? Role { get; set; }
+        public Roles? Role { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }        
          

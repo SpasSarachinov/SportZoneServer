@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using SportZoneServer.Core.Enums;
+using SportZoneServer.Core.StaticClasses;
 using SportZoneServer.Data.Entities;
 
 namespace SportZoneServer.Data.Seed

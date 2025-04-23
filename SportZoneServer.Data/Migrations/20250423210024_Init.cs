@@ -32,7 +32,7 @@ namespace SportZoneServer.Data.Migrations
                     PasswordHash = table.Column<string>(type: "text", nullable: false),
                     Names = table.Column<string>(type: "text", nullable: false),
                     Phone = table.Column<string>(type: "text", nullable: false),
-                    Role = table.Column<int>(type: "integer", nullable: true),
+                    Role = table.Column<string>(type: "text", nullable: true),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },

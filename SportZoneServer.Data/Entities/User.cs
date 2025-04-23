@@ -1,16 +1,13 @@
-using Microsoft.AspNetCore.Identity;
-using SportZoneServer.Core.Enums;
-
 namespace SportZoneServer.Data.Entities
 {
     public class User
     {
         public Guid Id { get; init; } = Guid.NewGuid();
         public required string Email { get; set; } 
-        public required string PasswordHash { get; set; }
+        public string PasswordHash { get; set; }
         public required string Names { get; set; }
         public required string Phone { get; set; }
-        public Roles? Role { get; set; }
+        public string? Role { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiryTime { get; set; }        
          

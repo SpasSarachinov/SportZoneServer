@@ -7,20 +7,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SportZoneServer.Common.Requests.Auth;
 using SportZoneServer.Common.Responses.Auth;
-using SportZoneServer.Core.Enums;
+using SportZoneServer.Core.Exceptions;
+using SportZoneServer.Core.StaticClasses;
 using SportZoneServer.Data;
 using SportZoneServer.Data.Entities;
+using SportZoneServer.Data.Interfaces;
 using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class AuthService(ApplicationDbContext context) : IAuthService
+public class AuthService(ApplicationDbContext context, IUserRepository userRepository) : IAuthService
 {
     public async Task<RegisterUserResponse?> RegisterAsync(RegisterUserRequest request)
     {
-        if (await context.Users.AnyAsync(u => u.Email == request.Email))
+        if (await userRepository.IsEmailAlreadyUsed(request.Email))
         {
-            return null;
+            throw new AppException("Email is already in use.").SetStatusCode(409);
         }
 
         User user = new()
@@ -43,7 +45,7 @@ public class AuthService(ApplicationDbContext context) : IAuthService
 
         return new()
         {
-            Email = request.Email,
+            Id = user.Id,
         };
     }
 

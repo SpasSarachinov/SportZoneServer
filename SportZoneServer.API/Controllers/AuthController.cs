@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SportZoneServer.Common.Requests.Auth;
 using SportZoneServer.Common.Responses.Auth;
-using SportZoneServer.Data.Entities;
+using SportZoneServer.Core.StaticClasses;
 using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.API.Controllers;
@@ -15,11 +15,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     public async Task<ActionResult<RegisterUserResponse>> Register(RegisterUserRequest request)
     {
         RegisterUserResponse? user = await authService.RegisterAsync(request);
-        if (user is null)
-        {
-            return BadRequest("Username already exists.");
-        }
-
+        
         return Ok(user);
     }
 
@@ -54,7 +50,7 @@ public class AuthController(IAuthService authService) : ControllerBase
         return Ok("You are authenticated!");
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     [HttpGet("admin-only")]
     public IActionResult AdminOnlyEndpoint()
     {

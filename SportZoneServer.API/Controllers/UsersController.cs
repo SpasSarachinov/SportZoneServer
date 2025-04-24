@@ -50,7 +50,7 @@ public class UsersController(IUserService userService, IAuthService authService)
         return await ControllerProcessor.ProcessAsync(() => userService.PromoteToAdminAsync(request), this, true);
     }
     
-    [HttpPut("promote-to-registered-customer")]
+    [HttpPut("demote-to-registered-customer")]
     public async Task<IActionResult> DemoteToRegisteredCustomer([FromBody] RoleChangeRequest request)
     {
         return await ControllerProcessor.ProcessAsync(() => userService.DemoteToRegisteredCustomerAsync(request), this, true);

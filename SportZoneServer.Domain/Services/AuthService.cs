@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +17,7 @@ using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class AuthService(ApplicationDbContext context, IUserRepository userRepository) : IAuthService
+public class AuthService(ApplicationDbContext context, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor) : IAuthService
 {
     public async Task<RegisterUserResponse?> RegisterAsync(RegisterUserRequest request)
     {
@@ -138,5 +139,24 @@ public class AuthService(ApplicationDbContext context, IUserRepository userRepos
         );
 
         return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+    }
+    
+    public string? GetCurrentUserId()
+    {
+        return GetClaimValue(ClaimTypes.NameIdentifier);
+    }
+
+    public string? GetCurrentUserEmail()
+    {
+        return GetClaimValue(ClaimTypes.Name);
+    }
+
+    public string? GetCurrentUserRole()
+    {
+        return GetClaimValue(ClaimTypes.Role);
+    }
+    private string? GetClaimValue(string claimType)
+    {
+        return httpContextAccessor.HttpContext?.User.FindFirst(claimType)?.Value;
     }
 }

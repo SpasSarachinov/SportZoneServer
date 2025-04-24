@@ -16,6 +16,7 @@ Env.Load();
 builder.Services.AddOpenApi();
 builder.Services.AddCustomServices();
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services
     .AddDbContext<ApplicationDbContext>(

@@ -141,21 +141,21 @@ public class AuthService(ApplicationDbContext context, IUserRepository userRepos
         return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
     }
     
-    public string? GetCurrentUserId()
+    public async Task<string?> GetCurrentUserId()
     {
-        return GetClaimValue(ClaimTypes.NameIdentifier);
+        return await GetClaimValue(ClaimTypes.NameIdentifier);
     }
 
-    public string? GetCurrentUserEmail()
+    public async Task<string?> GetCurrentUserEmail()
     {
-        return GetClaimValue(ClaimTypes.Name);
+        return await GetClaimValue(ClaimTypes.Name);
     }
 
-    public string? GetCurrentUserRole()
+    public async Task<string?> GetCurrentUserRole()
     {
-        return GetClaimValue(ClaimTypes.Role);
+        return await GetClaimValue(ClaimTypes.Role);
     }
-    private string? GetClaimValue(string claimType)
+    private async Task<string?> GetClaimValue(string claimType)
     {
         return httpContextAccessor.HttpContext?.User.FindFirst(claimType)?.Value;
     }

@@ -1,22 +1,80 @@
+using SportZoneServer.Common.Responses.Product;
 using SportZoneServer.Common.Responses.Wishlist;
+using SportZoneServer.Core.Exceptions;
+using SportZoneServer.Data.Entities;
+using SportZoneServer.Data.Interfaces;
 using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class WishlistService : IWishlistService
+public class WishlistService(IAuthService authService, IWishlistRepository wishlistRepository, IUserRepository userRepository, IProductRepository productRepository) : IWishlistService
 {
     public async Task<WishlistResponse> GetByJWT()
     {
-        throw new NotImplementedException();
+        Guid userId = Guid.Parse(await authService.GetCurrentUserId());
+
+        ICollection<WishlistItem> wishlistItems = await wishlistRepository.GetAllByUserIdAsync(userId);
+
+        List<ProductsResponse> productResponses = wishlistItems.Select(wi => new ProductsResponse
+        {
+            Id = wi.Product.Id,
+            Title = wi.Product.Title,
+            Description = wi.Product.Description,
+            ImageUrl = wi.Product.ImageUrl,
+            RegularPrice = wi.Product.RegularPrice,
+            DiscountPercentage = wi.Product.DiscountPercentage,
+            DiscountedPrice = wi.Product.DiscountedPrice,
+            Rating = wi.Product.Rating,
+            Quantity = wi.Product.Quantity,
+            CategoryId = wi.Product.CategoryId,
+            CategoryName = wi.Product.Category.Name 
+        }).ToList();
+
+        return new()
+        {
+            Products = productResponses
+        };
     }
 
     public async Task<bool> AddProductToWishlistAsync(Guid productId)
     {
-        throw new NotImplementedException();
+        Guid userId = Guid.Parse(await authService.GetCurrentUserId());
+
+        if (await wishlistRepository.IsProductAlreadyInWishlist(productId, userId))
+        {
+            throw new AppException("Product is already in the wishlist.").SetStatusCode(409);
+        }
+        
+        WishlistItem wishlistItem = new()
+        {
+            UserId = userId,
+            ProductId = productId
+        };
+
+        await wishlistRepository.AddAsync(wishlistItem);
+
+        return true;
+
     }
 
     public async Task<bool> RemoveProductFromWishlistAsync(Guid productId)
     {
-        throw new NotImplementedException();
+        Guid userId = Guid.Parse(await authService.GetCurrentUserId());
+        
+        if (!await wishlistRepository.IsProductAlreadyInWishlist(productId, userId))
+        {
+            throw new AppException("Product is not in the wishlist.").SetStatusCode(409);
+        }
+        
+        Guid? wishlistItemId = await wishlistRepository.GetWishlistItemIdAsync(userId, productId);
+
+        if (wishlistItemId == null)
+        {
+            throw new AppException("Wishlist item not found.").SetStatusCode(404);
+        }
+
+        await wishlistRepository.DeleteAsync(wishlistItemId.Value);
+
+        return true;
     }
 }

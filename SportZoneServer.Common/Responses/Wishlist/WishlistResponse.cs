@@ -4,5 +4,5 @@ namespace SportZoneServer.Common.Responses.Wishlist;
 
 public class WishlistResponse
 {
-    public ICollection<ProductResponse> Products { get; set; } = new List<ProductResponse>();
+    public ICollection<ProductsResponse> Products { get; set; } = new List<ProductsResponse>();
 }

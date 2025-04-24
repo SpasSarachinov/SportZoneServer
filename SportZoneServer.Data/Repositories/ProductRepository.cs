@@ -19,6 +19,7 @@ public class ProductRepository(ApplicationDbContext context) : Repository<Produc
         }
 
         return await query
+            .Include(x => x.Category)
             .OrderBy(x => Guid.NewGuid())
             .Take(numOfBestSellers)
             .ToListAsync();

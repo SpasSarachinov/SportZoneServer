@@ -16,7 +16,8 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         return categories.Select(category => new CategoryResponse()
         {
             Id = category.Id,
-            Name = category.Name
+            Name = category.Name,
+            ImageURI = category.ImageURI,
         });
     }
 
@@ -31,7 +32,8 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         return new()
         {
             Id = category.Id,
-            Name = category.Name
+            Name = category.Name,
+            ImageURI = category.ImageURI,
         };
     }
 
@@ -39,7 +41,8 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
     {
         Category category = new()
         {
-            Name = request.Name
+            Name = request.Name,
+            ImageURI = request.ImageURI,
         };
 
         category = (await categoryRepository.AddAsync(category))!;
@@ -47,7 +50,8 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         return new()
         {
             Id = category.Id,
-            Name = category.Name
+            Name = category.Name,
+            ImageURI = category.ImageURI,
         };
     }
 
@@ -60,13 +64,15 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         }
 
         existingCategory.Name = request.Name;
+        existingCategory.ImageURI = request.ImageURI;
 
         Category updatedCategory = (await categoryRepository.UpdateAsync(existingCategory))!;
 
         return new()
         {
             Id = updatedCategory.Id,
-            Name = updatedCategory.Name
+            Name = updatedCategory.Name,
+            ImageURI = updatedCategory.ImageURI,
         };
     }
 

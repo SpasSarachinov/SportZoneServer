@@ -13,7 +13,7 @@ namespace SportZoneServer.API.Controllers;
 public class ProductsController(IProductService productService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync([FromBody] SearchProductsRequest? request)
+    public async Task<IActionResult> GetAllAsync([FromQuery] SearchProductsRequest? request)
     {
         return await ControllerProcessor.ProcessAsync(() => productService.SearchProductsAsync(request), this, true);
     }

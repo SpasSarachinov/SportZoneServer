@@ -44,13 +44,13 @@ public class UsersController(IUserService userService, IAuthService authService)
             async () => await userService.DeleteAsync(id), this);
     }
     
-    [HttpPut]
+    [HttpPut("promote-to-admin")]
     public async Task<IActionResult> PromoteToAdmin([FromBody] RoleChangeRequest request)
     {
         return await ControllerProcessor.ProcessAsync(() => userService.PromoteToAdminAsync(request), this, true);
     }
     
-    [HttpPut]
+    [HttpPut("promote-to-registered-customer")]
     public async Task<IActionResult> DemoteToRegisteredCustomer([FromBody] RoleChangeRequest request)
     {
         return await ControllerProcessor.ProcessAsync(() => userService.DemoteToRegisteredCustomerAsync(request), this, true);

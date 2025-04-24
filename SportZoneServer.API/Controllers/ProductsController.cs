@@ -18,7 +18,7 @@ public class ProductsController(IProductService productService) : ControllerBase
         return await ControllerProcessor.ProcessAsync(() => productService.SearchProductsAsync(request), this, true);
     }
     
-    [HttpGet("/best-sellers")]
+    [HttpGet("best-sellers")]
     public async Task<IActionResult> GetBestSellersAsync(int numOfBestSellers)
     {
         return await ControllerProcessor.ProcessAsync(() => productService.GetBestSellersAsync(numOfBestSellers), this, true);

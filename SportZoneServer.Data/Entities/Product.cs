@@ -8,7 +8,7 @@ namespace SportZoneServer.Data.Entities
         public string ImageUrl { get; set; }
         public decimal RegularPrice { get; set; }
 
-        public byte DiscountPercantage { get; set; } = 0;
+        public byte DiscountPercentage { get; set; }
         public decimal DiscountedPrice { get; set; }
         public uint Quantity { get; set; }
 

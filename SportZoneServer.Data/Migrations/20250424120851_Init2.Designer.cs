@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SportZoneServer.Data;
@@ -11,9 +12,11 @@ using SportZoneServer.Data;
 namespace SportZoneServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250424120851_Init2")]
+    partial class Init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,7 +130,7 @@ namespace SportZoneServer.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<byte>("DiscountPercentage")
+                    b.Property<byte>("DiscountPercantage")
                         .HasColumnType("smallint");
 
                     b.Property<decimal>("DiscountedPrice")

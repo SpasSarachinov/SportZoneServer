@@ -162,7 +162,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
                 Description = product.Description,
                 ImageUrl = product.ImageUrl,
                 RegularPrice = product.RegularPrice,
-                DiscountPercantage = product.DiscountPercantage,
+                DiscountPercentage = product.DiscountPercentage,
                 DiscountedPrice = product.DiscountedPrice,
                 Quantity = product.Quantity,
                 Rating = product.Rating,

@@ -12,7 +12,7 @@ public class ProductsResponse
 
     public decimal RegularPrice { get; set; }
     
-    public byte DiscountPercantage { get; set; } 
+    public byte DiscountPercentage { get; set; } 
     public decimal DiscountedPrice { get; set; }
     public byte Rating { get; set; } 
 

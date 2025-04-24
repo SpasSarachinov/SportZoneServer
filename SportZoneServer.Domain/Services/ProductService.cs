@@ -28,6 +28,22 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
         });
     }
 
+    public async Task<IEnumerable<ProductResponse>?> GetBestSellersAsync(int numOfBestSellers)
+    {
+        IEnumerable<Product> products = await productRepository.GetBestSellersAsync(numOfBestSellers);
+
+        return products.Select(product => new ProductResponse()
+        {
+            Id = product.Id,
+            Title = product.Title,
+            Description = product.Description,
+            ImageUrl = product.ImageUrl,
+            RegularPrice = product.RegularPrice,
+            Quantity = product.Quantity,
+            CategoryId = product.CategoryId,
+            CategoryName = product.Category.Name
+        });    }
+
     public async Task<ProductResponse?> GetByIdAsync(Guid id)
     {
         Product? product = await productRepository.GetByIdAsync(id);

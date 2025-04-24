@@ -7,6 +7,7 @@ namespace SportZoneServer.Domain.Interfaces;
 public interface IProductService
 {
     Task<IEnumerable<ProductResponse>?> GetAsync();
+    Task<IEnumerable<ProductResponse>?> GetBestSellersAsync(int numOfBestSellers);
     Task<ProductResponse?> GetByIdAsync(Guid id);
     Task<ProductResponse?> UpdateAsync(UpdateProductRequest request);
     Task<ProductResponse?> CreateAsync(CreateProductRequest request);

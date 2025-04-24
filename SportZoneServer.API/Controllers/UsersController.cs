@@ -43,4 +43,16 @@ public class UsersController(IUserService userService, IAuthService authService)
         return await ControllerProcessor.ProcessAsync<object>(
             async () => await userService.DeleteAsync(id), this);
     }
+    
+    [HttpPut]
+    public async Task<IActionResult> PromoteToAdmin([FromBody] RoleChangeRequest request)
+    {
+        return await ControllerProcessor.ProcessAsync(() => userService.PromoteToAdminAsync(request), this, true);
+    }
+    
+    [HttpPut]
+    public async Task<IActionResult> DemoteToRegisteredCustomer([FromBody] RoleChangeRequest request)
+    {
+        return await ControllerProcessor.ProcessAsync(() => userService.DemoteToRegisteredCustomerAsync(request), this, true);
+    }
 }

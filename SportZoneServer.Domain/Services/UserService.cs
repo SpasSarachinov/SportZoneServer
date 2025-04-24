@@ -3,6 +3,7 @@ using SportZoneServer.Common.Requests.Users;
 using SportZoneServer.Common.Responses.Auth;
 using SportZoneServer.Common.Responses.Users;
 using SportZoneServer.Core.Exceptions;
+using SportZoneServer.Core.StaticClasses;
 using SportZoneServer.Data.Entities;
 using SportZoneServer.Data.Interfaces;
 using SportZoneServer.Domain.Interfaces;
@@ -76,5 +77,39 @@ public class UserService(IUserRepository userRepository) : IUserService
         }
 
         return true;    
+    }
+
+    public async Task<bool> PromoteToAdminAsync(RoleChangeRequest request)
+    {
+        return await ChangeRoleAsync(request, Roles.Admin);
+    }
+
+    public async Task<bool> DemoteToRegisteredCustomerAsync(RoleChangeRequest request)
+    {
+        return await ChangeRoleAsync(request, Roles.RegisteredCustomer);
+    }
+
+    private async Task<bool> ChangeRoleAsync(RoleChangeRequest request, string toRole)
+    {
+        User userBeforeUpdate = (await userRepository.GetByIdAsync(request.Id))!;
+
+        if (userBeforeUpdate == null)
+        {
+            throw new AppException("User not found.").SetStatusCode(404);
+        }
+        
+        User? updatedUser = new()
+        {
+            Id = request.Id,
+            Email = userBeforeUpdate.Email,
+            Names = userBeforeUpdate.Names,
+            Phone = userBeforeUpdate.Phone,
+            PasswordHash = userBeforeUpdate.PasswordHash,
+            Role = toRole,
+        };
+        
+        updatedUser = await userRepository.UpdateAsync(updatedUser);
+
+        return true;  
     }
 }

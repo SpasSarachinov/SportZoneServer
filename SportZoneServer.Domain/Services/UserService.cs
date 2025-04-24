@@ -91,7 +91,7 @@ public class UserService(IUserRepository userRepository) : IUserService
 
     private async Task<bool> ChangeRoleAsync(RoleChangeRequest request, string toRole)
     {
-        User userBeforeUpdate = (await userRepository.GetByIdAsync(request.Id))!;
+        User userBeforeUpdate = (await userRepository.GetByIdAsync(request.UserId))!;
 
         if (userBeforeUpdate == null)
         {
@@ -100,7 +100,7 @@ public class UserService(IUserRepository userRepository) : IUserService
         
         User? updatedUser = new()
         {
-            Id = request.Id,
+            Id = request.UserId,
             Email = userBeforeUpdate.Email,
             Names = userBeforeUpdate.Names,
             Phone = userBeforeUpdate.Phone,

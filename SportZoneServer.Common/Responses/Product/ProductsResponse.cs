@@ -1,18 +1,24 @@
-namespace SportZoneServer.Common.Requests.Product;
+namespace SportZoneServer.Common.Responses.Product;
 
-public class UpdateProductRequest
+public class ProductsResponse
 {
     public Guid Id { get; set; }
 
     public required string Title { get; set; }
 
     public required string Description { get; set; }
-
+    
     public required string ImageUrl { get; set; }
 
     public decimal RegularPrice { get; set; }
+    
+    public byte DiscountPercantage { get; set; } 
+    public decimal DiscountedPrice { get; set; }
+    public byte Rating { get; set; } 
 
     public uint Quantity { get; set; }
 
     public Guid CategoryId { get; set; }
+    
+    public required string CategoryName { get; set; }
 }

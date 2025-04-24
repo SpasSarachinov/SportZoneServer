@@ -33,7 +33,7 @@ namespace SportZoneServer.Data.Seed
                         Id = Guid.NewGuid(),
                         ProductId = product.Id,
                         Quantity = 1 + users.IndexOf(user),
-                        SinglePrice = product.Price
+                        SinglePrice = product.RegularPrice
                     });
                 }
 

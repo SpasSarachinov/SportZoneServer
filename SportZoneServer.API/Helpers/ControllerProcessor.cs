@@ -42,9 +42,9 @@ public static class ControllerProcessor
         {
             throw;
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            throw new AppException($"Oops! Something went wrong! Please try again later.").SetStatusCode(500);
+            throw new AppException($"Oops! Something went wrong! Please try again later. ({e.Message} ----> {e.StackTrace})").SetStatusCode(500);
         }
     }
 }

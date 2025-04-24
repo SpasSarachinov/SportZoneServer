@@ -13,11 +13,11 @@ namespace SportZoneServer.Data.Seed
                 return;
             }
 
-            PasswordHasher<User> hasher = new PasswordHasher<User>();
+            PasswordHasher<User> hasher = new();
 
             List<User> users = [];
 
-            User admin = new User
+            User admin = new()
             {
                 Email = "admin@sportzone.com",
                 PasswordHash = "temporaryPasswordHash",
@@ -30,7 +30,7 @@ namespace SportZoneServer.Data.Seed
 
             for (int i = 1; i <= 9; i++)
             {
-                User customer = new User
+                User customer = new()
                 {
                     Email = $"customer{i}@sportzone.com",
                     PasswordHash = "temporaryPasswordHash",

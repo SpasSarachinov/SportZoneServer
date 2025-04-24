@@ -1,7 +1,11 @@
+using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using SportZoneServer.Core.Pages;
 using SportZoneServer.Data.Interfaces;
+using SportZoneServer.Data.PaginationAndFiltering;
 
 namespace SportZoneServer.Data.Repositories
 {
@@ -99,6 +103,57 @@ namespace SportZoneServer.Data.Repositories
             await _context.SaveChangesAsync();
 
             return entity;
+        }
+
+        public async Task<Paginated<TEntity>> SearchAsync(Filter<TEntity> request)
+        {
+            IQueryable<TEntity>? query = _context.Set<TEntity>().AsQueryable().AsNoTracking();
+
+            foreach (Expression<Func<TEntity, object>> include in request.Includes)
+            {
+                query = query.Include(include);
+            }
+
+            foreach (string include in request.IncludesAsPropertyPath)
+            {
+                query = query.Include(include);
+            }
+
+            if (request.SortBy != null)
+            {
+                if (request.SortDescending == true)
+                {
+                    query = query.OrderBy($"{request.SortBy} DESC");
+                }
+                else
+                {
+                    query = query.OrderBy(request.SortBy);
+                }
+            }
+
+            int count = query.Count(request.Predicate);
+
+            if (request.PageNumber != null)
+            {
+                int page = (int)request.PageNumber!;
+                int itemsPerPage = (int)request.PageSize!;
+                int skip = (page - 1) * itemsPerPage;
+                List<TEntity> filteredItems = await query.Where(request.Predicate).Skip(skip).Take(itemsPerPage).ToListAsync().ConfigureAwait(false);
+
+                return new()
+                {
+                    TotalCount = count,
+                    Items = filteredItems,
+                };
+            }
+
+            List<TEntity> items = await query.Where(request.Predicate).ToListAsync().ConfigureAwait(false);
+
+            return new()
+            {
+                TotalCount = count,
+                Items = items,
+            };
         }
     }
 }

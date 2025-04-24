@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SportZoneServer.Core\SportZoneServer.Core.csproj" />
+    <ProjectReference Include="..\SportZoneServer.Data\SportZoneServer.Data.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

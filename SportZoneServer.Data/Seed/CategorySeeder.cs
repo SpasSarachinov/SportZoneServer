@@ -13,16 +13,16 @@ namespace SportZoneServer.Data.Seed
 
             Category[] categories =
             [
-                new Category { Id = Guid.NewGuid(), Name = "Фитнес" },
-                new Category { Id = Guid.NewGuid(), Name = "Тенис" },
-                new Category { Id = Guid.NewGuid(), Name = "Футбол" },
-                new Category { Id = Guid.NewGuid(), Name = "Баскетбол" },
-                new Category { Id = Guid.NewGuid(), Name = "Колоездене" },
-                new Category { Id = Guid.NewGuid(), Name = "Бокс" },
-                new Category { Id = Guid.NewGuid(), Name = "Хокей" },
-                new Category { Id = Guid.NewGuid(), Name = "Катерене" },
-                new Category { Id = Guid.NewGuid(), Name = "Гмуркане" },
-                new Category { Id = Guid.NewGuid(), Name = "Ски" }
+                new() { Id = Guid.NewGuid(), Name = "Фитнес" },
+                new() { Id = Guid.NewGuid(), Name = "Тенис" },
+                new() { Id = Guid.NewGuid(), Name = "Футбол" },
+                new() { Id = Guid.NewGuid(), Name = "Баскетбол" },
+                new() { Id = Guid.NewGuid(), Name = "Колоездене" },
+                new() { Id = Guid.NewGuid(), Name = "Бокс" },
+                new() { Id = Guid.NewGuid(), Name = "Хокей" },
+                new() { Id = Guid.NewGuid(), Name = "Катерене" },
+                new() { Id = Guid.NewGuid(), Name = "Гмуркане" },
+                new() { Id = Guid.NewGuid(), Name = "Ски" }
             ];
 
             db.Categories.AddRange(categories);

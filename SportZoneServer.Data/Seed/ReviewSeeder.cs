@@ -23,7 +23,7 @@ namespace SportZoneServer.Data.Seed
                         Id = Guid.NewGuid(),
                         UserId = user.Id,
                         ProductId = product.Id,
-                        Content = $"Много добър продукт {product.Name}",
+                        Content = $"Много добър продукт {product.Title}",
                         Rating = 4 + users.IndexOf(user) % 2
                     });
                 }

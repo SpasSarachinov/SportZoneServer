@@ -28,7 +28,7 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
             throw new AppException("Category not found.").SetStatusCode(404);
         }
 
-        return new CategoryResponse()
+        return new()
         {
             Id = category.Id,
             Name = category.Name
@@ -44,7 +44,7 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
 
         category = (await categoryRepository.AddAsync(category))!;
 
-        return new CategoryResponse()
+        return new()
         {
             Id = category.Id,
             Name = category.Name
@@ -63,7 +63,7 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
 
         Category updatedCategory = (await categoryRepository.UpdateAsync(existingCategory))!;
 
-        return new CategoryResponse()
+        return new()
         {
             Id = updatedCategory.Id,
             Name = updatedCategory.Name

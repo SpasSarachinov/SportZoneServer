@@ -1,8 +1,10 @@
 using SportZoneServer.Common.Requests.Product;
 using SportZoneServer.Common.Responses.Product;
 using SportZoneServer.Core.Exceptions;
+using SportZoneServer.Core.Pages;
 using SportZoneServer.Data.Entities;
 using SportZoneServer.Data.Interfaces;
+using SportZoneServer.Data.PaginationAndFiltering;
 using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
@@ -16,10 +18,10 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
         return products.Select(product => new ProductResponse()
         {
             Id = product.Id,
-            Name = product.Name,
+            Title = product.Title,
             Description = product.Description,
             ImageUrl = product.ImageUrl,
-            Price = product.Price,
+            RegularPrice = product.RegularPrice,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
             CategoryName = product.Category.Name
@@ -34,13 +36,13 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             throw new AppException("Product not found.").SetStatusCode(404);
         }
 
-        return new ProductResponse()
+        return new()
         {
             Id = product.Id,
-            Name = product.Name,
+            Title = product.Title,
             Description = product.Description,
             ImageUrl = product.ImageUrl,
-            Price = product.Price,
+            RegularPrice = product.RegularPrice,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
             CategoryName = product.Category.Name
@@ -57,23 +59,23 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
 
         Product product = new()
         {
-            Name = request.Name,
+            Title = request.Title,
             Description = request.Description,
             ImageUrl = request.ImageUrl,
-            Price = request.Price,
+            RegularPrice = request.RegularPrice,
             Quantity = request.Quantity,
             CategoryId = request.CategoryId
         };
 
         product = await productRepository.AddAsync(product);
 
-        return new ProductResponse()
+        return new()
         {
             Id = product.Id,
-            Name = product.Name,
+            Title = product.Title,
             Description = product.Description,
             ImageUrl = product.ImageUrl,
-            Price = product.Price,
+            RegularPrice = product.RegularPrice,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
             CategoryName = category.Name
@@ -94,22 +96,22 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             throw new AppException("Invalid category.").SetStatusCode(400);
         }
 
-        existingProduct.Name = request.Name;
+        existingProduct.Title = request.Title;
         existingProduct.Description = request.Description;
         existingProduct.ImageUrl = request.ImageUrl;
-        existingProduct.Price = request.Price;
+        existingProduct.RegularPrice = request.RegularPrice;
         existingProduct.Quantity = request.Quantity;
         existingProduct.CategoryId = request.CategoryId;
 
         Product updatedProduct = await productRepository.UpdateAsync(existingProduct);
 
-        return new ProductResponse()
+        return new()
         {
             Id = updatedProduct.Id,
-            Name = updatedProduct.Name,
+            Title = updatedProduct.Title,
             Description = updatedProduct.Description,
             ImageUrl = updatedProduct.ImageUrl,
-            Price = updatedProduct.Price,
+            RegularPrice = updatedProduct.RegularPrice,
             Quantity = updatedProduct.Quantity,
             CategoryId = updatedProduct.CategoryId,
             CategoryName = category.Name
@@ -126,4 +128,58 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
 
         return await productRepository.DeleteAsync(id);
     }
+
+    public async Task<Paginated<ProductsResponse>> SearchProductsAsync(SearchProductsRequest request)
+    {
+        if (request == null)
+        {
+            request = new();
+        }
+        
+        Filter<Product> filter = new()
+        {
+            Includes = 
+            [
+                x => x.Category!
+            ],
+            Predicate = request.GetPredicate(),
+            PageNumber = request.PageNumber ?? 1,
+            PageSize = request.PageSize ?? 10,
+            SortBy = request.SortBy ?? "RegularPrice",
+            SortDescending = request.SortDescending ?? false,
+        };
+
+        Paginated<Product> result = await productRepository.SearchAsync(filter);
+
+        List<ProductsResponse> responses = new();
+
+        foreach (Product product in result.Items!)
+        {
+            ProductsResponse response = new()
+            {
+                Id = product.Id,
+                Title = product.Title,
+                Description = product.Description,
+                ImageUrl = product.ImageUrl,
+                RegularPrice = product.RegularPrice,
+                DiscountPercantage = product.DiscountPercantage,
+                DiscountedPrice = product.DiscountedPrice,
+                Quantity = product.Quantity,
+                Rating = product.Rating,
+                CategoryId = product.CategoryId,
+                CategoryName = product.Category?.Name // Assuming Category has Name
+            };
+
+            responses.Add(response);
+        }
+
+        Paginated<ProductsResponse> paginated = new()
+        {
+            Items = responses,
+            TotalCount = result.TotalCount
+        };
+
+        return paginated;
+    }
+    
 }

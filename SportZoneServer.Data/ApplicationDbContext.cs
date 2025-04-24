@@ -20,7 +20,11 @@ namespace SportZoneServer.Data
             base.OnModelCreating(builder);
 
             builder.Entity<Product>()
-                .Property(p => p.Price)
+                .Property(p => p.RegularPrice)
+                .HasPrecision(18, 2);
+            
+            builder.Entity<Product>()
+                .Property(p => p.DiscountedPrice)
                 .HasPrecision(18, 2);
 
             builder.Entity<OrderItem>()

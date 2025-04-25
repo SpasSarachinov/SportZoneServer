@@ -16,6 +16,13 @@ public class OrderRepository(ApplicationDbContext context) : Repository<Order>(c
             .FirstOrDefaultAsync(x => x.UserId == userId && x.Status == OrderStatus.Created && !x.IsDeleted);
     }
 
+    public async Task<Order?> GetByUserIdWithoutStatusRestrictionAsync(Guid userId)
+    {
+        return await context.Orders
+            .Include(x => x.User)
+            .Include(x => x.Items)
+            .FirstOrDefaultAsync(x => x.UserId == userId && !x.IsDeleted);    }
+
     public async Task<Order> AddAsync(Guid userId)
     {
         Order newOrder = new()

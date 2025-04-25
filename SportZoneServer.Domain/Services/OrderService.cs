@@ -15,6 +15,21 @@ namespace SportZoneServer.Domain.Services;
 
 public class OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IAuthService authService, IOrderItemRepository orderItemRepository) : IOrderService
 {
+    public async Task<bool> ChangeStatusAsync(ChangeOrderStatusRequest request)
+    {
+        Order order = await orderRepository.GetByUserIdWithoutStatusRestrictionAsync(Guid.Parse(await authService.GetCurrentUserId()));
+        if (order == null)
+        {
+            throw new AppException("Order not found").SetStatusCode(404);
+        }
+        
+        order.Status = request.OrderStatus;
+        
+        await orderRepository.UpdateAsync(order);
+
+        return true;
+    }
+
     public async Task<Paginated<OrderResponse>> SearchOrdersAsync(SearchOrderRequest request)
     {
         if (request.UserId == null)

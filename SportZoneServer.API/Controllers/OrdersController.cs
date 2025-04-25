@@ -19,13 +19,13 @@ public class OrdersController(IOrderService orderService) : ControllerBase
     }
     
     [HttpPut]
-    public async Task<IActionResult> GetAllAsync([FromBody] AddOrderItemRequest request)
+    public async Task<IActionResult> AddProductAsync([FromBody] AddOrderItemRequest request)
     {
         return await ControllerProcessor.ProcessAsync(() => orderService.AddProductAsync(request), this, true);
     }
     
     [HttpDelete]
-    public async Task<IActionResult> GetAllAsync([FromBody] RemoveOrderItemRequest request)
+    public async Task<IActionResult> RemoveProductAsync([FromBody] RemoveOrderItemRequest request)
     {
         return await ControllerProcessor.ProcessAsync(() => orderService.RemoveProductAsync(request), this, true);
     }
@@ -37,8 +37,14 @@ public class OrdersController(IOrderService orderService) : ControllerBase
     }
     
     [HttpGet("get-list")]
-    public async Task<IActionResult> GetAllAsync([FromQuery] SearchOrderRequest? request)
+    public async Task<IActionResult> SearchOrdersAsync([FromQuery] SearchOrderRequest? request)
     {
         return await ControllerProcessor.ProcessAsync(() => orderService.SearchOrdersAsync(request), this, true);
+    }
+    
+    [HttpPut("change-status")]
+    public async Task<IActionResult> AddProductAsync([FromBody] ChangeOrderStatusRequest request)
+    {
+        return await ControllerProcessor.ProcessAsync(() => orderService.ChangeStatusAsync(request), this, true);
     }
 }

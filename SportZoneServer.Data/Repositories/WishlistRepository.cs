@@ -14,6 +14,8 @@ public class WishlistRepository(ApplicationDbContext context) : Repository<Wishl
     public async Task<ICollection<WishlistItem>> GetAllByUserIdAsync(Guid userId)
     {
         return await context.WishlistItems
+            .Include(w => w.Product)
+            .ThenInclude(p => p.Category)
             .Where(w => w.UserId == userId && w.IsDeleted == false)
             .Include(w => w.Product)
             .ToListAsync();
@@ -22,6 +24,8 @@ public class WishlistRepository(ApplicationDbContext context) : Repository<Wishl
     public async Task<Guid?> GetWishlistItemIdAsync(Guid userId, Guid productId)
     {
         return await context.WishlistItems
+            .Include(w => w.Product)
+            .ThenInclude(p => p.Category)
             .Where(w => w.UserId == userId && w.ProductId == productId && w.IsDeleted == false)
             .Select(w => (Guid?)w.Id)
             .FirstOrDefaultAsync();

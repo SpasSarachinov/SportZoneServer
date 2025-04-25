@@ -14,7 +14,10 @@ public class WishlistService(IAuthService authService, IWishlistRepository wishl
         Guid userId = Guid.Parse(await authService.GetCurrentUserId());
 
         ICollection<WishlistItem> wishlistItems = await wishlistRepository.GetAllByUserIdAsync(userId);
-
+        if (wishlistItems == null)
+        {
+            throw new AppException("No Wishlist Items Found").SetStatusCode(409);
+        }
         List<ProductsResponse> productResponses = wishlistItems.Select(wi => new ProductsResponse
         {
             Id = wi.Product.Id,

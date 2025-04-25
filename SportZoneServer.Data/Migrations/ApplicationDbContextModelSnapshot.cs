@@ -66,7 +66,7 @@ namespace SportZoneServer.Data.Migrations
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid?>("ProductId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Uri")
@@ -327,8 +327,7 @@ namespace SportZoneServer.Data.Migrations
                     b.HasOne("SportZoneServer.Data.Entities.Product", "Product")
                         .WithMany("SecondaryImages")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Product");
                 });

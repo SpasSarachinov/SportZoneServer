@@ -12,21 +12,6 @@ namespace SportZoneServer.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Uri = table.Column<string>(type: "text", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -45,28 +30,6 @@ namespace SportZoneServer.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    ImageId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Categories_Images_ImageId",
-                        column: x => x.ImageId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,6 +52,22 @@ namespace SportZoneServer.Data.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    ImageId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -116,6 +95,28 @@ namespace SportZoneServer.Data.Migrations
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Uri = table.Column<string>(type: "text", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -214,6 +215,11 @@ namespace SportZoneServer.Data.Migrations
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Images_ProductId",
+                table: "Images",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_OrderId",
                 table: "OrderItems",
                 column: "OrderId");
@@ -252,11 +258,23 @@ namespace SportZoneServer.Data.Migrations
                 name: "IX_WishlistItems_UserId",
                 table: "WishlistItems",
                 column: "UserId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Categories_Images_ImageId",
+                table: "Categories",
+                column: "ImageId",
+                principalTable: "Images",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Categories_Images_ImageId",
+                table: "Categories");
+
             migrationBuilder.DropTable(
                 name: "OrderItems");
 
@@ -270,16 +288,16 @@ namespace SportZoneServer.Data.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Images");
 
             migrationBuilder.DropTable(
-                name: "Images");
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

@@ -12,8 +12,8 @@ using SportZoneServer.Data;
 namespace SportZoneServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250425152537_Init2")]
-    partial class Init2
+    [Migration("20250425153809_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,7 @@ namespace SportZoneServer.Data.Migrations
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid?>("ProductId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Uri")
@@ -330,8 +330,7 @@ namespace SportZoneServer.Data.Migrations
                     b.HasOne("SportZoneServer.Data.Entities.Product", "Product")
                         .WithMany("SecondaryImages")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Product");
                 });

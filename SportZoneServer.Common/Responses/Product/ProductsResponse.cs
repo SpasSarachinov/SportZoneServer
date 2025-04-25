@@ -14,7 +14,7 @@ public class ProductsResponse
     
     public byte DiscountPercentage { get; set; } 
     public decimal DiscountedPrice { get; set; }
-    public byte Rating { get; set; } 
+    public double Rating { get; set; } 
 
     public uint Quantity { get; set; }
 

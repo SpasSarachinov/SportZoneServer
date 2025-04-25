@@ -12,7 +12,7 @@ namespace SportZoneServer.Data.Entities
         public decimal DiscountedPrice { get; set; }
         public uint Quantity { get; set; }
 
-        public byte Rating { get; set; } = 0;
+        public double Rating { get; set; } = 0;
         public Guid CategoryId { get; set; }
 
         public Category Category { get; set; }

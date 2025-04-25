@@ -14,6 +14,6 @@ namespace SportZoneServer.Data.Entities
 
         public string Content { get; set; } = null!;
 
-        public int Rating { get; set; }
+        public byte Rating { get; set; }
     }
 }

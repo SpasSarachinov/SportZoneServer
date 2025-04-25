@@ -24,4 +24,13 @@ public class ProductRepository(ApplicationDbContext context) : Repository<Produc
             .Take(numOfBestSellers)
             .ToListAsync();
     }
+
+    public async Task UpdateRatingAsync(Guid productId, double rating)
+    {
+        Product product = await GetByIdAsync(productId);
+
+        product.Rating = rating;
+
+        await UpdateAsync(product);
+    }
 }

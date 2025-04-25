@@ -15,12 +15,14 @@ namespace SportZoneServer.API.ServiceExtensions
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IWishlistService, WishlistService>();
+            services.AddTransient<IReviewService, ReviewService>();
 
             // REPOS
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IWishlistRepository, WishlistRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
 
             return services;
         }

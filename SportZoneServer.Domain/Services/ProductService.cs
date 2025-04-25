@@ -159,44 +159,72 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
     }
 
     public async Task<ProductResponse?> UpdateAsync(UpdateProductRequest request)
+{
+    Product? existingProduct = await productRepository.GetByIdAsync(request.Id);
+    if (existingProduct == null)
     {
-        Product? existingProduct = await productRepository.GetByIdAsync(request.Id);
-        if (existingProduct == null)
-        {
-            throw new AppException("Product not found.").SetStatusCode(404);
-        }
-
-        Category? category = await categoryRepository.GetByIdAsync(request.CategoryId);
-        if (category == null)
-        {
-            throw new AppException("Invalid category.").SetStatusCode(400);
-        }
-
-        existingProduct.Title = request.Title;
-        existingProduct.Description = request.Description;
-        existingProduct.PrimaryImageUrl = request.PrimaryImageUrl;
-        existingProduct.RegularPrice = request.RegularPrice;
-        existingProduct.DiscountedPrice = request.RegularPrice;
-        existingProduct.Quantity = request.Quantity;
-        existingProduct.CategoryId = request.CategoryId;
-
-        Product updatedProduct = await productRepository.UpdateAsync(existingProduct);
-
-        return new()
-        {
-            Id = updatedProduct.Id,
-            Title = updatedProduct.Title,
-            Description = updatedProduct.Description,
-            PrimaryImageUrl = updatedProduct.PrimaryImageUrl,
-            RegularPrice = updatedProduct.RegularPrice,
-            DiscountPercentage = updatedProduct.DiscountPercentage,
-            DiscountedPrice = updatedProduct.DiscountedPrice,
-            Rating = updatedProduct.Rating,
-            Quantity = updatedProduct.Quantity,
-            CategoryId = updatedProduct.CategoryId,
-            CategoryName = category.Name
-        };
+        throw new AppException("Product not found.").SetStatusCode(404);
     }
+
+    Category? category = await categoryRepository.GetByIdAsync(request.CategoryId);
+    if (category == null)
+    {
+        throw new AppException("Invalid category.").SetStatusCode(400);
+    }
+
+    existingProduct.Title = request.Title;
+    existingProduct.Description = request.Description;
+    existingProduct.PrimaryImageUrl = request.PrimaryImageUrl;
+    existingProduct.RegularPrice = request.RegularPrice;
+    existingProduct.DiscountedPrice = request.RegularPrice;
+    existingProduct.Quantity = request.Quantity;
+    existingProduct.CategoryId = request.CategoryId;
+
+    // Remove existing images from DB
+    foreach (Image image in existingProduct.SecondaryImages.ToList())
+    {
+        await imageRepository.DeleteAsync(image.Id);
+    }
+
+    // Add new images
+    existingProduct.SecondaryImages.Clear();
+
+    foreach (UpdateImageRequest imageRequest in request.SecondaryImages)
+    {
+        Image newImage = new()
+        {
+            Uri = imageRequest.Uri,
+            ProductId = existingProduct.Id
+        };
+
+        existingProduct.SecondaryImages.Add(newImage);
+        await imageRepository.AddAsync(newImage);
+    }
+
+    Product updatedProduct = await productRepository.UpdateAsync(existingProduct);
+
+    return new()
+    {
+        Id = updatedProduct.Id,
+        Title = updatedProduct.Title,
+        Description = updatedProduct.Description,
+        PrimaryImageUrl = updatedProduct.PrimaryImageUrl,
+        RegularPrice = updatedProduct.RegularPrice,
+        DiscountPercentage = updatedProduct.DiscountPercentage,
+        DiscountedPrice = updatedProduct.DiscountedPrice,
+        Rating = updatedProduct.Rating,
+        Quantity = updatedProduct.Quantity,
+        CategoryId = updatedProduct.CategoryId,
+        CategoryName = category.Name,
+        SecondaryImages = updatedProduct.SecondaryImages
+            .Select(img => new ImageResponse
+            {
+                Id = img.Id,
+                Uri = img.Uri
+            })
+            .ToList()
+    };
+}
 
     public async Task<bool> DeleteAsync(Guid id)
     {
@@ -204,6 +232,11 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
         if (product == null)
         {
             throw new AppException("Product not found.").SetStatusCode(404);
+        }
+
+        foreach (Image image in product.SecondaryImages.ToList())
+        {
+            await imageRepository.DeleteAsync(image.Id);
         }
 
         return await productRepository.DeleteAsync(id);

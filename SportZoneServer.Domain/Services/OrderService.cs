@@ -4,17 +4,66 @@ using SportZoneServer.Common.Responses.Order;
 using SportZoneServer.Common.Responses.OrderItem;
 using SportZoneServer.Core.Enums;
 using SportZoneServer.Core.Exceptions;
+using SportZoneServer.Core.Pages;
+using SportZoneServer.Core.StaticClasses;
 using SportZoneServer.Data.Entities;
 using SportZoneServer.Data.Interfaces;
+using SportZoneServer.Data.PaginationAndFiltering;
 using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IAuthService аuthService, IOrderItemRepository orderItemRepository) : IOrderService
+public class OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IAuthService authService, IOrderItemRepository orderItemRepository) : IOrderService
 {
+    public async Task<Paginated<OrderResponse>> SearchOrdersAsync(SearchOrderRequest request)
+    {
+        if (request.UserId == null)
+        {
+            string role = await authService.GetCurrentUserRole();
+            if (role != Roles.Admin)
+            {
+                throw new AppException("Forbidden").SetStatusCode(403);
+            }
+        }
+        Filter<Order> filter = new()
+        {
+           
+            Predicate = request.GetPredicate(),
+            PageNumber = request.PageNumber ?? 1,
+            PageSize = request.PageSize ?? 10,
+            SortBy = request.SortBy ?? "CreatedOn",
+            SortDescending = request.SortDescending ?? false,
+        };
+
+        Paginated<Order> result = await orderRepository.SearchAsync(filter);
+
+        List<OrderResponse> responses = new();
+
+        foreach (Order order in result.Items!)
+        {
+            OrderResponse response = new()
+            {
+                Id = order.Id,
+                OrderTotalPrice = order.OrderTotalPrice,
+                Status = order.Status,
+                CreatedOn = order.CreatedOn,
+            };
+
+            responses.Add(response);
+        }
+
+        Paginated<OrderResponse> paginated = new()
+        {
+            Items = responses,
+            TotalCount = result.TotalCount
+        };
+
+        return paginated;    
+    }
+    
     public async Task<OrderResponse> GetAsync()
     {
-        Guid userId = Guid.Parse(await аuthService.GetCurrentUserId());
+        Guid userId = Guid.Parse(await authService.GetCurrentUserId());
         Order? order = await orderRepository.GetByUserIdAsync(userId);
 
         if (order == null)
@@ -27,7 +76,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
 
     public async Task<OrderResponse> AddProductAsync(AddOrderItemRequest request)
     {
-        Guid userId = Guid.Parse(await аuthService.GetCurrentUserId());
+        Guid userId = Guid.Parse(await authService.GetCurrentUserId());
         Order? order = await orderRepository.GetByUserIdAsync(userId);
         
         if (order == null)
@@ -71,7 +120,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
 
     public async Task<OrderResponse> RemoveProductAsync(RemoveOrderItemRequest request)
     {
-        Guid userId = Guid.Parse(await аuthService.GetCurrentUserId());
+        Guid userId = Guid.Parse(await authService.GetCurrentUserId());
         Order? order = await orderRepository.GetByUserIdAsync(userId);
 
         if (order == null)
@@ -111,7 +160,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
 
     public async Task<bool> SendCurrentAsync(SendOrderRequest request)
     {
-        Guid userId = Guid.Parse(await аuthService.GetCurrentUserId());
+        Guid userId = Guid.Parse(await authService.GetCurrentUserId());
         Order? order = await orderRepository.GetByUserIdAsync(userId);
 
         if (order == null || !order.Items.Any())
@@ -130,7 +179,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         await orderRepository.UpdateAsync(order);
         return true;
     }
-
+    
     private void UpdateOrderPrices(Order order)
     {
         order.OrderTotalPrice = order.Items.Sum(i => i.TotalPrice);

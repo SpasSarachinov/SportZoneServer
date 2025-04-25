@@ -35,4 +35,10 @@ public class OrdersController(IOrderService orderService) : ControllerBase
     {
         return await ControllerProcessor.ProcessAsync(() => orderService.SendCurrentAsync(request), this);
     }
+    
+    [HttpGet("get-list")]
+    public async Task<IActionResult> GetAllAsync([FromQuery] SearchOrderRequest? request)
+    {
+        return await ControllerProcessor.ProcessAsync(() => orderService.SearchOrdersAsync(request), this, true);
+    }
 }

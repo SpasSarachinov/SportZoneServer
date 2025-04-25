@@ -67,6 +67,11 @@ public class ReviewService(IReviewRepository reviewRepository, IProductRepositor
             throw new AppException("Product not found.").SetStatusCode(404);
         }
 
+        if (review.UserId != Guid.Parse(await authService.GetCurrentUserId()))
+        {
+            throw new AppException("Can't delete a review that is not yours.").SetStatusCode(403);
+        }
+        
         return await reviewRepository.DeleteAsync(id);    
     }
 
@@ -97,7 +102,7 @@ public class ReviewService(IReviewRepository reviewRepository, IProductRepositor
                 Content = review.Content,
                 Rating = review.Rating,
                 CreatedOn = review.CreatedOn,
-               
+                UserId = review.UserId,
             };
 
             responses.Add(response);

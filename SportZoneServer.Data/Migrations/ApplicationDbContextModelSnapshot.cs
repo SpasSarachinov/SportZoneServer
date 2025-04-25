@@ -31,9 +31,8 @@ namespace SportZoneServer.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("ImageURI")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -47,7 +46,33 @@ namespace SportZoneServer.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ImageId");
+
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("SportZoneServer.Data.Entities.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Uri")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("SportZoneServer.Data.Entities.Order", b =>
@@ -138,15 +163,15 @@ namespace SportZoneServer.Data.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("ModifiedOn")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PrimaryImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<long>("Quantity")
                         .HasColumnType("bigint");
@@ -279,6 +304,17 @@ namespace SportZoneServer.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("WishlistItems");
+                });
+
+            modelBuilder.Entity("SportZoneServer.Data.Entities.Category", b =>
+                {
+                    b.HasOne("SportZoneServer.Data.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("SportZoneServer.Data.Entities.Order", b =>

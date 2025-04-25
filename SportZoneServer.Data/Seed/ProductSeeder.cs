@@ -19,7 +19,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Гира 10kg",
                     Description = "Удобна хексагонална гира",
-                    ImageUrl = "https://example.com/dumbbell.jpg",
+                    PrimaryImageUrl = "https://example.com/dumbbell.jpg",
                     RegularPrice = 25.99m,
                     DiscountedPrice = 25.99m,
                     Quantity = 10,
@@ -30,7 +30,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Фитнес постелка",
                     Description = "Неплъзгаща се постелка за тренировки у дома",
-                    ImageUrl = "https://example.com/mat.jpg",
+                    PrimaryImageUrl = "https://example.com/mat.jpg",
                     RegularPrice = 19.99m,
                     DiscountedPrice = 19.99m,
                     Quantity = 25,
@@ -42,7 +42,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Тенис Ракета Babolat",
                     Description = "Подходяща за начинаещи и напреднали",
-                    ImageUrl = "https://example.com/racket.jpg",
+                    PrimaryImageUrl = "https://example.com/racket.jpg",
                     RegularPrice = 79.99m,
                     DiscountedPrice = 79.99m,
                     Quantity = 15,
@@ -53,7 +53,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Туба с тенис топки (3 броя)",
                     Description = "Официални топки за турнир",
-                    ImageUrl = "https://example.com/tennis-balls.jpg",
+                    PrimaryImageUrl = "https://example.com/tennis-balls.jpg",
                     RegularPrice = 9.99m,
                     DiscountedPrice = 9.99m,
                     Quantity = 40,
@@ -65,7 +65,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Футболна Топка Adidas",
                     Description = "Официална топка за мачове",
-                    ImageUrl = "https://example.com/ball.jpg",
+                    PrimaryImageUrl = "https://example.com/ball.jpg",
                     RegularPrice = 29.99m,
                     DiscountedPrice = 29.99m,
                     Quantity = 20,
@@ -76,7 +76,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Футболни обувки Nike",
                     Description = "Подходящи за изкуствени терени",
-                    ImageUrl = "https://example.com/boots.jpg",
+                    PrimaryImageUrl = "https://example.com/boots.jpg",
                     RegularPrice = 89.99m,
                     DiscountedPrice = 89.99m,
                     Quantity = 12,
@@ -88,7 +88,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Баскетболна Топка Spalding",
                     Description = "NBA реплика",
-                    ImageUrl = "https://example.com/basketball.jpg",
+                    PrimaryImageUrl = "https://example.com/basketball.jpg",
                     RegularPrice = 34.99m,
                     DiscountedPrice = 34.99m,
                     Quantity = 12,
@@ -99,7 +99,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Мрежа за баскетболен кош",
                     Description = "Издръжлива и устойчива на атмосферни условия",
-                    ImageUrl = "https://example.com/net.jpg",
+                    PrimaryImageUrl = "https://example.com/net.jpg",
                     RegularPrice = 12.99m,
                     DiscountedPrice = 12.99m,
                     Quantity = 30,
@@ -111,7 +111,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Шосеен велосипед",
                     Description = "Лек и бърз колоездачен велосипед",
-                    ImageUrl = "https://example.com/bike.jpg",
+                    PrimaryImageUrl = "https://example.com/bike.jpg",
                     RegularPrice = 599.99m,
                     DiscountedPrice = 599.99m,
                     Quantity = 3,
@@ -122,7 +122,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Каска за колоездене",
                     Description = "Вентилирана каска с регулируем ремък",
-                    ImageUrl = "https://example.com/helmet.jpg",
+                    PrimaryImageUrl = "https://example.com/helmet.jpg",
                     RegularPrice = 39.99m,
                     DiscountedPrice = 39.99m,
                     Quantity = 10,
@@ -134,7 +134,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Боксови ръкавици Everlast",
                     Description = "Професионални кожени ръкавици",
-                    ImageUrl = "https://example.com/gloves.jpg",
+                    PrimaryImageUrl = "https://example.com/gloves.jpg",
                     RegularPrice = 49.99m,
                     DiscountedPrice = 49.99m,
                     Quantity = 10,
@@ -145,7 +145,7 @@ namespace SportZoneServer.Data.Seed
                 {
                     Title = "Боксов чувал 25kg",
                     Description = "Здрав чувал за домашни тренировки",
-                    ImageUrl = "https://example.com/punching-bag.jpg",
+                    PrimaryImageUrl = "https://example.com/punching-bag.jpg",
                     RegularPrice = 89.99m,
                     DiscountedPrice = 89.99m,
                     Quantity = 7,
@@ -153,11 +153,6 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Бокс").Id
                 }
             ];
-
-            foreach (Product p in products)
-            {
-                p.Id = Guid.NewGuid();
-            }
 
             db.Products.AddRange(products);
             await db.SaveChangesAsync();

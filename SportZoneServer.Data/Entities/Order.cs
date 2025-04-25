@@ -4,7 +4,6 @@ namespace SportZoneServer.Data.Entities
 {
     public class Order : GenericEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
         public Guid UserId { get; set; }
         public User User { get; set; }
         public OrderStatus Status { get; init; } = OrderStatus.Pending;

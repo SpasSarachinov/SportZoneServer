@@ -7,18 +7,20 @@ using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class CategoryService(ICategoryRepository categoryRepository) : ICategoryService
+public class CategoryService(ICategoryRepository categoryRepository, IImageRepository imageRepository) : ICategoryService
 {
     public async Task<IEnumerable<CategoryResponse>?> GetAsync()
     {
         IEnumerable<Category> categories = await categoryRepository.GetAllAsync();
 
-        return categories.Select(category => new CategoryResponse()
+        CategoryResponse[] response = await Task.WhenAll(categories.Select(async category => new CategoryResponse()
         {
             Id = category.Id,
             Name = category.Name,
-            ImageURI = category.ImageURI,
-        });
+            ImageURI = (await imageRepository.GetByIdAsync(category.ImageId)).Uri,
+        }));
+                
+        return response;
     }
 
     public async Task<CategoryResponse?> GetByIdAsync(Guid id)
@@ -28,21 +30,28 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         {
             throw new AppException("Category not found.").SetStatusCode(404);
         }
-
+        
         return new()
         {
             Id = category.Id,
             Name = category.Name,
-            ImageURI = category.ImageURI,
+            ImageURI = (await imageRepository.GetByIdAsync(category.ImageId)).Uri,
         };
     }
 
     public async Task<CategoryResponse?> CreateAsync(CreateCategoryRequest request)
     {
+        Image newImage = new Image()
+        {
+            Uri = request.ImageURI,
+        };
+        
+        await imageRepository.AddAsync(newImage);
+        
         Category category = new()
         {
             Name = request.Name,
-            ImageURI = request.ImageURI,
+            ImageId = newImage.Id,
         };
 
         category = (await categoryRepository.AddAsync(category))!;
@@ -51,7 +60,7 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         {
             Id = category.Id,
             Name = category.Name,
-            ImageURI = category.ImageURI,
+            ImageURI = newImage.Uri,
         };
     }
 
@@ -64,15 +73,29 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
         }
 
         existingCategory.Name = request.Name;
-        existingCategory.ImageURI = request.ImageURI;
+        
+        string imageUri = (await imageRepository.GetByIdAsync(existingCategory.ImageId)).Uri;
+        
+        if (request.ImageURI != null)
+        {
+            await imageRepository.DeleteAsync(existingCategory.ImageId);
 
+            Image newImage = new()
+            {
+                Uri = request.ImageURI,
+            };
+            
+            existingCategory.ImageId = newImage.Id;
+            
+            imageUri = request.ImageURI;
+        }
         Category updatedCategory = (await categoryRepository.UpdateAsync(existingCategory))!;
 
         return new()
         {
             Id = updatedCategory.Id,
             Name = updatedCategory.Name,
-            ImageURI = updatedCategory.ImageURI,
+            ImageURI = imageUri,
         };
     }
 
@@ -84,6 +107,7 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
             throw new AppException("Category not found.").SetStatusCode(404);
         }
 
+        await imageRepository.DeleteAsync(category.ImageId);
         return await categoryRepository.DeleteAsync(id);
     }
 }

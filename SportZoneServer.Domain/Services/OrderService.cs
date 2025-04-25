@@ -10,7 +10,7 @@ using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IAuthService аuthService) : IOrderService
+public class OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IAuthService аuthService, IOrderItemRepository orderItemRepository) : IOrderService
 {
     public async Task<OrderResponse> GetAsync()
     {
@@ -32,7 +32,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         
         if (order == null)
         {
-            throw new AppException("Order not found").SetStatusCode(404);
+            order = await orderRepository.AddAsync(userId);
         }
 
         Product? product = await productRepository.GetByIdAsync(request.ProductId);
@@ -40,7 +40,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         {
             throw new AppException("Product not found").SetStatusCode(404);
         }
-
+        
         OrderItem? existingItem = order.Items.FirstOrDefault(i => i.ProductId == request.ProductId);
         if (existingItem != null)
         {
@@ -49,13 +49,16 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         }
         else
         {
-            order.Items.Add(new OrderItem
+            OrderItem newOrderItem = new()
             {
+                OrderId = order.Id,
                 ProductId = request.ProductId,
                 Quantity = request.Quantity,
                 SinglePrice = product.DiscountedPrice,
                 TotalPrice = request.Quantity * product.DiscountedPrice
-            });
+            };
+            await orderItemRepository.AddAsync(newOrderItem);
+            order.Items.Add(newOrderItem);
         }
 
         UpdateOrderPrices(order);

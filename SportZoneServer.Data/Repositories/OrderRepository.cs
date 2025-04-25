@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using SportZoneServer.Core.Enums;
 using SportZoneServer.Data.Entities;
@@ -26,5 +27,67 @@ public class OrderRepository(ApplicationDbContext context) : Repository<Order>(c
         await context.SaveChangesAsync();
         
         return newOrder;
+    }
+    
+    public override async ValueTask<Order?> UpdateAsync(Order order)
+    {
+        Order? existingOrder = await context.Orders
+            .Include(o => o.Items)
+            .FirstOrDefaultAsync(o => o.Id == order.Id);
+
+        if (existingOrder == null)
+        {
+            return null;
+        }
+
+        context.Entry(existingOrder).CurrentValues.SetValues(order);
+
+        PropertyInfo? modifiedOnProperty = typeof(Order).GetProperty("ModifiedOn");
+        if (modifiedOnProperty != null && modifiedOnProperty.PropertyType == typeof(DateTime))
+        {
+            modifiedOnProperty.SetValue(existingOrder, DateTime.UtcNow);
+        }
+
+        foreach (OrderItem item in order.Items)
+        {
+            OrderItem? existingItem = existingOrder.Items.FirstOrDefault(x => x.Id == item.Id);
+
+            if (existingItem != null)
+            {
+                context.Entry(existingItem).CurrentValues.SetValues(item);
+
+                PropertyInfo? itemModifiedOn = typeof(OrderItem).GetProperty("ModifiedOn");
+                if (itemModifiedOn != null && itemModifiedOn.PropertyType == typeof(DateTime))
+                {
+                    itemModifiedOn.SetValue(existingItem, DateTime.UtcNow);
+                }
+            }
+            else
+            {
+                if (item.Id == Guid.Empty)
+                {
+                    item.OrderId = existingOrder.Id;
+
+                    PropertyInfo? itemModifiedOn = typeof(OrderItem).GetProperty("ModifiedOn");
+                    if (itemModifiedOn != null && itemModifiedOn.PropertyType == typeof(DateTime))
+                    {
+                        itemModifiedOn.SetValue(item, DateTime.UtcNow);
+                    }
+
+                    context.Entry(item).State = EntityState.Added;
+                }
+            }
+        }
+
+        foreach (var existingItem in existingOrder.Items.ToList())
+        {
+            if (!order.Items.Any(i => i.Id == existingItem.Id))
+            {
+                context.Remove(existingItem);
+            }
+        }
+
+        await context.SaveChangesAsync();
+        return existingOrder;
     }
 }

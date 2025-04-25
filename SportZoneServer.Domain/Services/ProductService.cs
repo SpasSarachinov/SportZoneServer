@@ -1,4 +1,6 @@
+using SportZoneServer.Common.Requests.Image;
 using SportZoneServer.Common.Requests.Product;
+using SportZoneServer.Common.Responses.Image;
 using SportZoneServer.Common.Responses.Product;
 using SportZoneServer.Core.Exceptions;
 using SportZoneServer.Core.Pages;
@@ -9,7 +11,7 @@ using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository) : IProductService
+public class ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository, IImageRepository imageRepository) : IProductService
 {
     public async Task<IEnumerable<ProductResponse>?> GetAsync()
     {
@@ -27,7 +29,14 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Rating = product.Rating,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
-            CategoryName = product.Category?.Name
+            CategoryName = product.Category?.Name,
+            SecondaryImages = product.SecondaryImages
+                .Select(img => new ImageResponse
+                {
+                    Id = img.Id,
+                    Uri = img.Uri
+                })
+                .ToList(),        
         });
     }
 
@@ -47,7 +56,14 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Rating = product.Rating,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
-            CategoryName = product.Category?.Name
+            CategoryName = product.Category?.Name,
+            SecondaryImages = product.SecondaryImages
+                .Select(img => new ImageResponse
+                {
+                    Id = img.Id,
+                    Uri = img.Uri
+                })
+                .ToList(), 
         });    }
 
     public async Task<ProductResponse?> GetByIdAsync(Guid id)
@@ -70,7 +86,14 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Rating = product.Rating,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
-            CategoryName = product.Category?.Name
+            CategoryName = product.Category?.Name,
+            SecondaryImages = product.SecondaryImages
+                .Select(img => new ImageResponse
+                {
+                    Id = img.Id,
+                    Uri = img.Uri
+                })
+                .ToList(), 
         };
     }
 
@@ -81,7 +104,8 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
         {
             throw new AppException("Invalid category.").SetStatusCode(400);
         }
-
+        
+        
         Product product = new()
         {
             Title = request.Title,
@@ -92,11 +116,25 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             DiscountedPrice = request.RegularPrice,
             Rating = 3,            
             Quantity = request.Quantity,
-            CategoryId = request.CategoryId
+            CategoryId = request.CategoryId,
         };
 
         product = await productRepository.AddAsync(product);
 
+        List<Image> images = new();
+
+        foreach (CreateImageRequest imageRequest in request.SecondaryImages)
+        {
+            Image image = new()
+            {
+                Uri = imageRequest.Uri,
+                ProductId = product.Id
+            };
+            images.Add(image);
+            await imageRepository.AddAsync(image);
+        }
+        
+        
         return new()
         {
             Id = product.Id,
@@ -109,7 +147,14 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Rating = product.Rating,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
-            CategoryName = category.Name
+            CategoryName = category.Name,
+            SecondaryImages = images
+                .Select(img => new ImageResponse
+                {
+                    Id = img.Id,
+                    Uri = img.Uri
+                })
+                .ToList(), 
         };
     }
 
@@ -202,7 +247,8 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
                 Quantity = product.Quantity,
                 Rating = product.Rating,
                 CategoryId = product.CategoryId,
-                CategoryName = product.Category?.Name 
+                CategoryName = product.Category?.Name
+                
             };
 
             responses.Add(response);

@@ -31,7 +31,8 @@ public class ReviewService(IReviewRepository reviewRepository, IProductRepositor
             Id = updatedReview.Id,
             Content = updatedReview.Content,
             Rating = updatedReview.Rating,
-            CreatedOn = updatedReview.CreatedOn,   
+            CreatedOn = updatedReview.CreatedOn,  
+            UserId = updatedReview.UserId,
          
         };    
     }
@@ -56,6 +57,7 @@ public class ReviewService(IReviewRepository reviewRepository, IProductRepositor
             Content = request.Content,
             Rating = newReview.Rating,
             CreatedOn = newReview.CreatedOn,
+            UserId = newReview.UserId,
         };
     }
 

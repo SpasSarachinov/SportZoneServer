@@ -31,6 +31,18 @@ namespace SportZoneServer.Data
             builder.Entity<OrderItem>()
                 .Property(oi => oi.SinglePrice)
                 .HasPrecision(18, 2);
+            
+            builder.Entity<Image>()
+                .HasOne(i => i.Product)
+                .WithMany(p => p.SecondaryImages)
+                .HasForeignKey(i => i.ProductId)
+                .OnDelete(DeleteBehavior.Cascade); 
+            
+            builder.Entity<Product>()
+                .HasOne(i => i.Category)
+                .WithMany(p => p.Products)
+                .HasForeignKey(i => i.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade); 
         }
     }
 }

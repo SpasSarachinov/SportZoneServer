@@ -1,3 +1,5 @@
+using SportZoneServer.Common.Requests.Image;
+
 namespace SportZoneServer.Common.Requests.Product;
 
 public class CreateProductRequest
@@ -13,4 +15,7 @@ public class CreateProductRequest
     public uint Quantity { get; set; }
 
     public Guid CategoryId { get; set; }
+    
+    public ICollection<CreateImageRequest> SecondaryImages { get; set; } 
+
 }

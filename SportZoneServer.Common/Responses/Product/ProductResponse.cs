@@ -1,3 +1,5 @@
+using SportZoneServer.Common.Responses.Image;
+
 namespace SportZoneServer.Common.Responses.Product;
 
 public class ProductResponse
@@ -23,4 +25,6 @@ public class ProductResponse
     public Guid CategoryId { get; set; }
     
     public required string CategoryName { get; set; }
+    
+    public ICollection<ImageResponse> SecondaryImages { get; set; } 
 }

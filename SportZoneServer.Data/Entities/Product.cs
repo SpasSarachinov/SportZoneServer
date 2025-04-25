@@ -17,5 +17,7 @@ namespace SportZoneServer.Data.Entities
         public Category Category { get; set; }
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public ICollection<Image> SecondaryImages { get; set; } = new List<Image>();
+
     }
 }

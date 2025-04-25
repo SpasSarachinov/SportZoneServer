@@ -24,7 +24,7 @@ public class OrdersController(IOrderService orderService) : ControllerBase
         return await ControllerProcessor.ProcessAsync(() => orderService.AddProductAsync(request), this, true);
     }
     
-    [HttpPut]
+    [HttpDelete]
     public async Task<IActionResult> GetAllAsync([FromBody] RemoveOrderItemRequest request)
     {
         return await ControllerProcessor.ProcessAsync(() => orderService.RemoveProductAsync(request), this, true);

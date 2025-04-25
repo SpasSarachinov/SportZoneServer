@@ -110,7 +110,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
         {
             Title = request.Title,
             Description = request.Description,
-            PrimaryImageUrl = request.PrimaryImageUrl,
+            PrimaryImageUrl = request.MainImageUrl,
             Rating = 3,            
             Quantity = request.Quantity,
             CategoryId = request.CategoryId,
@@ -188,7 +188,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
 
     existingProduct.Title = request.Title;
     existingProduct.Description = request.Description;
-    existingProduct.PrimaryImageUrl = request.PrimaryImageUrl;
+    existingProduct.PrimaryImageUrl = request.MainImageUrl;
     existingProduct.Quantity = request.Quantity;
     existingProduct.CategoryId = request.CategoryId;
 

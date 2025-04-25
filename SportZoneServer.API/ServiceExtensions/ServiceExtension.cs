@@ -25,6 +25,7 @@ namespace SportZoneServer.API.ServiceExtensions
             services.AddScoped<IWishlistRepository, WishlistRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             return services;
         }

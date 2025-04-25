@@ -15,7 +15,7 @@ namespace SportZoneServer.Data.Entities
         public decimal PriceBeforeDiscount { get; set; }
         public decimal PriceAfterDiscount { get; set; }
         public decimal DiscountPercentage { get; set; }
-        public OrderStatus Status { get; init; } = OrderStatus.Created;
+        public OrderStatus Status { get; set; } = OrderStatus.Created;
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
         
     }

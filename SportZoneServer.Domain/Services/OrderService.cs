@@ -1,29 +1,155 @@
 using SportZoneServer.Common.Requests.Order;
 using SportZoneServer.Common.Requests.OrderItem;
 using SportZoneServer.Common.Responses.Order;
+using SportZoneServer.Common.Responses.OrderItem;
+using SportZoneServer.Core.Enums;
+using SportZoneServer.Core.Exceptions;
+using SportZoneServer.Data.Entities;
+using SportZoneServer.Data.Interfaces;
 using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class OrderService : IOrderService
+public class OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IAuthService аuthService) : IOrderService
 {
     public async Task<OrderResponse> GetAsync()
     {
-        throw new NotImplementedException();
+        Guid userId = Guid.Parse(await аuthService.GetCurrentUserId());
+        Order? order = await orderRepository.GetByUserIdAsync(userId);
+
+        if (order == null)
+        {
+            throw new AppException("Order not found").SetStatusCode(404);
+        }
+
+        return MapOrderToResponse(order);
     }
 
-    public async Task<OrderResponse> AddProductAsync(AddOrderItemRequest product)
+    public async Task<OrderResponse> AddProductAsync(AddOrderItemRequest request)
     {
-        throw new NotImplementedException();
+        Guid userId = Guid.Parse(await аuthService.GetCurrentUserId());
+        Order? order = await orderRepository.GetByUserIdAsync(userId);
+        
+        if (order == null)
+        {
+            throw new AppException("Order not found").SetStatusCode(404);
+        }
+
+        Product? product = await productRepository.GetByIdAsync(request.ProductId);
+        if (product == null)
+        {
+            throw new AppException("Product not found").SetStatusCode(404);
+        }
+
+        OrderItem? existingItem = order.Items.FirstOrDefault(i => i.ProductId == request.ProductId);
+        if (existingItem != null)
+        {
+            existingItem.Quantity += request.Quantity;
+            existingItem.TotalPrice = existingItem.Quantity * existingItem.SinglePrice;
+        }
+        else
+        {
+            order.Items.Add(new OrderItem
+            {
+                ProductId = request.ProductId,
+                Quantity = request.Quantity,
+                SinglePrice = product.DiscountedPrice,
+                TotalPrice = request.Quantity * product.DiscountedPrice
+            });
+        }
+
+        UpdateOrderPrices(order);
+
+        await orderRepository.UpdateAsync(order);
+
+        return MapOrderToResponse(order);
     }
 
-    public async Task<OrderResponse> RemoveProductAsync(RemoveOrderItemRequest product)
+    public async Task<OrderResponse> RemoveProductAsync(RemoveOrderItemRequest request)
     {
-        throw new NotImplementedException();
+        Guid userId = Guid.Parse(await аuthService.GetCurrentUserId());
+        Order? order = await orderRepository.GetByUserIdAsync(userId);
+
+        if (order == null)
+        {
+            throw new AppException("Order not found").SetStatusCode(404);
+        }
+
+        OrderItem? item = order.Items.FirstOrDefault(i => i.ProductId == request.ProductId);
+        if (item == null)
+        {
+            throw new AppException("Product not found").SetStatusCode(404);
+        }
+
+        item.Quantity -= request.Quantity;
+
+        if (item.Quantity <= 0)
+        {
+            order.Items.Remove(item);
+        }
+        else
+        {
+            item.TotalPrice = item.Quantity * item.SinglePrice;
+        }
+
+        UpdateOrderPrices(order);
+
+        await orderRepository.UpdateAsync(order);
+
+        return MapOrderToResponse(order);
     }
 
     public async Task<bool> SendCurrentAsync(SendOrderRequest request)
     {
-        throw new NotImplementedException();
+        Guid userId = Guid.Parse(await аuthService.GetCurrentUserId());
+        Order? order = await orderRepository.GetByUserIdAsync(userId);
+
+        if (order == null || !order.Items.Any())
+        {
+            throw new AppException("Order not found").SetStatusCode(404);
+        }
+
+        order.Names = request.Names;
+        order.PostalCode = request.PostalCode;
+        order.Country = request.Country;
+        order.City = request.City;
+        order.Address = request.Address;
+        order.Phone = request.Phone;
+        order.Status = OrderStatus.PendingVerification;
+
+        await orderRepository.UpdateAsync(order);
+        return true;
+    }
+
+    private void UpdateOrderPrices(Order order)
+    {
+        order.PriceBeforeDiscount = order.Items.Sum(i => i.TotalPrice);
+
+        if (order.DiscountPercentage > 0)
+        {
+            order.PriceAfterDiscount = order.PriceBeforeDiscount * (1 - order.DiscountPercentage / 100);
+        }
+        else
+        {
+            order.PriceAfterDiscount = order.PriceBeforeDiscount;
+        }
+    }
+
+    private OrderResponse MapOrderToResponse(Order order)
+    {
+        return new OrderResponse
+        {
+            Id = order.Id,
+            PriceBeforeDiscount = order.PriceBeforeDiscount,
+            PriceAfterDiscount = order.PriceAfterDiscount,
+            DiscountPercentage = order.DiscountPercentage,
+            Items = order.Items.Select(i => new OrderItemResponse
+            {
+                ProductId = i.ProductId,
+                SinglePrice = i.SinglePrice,
+                TotalPrice = i.TotalPrice,
+                Quantity = i.Quantity
+            }).ToList()
+        };
     }
 }

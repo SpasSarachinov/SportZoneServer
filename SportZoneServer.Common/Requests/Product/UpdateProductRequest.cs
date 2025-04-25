@@ -13,6 +13,9 @@ public class UpdateProductRequest
     public required string PrimaryImageUrl { get; set; }
 
     public decimal RegularPrice { get; set; }
+    
+    public byte DiscountPercentage { get; set; }
+    public decimal DiscountedPrice { get; set; }
 
     public uint Quantity { get; set; }
 

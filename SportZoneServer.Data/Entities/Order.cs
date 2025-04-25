@@ -12,9 +12,7 @@ namespace SportZoneServer.Data.Entities
         public string? City { get; set; }
         public string? Address { get; set; }
         public string? Phone { get; set; }
-        public decimal PriceBeforeDiscount { get; set; }
-        public decimal PriceAfterDiscount { get; set; }
-        public decimal DiscountPercentage { get; set; }
+        public decimal OrderTotalPrice { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Created;
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
         

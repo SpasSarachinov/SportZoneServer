@@ -55,10 +55,11 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
                 ProductId = request.ProductId,
                 Quantity = request.Quantity,
                 SinglePrice = product.DiscountedPrice,
-                TotalPrice = request.Quantity * product.DiscountedPrice
+                TotalPrice = request.Quantity * product.DiscountedPrice,
+                PrimaryImageUri = product.PrimaryImageUrl,
+                Title = product.Title,
             };
             await orderItemRepository.AddAsync(newOrderItem);
-            order.Items.Add(newOrderItem);
         }
 
         UpdateOrderPrices(order);
@@ -89,6 +90,12 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         if (item.Quantity <= 0)
         {
             order.Items.Remove(item);
+            if (order.Items.Count == 0)
+            {
+                await orderRepository.DeleteAsync(order.Id);
+
+                throw new AppException("Order deleted").SetStatusCode(200);
+            }
         }
         else
         {
@@ -126,16 +133,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
 
     private void UpdateOrderPrices(Order order)
     {
-        order.PriceBeforeDiscount = order.Items.Sum(i => i.TotalPrice);
-
-        if (order.DiscountPercentage > 0)
-        {
-            order.PriceAfterDiscount = order.PriceBeforeDiscount * (1 - order.DiscountPercentage / 100);
-        }
-        else
-        {
-            order.PriceAfterDiscount = order.PriceBeforeDiscount;
-        }
+        order.OrderTotalPrice = order.Items.Sum(i => i.TotalPrice);
     }
 
     private OrderResponse MapOrderToResponse(Order order)
@@ -143,15 +141,15 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         return new OrderResponse
         {
             Id = order.Id,
-            PriceBeforeDiscount = order.PriceBeforeDiscount,
-            PriceAfterDiscount = order.PriceAfterDiscount,
-            DiscountPercentage = order.DiscountPercentage,
+         OrderTotalPrice = order.OrderTotalPrice,
             Items = order.Items.Select(i => new OrderItemResponse
             {
                 ProductId = i.ProductId,
                 SinglePrice = i.SinglePrice,
                 TotalPrice = i.TotalPrice,
-                Quantity = i.Quantity
+                Quantity = i.Quantity,
+                PrimaryImageUri = i.PrimaryImageUri,
+                Title = i.Title
             }).ToList()
         };
     }

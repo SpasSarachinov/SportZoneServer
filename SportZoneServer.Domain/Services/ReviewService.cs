@@ -9,7 +9,7 @@ using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class ReviewService(IReviewRepository reviewRepository, IProductRepository productRepository, IAuthService authService) : IReviewService
+public class ReviewService(IReviewRepository reviewRepository, IProductRepository productRepository, IAuthService authService, IUserRepository userRepository) : IReviewService
 {
     public async Task<ReviewResponse?> UpdateAsync(UpdateReviewRequest request)
     {
@@ -33,6 +33,7 @@ public class ReviewService(IReviewRepository reviewRepository, IProductRepositor
             Rating = updatedReview.Rating,
             CreatedOn = updatedReview.CreatedOn,  
             UserId = updatedReview.UserId,
+            UserNames = (await userRepository.GetByIdAsync(updatedReview.UserId)).Names
          
         };    
     }
@@ -58,6 +59,7 @@ public class ReviewService(IReviewRepository reviewRepository, IProductRepositor
             Rating = newReview.Rating,
             CreatedOn = newReview.CreatedOn,
             UserId = newReview.UserId,
+            UserNames = (await userRepository.GetByIdAsync(newReview.UserId)).Names
         };
     }
 
@@ -105,6 +107,7 @@ public class ReviewService(IReviewRepository reviewRepository, IProductRepositor
                 Rating = review.Rating,
                 CreatedOn = review.CreatedOn,
                 UserId = review.UserId,
+                UserNames = (await userRepository.GetByIdAsync(review.UserId)).Names
             };
 
             responses.Add(response);

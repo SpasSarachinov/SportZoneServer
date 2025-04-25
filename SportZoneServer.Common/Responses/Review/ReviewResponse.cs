@@ -9,5 +9,7 @@ public class ReviewResponse
     
     public required byte Rating { get; set; }
     
+    public required string UserNames { get; set; }
+    
     public required DateTime CreatedOn { get; set; }
 }

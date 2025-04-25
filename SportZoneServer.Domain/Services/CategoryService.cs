@@ -11,15 +11,19 @@ public class CategoryService(ICategoryRepository categoryRepository, IImageRepos
 {
     public async Task<IEnumerable<CategoryResponse>?> GetAsync()
     {
-        IEnumerable<Category> categories = await categoryRepository.GetAllAsync();
+        List<Category> categories = (await categoryRepository.GetAllAsync()).ToList();
 
-        CategoryResponse[] response = await Task.WhenAll(categories.Select(async category => new CategoryResponse()
+        List<CategoryResponse> response = new();
+        foreach (Category category in categories)
         {
-            Id = category.Id,
-            Name = category.Name,
-            ImageURI = (await imageRepository.GetByIdAsync(category.ImageId)).Uri,
-        }));
-                
+            Image? image = await imageRepository.GetByIdAsync(category.ImageId);
+            response.Add(new()
+            {
+                Id = category.Id,
+                Name = category.Name,
+                ImageURI = image.Uri
+            });
+        }
         return response;
     }
 

@@ -6,7 +6,17 @@ namespace SportZoneServer.Data.Entities
     {
         public Guid UserId { get; set; }
         public User User { get; set; }
-        public OrderStatus Status { get; init; } = OrderStatus.Pending;
+        public string? Names { get; set; }
+        public string? PostalCode { get; set; }
+        public string? Country { get; set; }
+        public string? City { get; set; }
+        public string? Address { get; set; }
+        public string? Phone { get; set; }
+        public decimal PriceBeforeDiscount { get; set; }
+        public decimal PriceAfterDiscount { get; set; }
+        public decimal DiscountPercentage { get; set; }
+        public OrderStatus Status { get; init; } = OrderStatus.Created;
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
+        
     }
 }

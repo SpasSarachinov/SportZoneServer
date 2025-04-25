@@ -16,6 +16,7 @@ namespace SportZoneServer.API.ServiceExtensions
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IWishlistService, WishlistService>();
             services.AddTransient<IReviewService, ReviewService>();
+            services.AddTransient<IOrderService, OrderService>();
 
             // REPOS
             services.AddScoped<IUserRepository, UserRepository>();

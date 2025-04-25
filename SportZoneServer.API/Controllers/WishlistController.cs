@@ -9,7 +9,7 @@ namespace SportZoneServer.API.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class WishlistController(IWishlistService wishlistService, IAuthService authService) : ControllerBase
+public class WishlistController(IWishlistService wishlistService) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAsync()

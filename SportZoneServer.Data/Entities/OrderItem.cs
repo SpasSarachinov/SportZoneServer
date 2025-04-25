@@ -13,5 +13,7 @@ namespace SportZoneServer.Data.Entities
         public int Quantity { get; set; }
 
         public decimal SinglePrice { get; set; }
+        public decimal TotalPrice { get; set; }
+
     }
 }

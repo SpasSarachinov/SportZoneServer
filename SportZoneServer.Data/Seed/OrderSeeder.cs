@@ -22,7 +22,7 @@ namespace SportZoneServer.Data.Seed
                     Id = Guid.NewGuid(),
                     UserId = user.Id,
                     CreatedOn = DateTime.UtcNow,
-                    Status = OrderStatus.Processing,
+                    Status = OrderStatus.Created,
                     Items = new List<OrderItem>()
                 };
 

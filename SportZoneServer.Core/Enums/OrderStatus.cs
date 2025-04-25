@@ -2,10 +2,12 @@ namespace SportZoneServer.Core.Enums
 {
     public enum OrderStatus
     {
-        Pending,
-        Processing,
-        Shipped,
-        Delivered,
-        Cancelled
+        Created,            
+        PendingVerification, 
+        Verified,           
+        Processing,         
+        Shipped,            
+        Delivered,          
+        Cancelled   
     }
 }

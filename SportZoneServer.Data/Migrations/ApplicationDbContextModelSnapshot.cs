@@ -32,6 +32,7 @@ namespace SportZoneServer.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ImageURI")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")

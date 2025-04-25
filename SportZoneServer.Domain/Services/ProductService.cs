@@ -22,9 +22,12 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Description = product.Description,
             ImageUrl = product.ImageUrl,
             RegularPrice = product.RegularPrice,
+            DiscountPercentage = product.DiscountPercentage,
+            DiscountedPrice = product.DiscountedPrice,
+            Rating = product.Rating,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
-            CategoryName = product.Category.Name
+            CategoryName = product.Category?.Name
         });
     }
 
@@ -39,9 +42,12 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Description = product.Description,
             ImageUrl = product.ImageUrl,
             RegularPrice = product.RegularPrice,
+            DiscountPercentage = product.DiscountPercentage,
+            DiscountedPrice = product.DiscountedPrice,
+            Rating = product.Rating,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
-            CategoryName = product.Category.Name
+            CategoryName = product.Category?.Name
         });    }
 
     public async Task<ProductResponse?> GetByIdAsync(Guid id)
@@ -59,9 +65,12 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Description = product.Description,
             ImageUrl = product.ImageUrl,
             RegularPrice = product.RegularPrice,
+            DiscountPercentage = product.DiscountPercentage,
+            DiscountedPrice = product.DiscountedPrice,
+            Rating = product.Rating,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
-            CategoryName = product.Category.Name
+            CategoryName = product.Category?.Name
         };
     }
 
@@ -79,6 +88,9 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Description = request.Description,
             ImageUrl = request.ImageUrl,
             RegularPrice = request.RegularPrice,
+            DiscountPercentage = 0,
+            DiscountedPrice = request.RegularPrice,
+            Rating = 3,            
             Quantity = request.Quantity,
             CategoryId = request.CategoryId
         };
@@ -92,6 +104,9 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Description = product.Description,
             ImageUrl = product.ImageUrl,
             RegularPrice = product.RegularPrice,
+            DiscountPercentage = product.DiscountPercentage,
+            DiscountedPrice = product.DiscountedPrice,
+            Rating = product.Rating,
             Quantity = product.Quantity,
             CategoryId = product.CategoryId,
             CategoryName = category.Name
@@ -116,6 +131,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
         existingProduct.Description = request.Description;
         existingProduct.ImageUrl = request.ImageUrl;
         existingProduct.RegularPrice = request.RegularPrice;
+        existingProduct.DiscountedPrice = request.RegularPrice;
         existingProduct.Quantity = request.Quantity;
         existingProduct.CategoryId = request.CategoryId;
 
@@ -128,6 +144,9 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Description = updatedProduct.Description,
             ImageUrl = updatedProduct.ImageUrl,
             RegularPrice = updatedProduct.RegularPrice,
+            DiscountPercentage = updatedProduct.DiscountPercentage,
+            DiscountedPrice = updatedProduct.DiscountedPrice,
+            Rating = updatedProduct.Rating,
             Quantity = updatedProduct.Quantity,
             CategoryId = updatedProduct.CategoryId,
             CategoryName = category.Name
@@ -183,7 +202,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
                 Quantity = product.Quantity,
                 Rating = product.Rating,
                 CategoryId = product.CategoryId,
-                CategoryName = product.Category?.Name // Assuming Category has Name
+                CategoryName = product.Category?.Name 
             };
 
             responses.Add(response);

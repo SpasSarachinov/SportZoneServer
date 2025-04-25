@@ -19,10 +19,6 @@ namespace SportZoneServer.Data.Seed
                 new() { Id = Guid.NewGuid(), Name = "Баскетбол" },
                 new() { Id = Guid.NewGuid(), Name = "Колоездене" },
                 new() { Id = Guid.NewGuid(), Name = "Бокс" },
-                new() { Id = Guid.NewGuid(), Name = "Хокей" },
-                new() { Id = Guid.NewGuid(), Name = "Катерене" },
-                new() { Id = Guid.NewGuid(), Name = "Гмуркане" },
-                new() { Id = Guid.NewGuid(), Name = "Ски" }
             ];
 
             db.Categories.AddRange(categories);

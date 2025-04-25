@@ -11,6 +11,12 @@ public class ProductResponse
     public required string ImageUrl { get; set; }
 
     public decimal RegularPrice { get; set; }
+    
+    public byte DiscountPercentage { get; set; } 
+    
+    public decimal DiscountedPrice { get; set; }
+    
+    public byte Rating { get; set; } 
 
     public uint Quantity { get; set; }
 

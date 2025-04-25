@@ -53,7 +53,7 @@ public class SearchProductsRequest : PaginationModel
 
     private Expression<Func<Data.Entities.Product, bool>> FilterByTitle()
     {
-        return x => EF.Functions.Like(x.Title.ToLower(), $"{Title.ToLower().Replace(" ", "%")}");
+        return x => EF.Functions.Like(x.Title.ToLower(), $"%{Title.ToLower()}%");
     }
 
     private Expression<Func<Data.Entities.Product, bool>> FilterByCategory()

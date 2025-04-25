@@ -111,14 +111,28 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Title = request.Title,
             Description = request.Description,
             PrimaryImageUrl = request.PrimaryImageUrl,
-            RegularPrice = request.RegularPrice,
-            DiscountPercentage = 0,
-            DiscountedPrice = request.RegularPrice,
             Rating = 3,            
             Quantity = request.Quantity,
             CategoryId = request.CategoryId,
         };
 
+        if (product.RegularPrice != request.RegularPrice)
+        {
+            product.RegularPrice = request.RegularPrice;
+        }
+
+        if (product.DiscountPercentage != request.DiscountPercentage)
+        {
+            product.DiscountPercentage = request.DiscountPercentage;
+            product.DiscountedPrice = product.RegularPrice * (1 - product.DiscountPercentage / 100m);
+        }
+
+        if (product.DiscountedPrice != request.DiscountedPrice && request.DiscountedPrice != 0)
+        {
+            product.DiscountedPrice = request.DiscountedPrice;
+            product.DiscountPercentage = (byte)((1 - product.DiscountedPrice / product.RegularPrice) * 100m);
+        }
+        
         product = await productRepository.AddAsync(product);
 
         List<Image> images = new();
@@ -175,18 +189,31 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
     existingProduct.Title = request.Title;
     existingProduct.Description = request.Description;
     existingProduct.PrimaryImageUrl = request.PrimaryImageUrl;
-    existingProduct.RegularPrice = request.RegularPrice;
-    existingProduct.DiscountedPrice = request.RegularPrice;
     existingProduct.Quantity = request.Quantity;
     existingProduct.CategoryId = request.CategoryId;
 
-    // Remove existing images from DB
+    if (existingProduct.RegularPrice != request.RegularPrice)
+    {
+        existingProduct.RegularPrice = request.RegularPrice;
+    }
+
+    if (existingProduct.DiscountPercentage != request.DiscountPercentage)
+    {
+        existingProduct.DiscountPercentage = request.DiscountPercentage;
+        existingProduct.DiscountedPrice = existingProduct.RegularPrice * (1 - existingProduct.DiscountPercentage / 100m);
+    }
+
+    if (existingProduct.DiscountedPrice != request.DiscountedPrice && request.DiscountedPrice != 0)
+    {
+        existingProduct.DiscountedPrice = request.DiscountedPrice;
+        existingProduct.DiscountPercentage = (byte)((1 - existingProduct.DiscountedPrice / existingProduct.RegularPrice) * 100m);
+    }
+
     foreach (Image image in existingProduct.SecondaryImages.ToList())
     {
         await imageRepository.DeleteAsync(image.Id);
     }
 
-    // Add new images
     existingProduct.SecondaryImages.Clear();
 
     foreach (UpdateImageRequest imageRequest in request.SecondaryImages)

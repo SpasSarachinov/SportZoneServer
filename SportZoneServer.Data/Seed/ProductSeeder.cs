@@ -245,7 +245,217 @@ namespace SportZoneServer.Data.Seed
                         }
                     }
                 },
-                
+                new()
+                {
+                    Title = "Баскетболна топка SPALDING Silver Series,",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/basketbol/basketbolna-topka-spalding-silver-series-razmer-7-272x270.webp",
+                    RegularPrice = 82.86m,
+                    DiscountPercentage = 11,
+                    DiscountedPrice = 72.86m,
+                    Quantity = 12,
+                    Rating = 3,
+                    CategoryId = categories.First(c => c.Name == "Баскетбол").Id,
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Добър продукт.",
+                            Rating = 3
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Баскетболен ринг MASTER 45 см с мрежа",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/basketbol/MASSPSB-01-basketball-ring-16-mm-with-net-1-272x270.webp",
+                    RegularPrice = 39.56m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
+                    Quantity = 13,
+                    Rating = 4,
+                    CategoryId = categories.First(c => c.Name == "Баскетбол").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01-20c-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01-20a-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01-20b-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01_newc-74x74.webp" }
+                    }
+                },
+                new()
+                {
+                    Title = "Баскетболна топка SPALDING Varsity TF150",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/spg84325zSPG84325Z-272x270.webp",
+                    RegularPrice = 65.32m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
+                    Quantity = 22,
+                    Rating = 3,
+                    CategoryId = categories.First(c => c.Name == "Баскетбол").Id,
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Добър продукт.",
+                            Rating = 3
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Предпазна каска MASTER Flip, S,",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/master-pic-upload/kaska-mas-b200-yellow-272x270.webp",
+                    RegularPrice = 22.54m,
+                    DiscountPercentage = 11,
+                    DiscountedPrice = 0m,
+                    Quantity = 13,
+                    Rating = 2,
+                    CategoryId = categories.First(c => c.Name == "Колоездене").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b200-s-yellowMAS-B200-yellowa-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b200-s-yellowMAS-B200-yellowb-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b200-s-yellowMAS-B200-yellowc-74x74.webp" }
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Среден продукт.",
+                            Rating = 2
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Протектори MASTER Kinder, L, комплект",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b022-lMAS-B022_2017-272x270.webp",
+                    RegularPrice = 17.94m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
+                    Quantity = 5,
+                    Rating = 4,
+                    CategoryId = categories.First(c => c.Name == "Колоездене").Id,
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Много добър продукт.",
+                            Rating = 4
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Велосипед Sprint Monza Team 28'', 550мм,",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/shockblaze./75a9dd3eb836018f91626eadf675b3e5-272x270.webp",
+                    RegularPrice = 1752m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
+                    Quantity = 2,
+                    Rating = 5,
+                    CategoryId = categories.First(c => c.Name == "Колоездене").Id,
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Отличен продукт!",
+                            Rating = 5
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Боксов тренажор Bodyflex, 160cm, надуваем",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-2-272x270.webp",
+                    RegularPrice = 46.90m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
+                    Quantity = 18,
+                    Rating = 5,
+                    CategoryId = categories.First(c => c.Name == "Бокс").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem--74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-2-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-1-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-4-74x74.webp" }
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Отличен продукт!",
+                            Rating = 5
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Боксови ръкавици MASTER TG12",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/master-pic-upload/boksovi-rakavici-master-mas-db012-272x270.webp",
+                    RegularPrice = 43.70m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
+                    Quantity = 17,
+                    Rating = 4,
+                    CategoryId = categories.First(c => c.Name == "Бокс").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB008a-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB010_new-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB010_newa-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB010_newb-74x74.webp" }
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Много добър продукт.",
+                            Rating = 4
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Боксов чувал SPARTAN 90 cм, 20 кг",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/s1194S1194-272x270.webp",
+                    RegularPrice = 261.28m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
+                    Quantity = 7,
+                    Rating = 4,
+                    CategoryId = categories.First(c => c.Name == "Бокс").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/boksov-chuval-spartan-90-sm-20-kg-74x74.webp" }
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Много добър продукт.",
+                            Rating = 4
+                        }
+                    }
+                },
             ];
 
             db.Products.AddRange(products);

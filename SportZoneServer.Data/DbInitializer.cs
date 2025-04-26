@@ -13,9 +13,9 @@ namespace SportZoneServer.Data
 
             ApplicationDbContext db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
+            await UserSeeder.SeedAsync(db);
             await CategorySeeder.SeedAsync(db);
             await ProductSeeder.SeedAsync(db);
-            await UserSeeder.SeedAsync(db);
             await ReviewSeeder.SeedAsync(db);
             await OrderSeeder.SeedAsync(db);
             await WishlistSeeder.SeedAsync(db);

@@ -111,7 +111,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
                 Quantity = request.Quantity,
                 SinglePrice = product.DiscountedPrice,
                 TotalPrice = request.Quantity * product.DiscountedPrice,
-                PrimaryImageUri = product.PrimaryImageUrl,
+                PrimaryImageUri = product.MainImageUrl,
                 Title = product.Title,
             };
             await orderItemRepository.AddAsync(newOrderItem);

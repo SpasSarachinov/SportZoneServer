@@ -12,146 +12,240 @@ namespace SportZoneServer.Data.Seed
             }
 
             List<Category> categories = db.Categories.ToList();
+            List<User> users = db.Users.ToList();
 
+            
             List<Product> products =
             [
                 new()
                 {
-                    Title = "Гира 10kg",
-                    Description = "Удобна хексагонална гира",
-                    PrimaryImageUrl = "https://example.com/dumbbell.jpg",
-                    RegularPrice = 25.99m,
-                    DiscountedPrice = 25.99m,
-                    Quantity = 10,
-                    Rating = 1,
-                    CategoryId = categories.First(c => c.Name == "Фитнес").Id
+                    Title = "Регулируеми дъмбели Bodyflex 2x15кг + допълнителен лост щанга",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-adaptor----272x270.webp",
+                    RegularPrice = 205m,
+                    DiscountPercentage = 46,
+                    DiscountedPrice = 109m,
+                    Quantity = 400,
+                    Rating = 5,
+                    CategoryId = categories.First(c => c.Name == "Фитнес").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_3_-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_8_-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_5_-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_2_-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_4_-74x74.webp" },
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Отличен продукт!",
+                            Rating = 5
+                        }
+                    }
                 },
                 new()
                 {
-                    Title = "Фитнес постелка",
-                    Description = "Неплъзгаща се постелка за тренировки у дома",
-                    PrimaryImageUrl = "https://example.com/mat.jpg",
-                    RegularPrice = 19.99m,
-                    DiscountedPrice = 19.99m,
+                    Title = "Комбиниран уред MASTER Poseidon",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/kombinirani-uredi/MAS-HG1104-kombiniran-ured-master-poseidon-272x270.webp",
+                    RegularPrice = 1883.24m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
                     Quantity = 25,
+                    Rating = 5,
+                    CategoryId = categories.First(c => c.Name == "Фитнес").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22b-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22c-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22d-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22d_2-74x74.webp" },
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Отличен продукт!",
+                            Rating = 5
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Бягаща пътека Bodyflex Run 1200, електрическа",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004-272x270.webp",
+                    RegularPrice = 790m,
+                    DiscountPercentage = 39,
+                    DiscountedPrice = 478m,
+                    Quantity = 125,
                     Rating = 4,
-                    CategoryId = categories.First(c => c.Name == "Фитнес").Id
+                    CategoryId = categories.First(c => c.Name == "Фитнес").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004--3-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004--6-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/byagashta-pateka-bodyflex-run-1200-elektricheska-13-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/byagashta-pateka-bodyflex-run-1200-elektricheska-9-74x74.webp" },
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Много добър продукт.",
+                            Rating = 4
+                        }
+                    }
                 },
-
                 new()
                 {
-                    Title = "Тенис Ракета Babolat",
-                    Description = "Подходяща за начинаещи и напреднали",
-                    PrimaryImageUrl = "https://example.com/racket.jpg",
-                    RegularPrice = 79.99m,
-                    DiscountedPrice = 79.99m,
+                    Title = "Мрежа MASTER Kombi, с регулируема височина",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065-272x270.webp",
+                    RegularPrice = 156.40m,
+                    DiscountPercentage = 12,
+                    DiscountedPrice = 137.63m,
                     Quantity = 15,
-                    Rating = 3,
-                    CategoryId = categories.First(c => c.Name == "Тенис").Id
+                    Rating = 5,
+                    CategoryId = categories.First(c => c.Name == "Тенис").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065a-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065_new-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065c-74x74.webp" },
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Отличен продукт!",
+                            Rating = 5
+                        }
+                    }
                 },
                 new()
                 {
-                    Title = "Туба с тенис топки (3 броя)",
-                    Description = "Официални топки за турнир",
-                    PrimaryImageUrl = "https://example.com/tennis-balls.jpg",
-                    RegularPrice = 9.99m,
-                    DiscountedPrice = 9.99m,
+                    Title = "Тенис грип Spartan Soft 60",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/tenis-na-kort/tenis-grip-spartan-soft-60-272x270.webp",
+                    RegularPrice = 111.78m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
                     Quantity = 40,
                     Rating = 5,
-                    CategoryId = categories.First(c => c.Name == "Тенис").Id
+                    CategoryId = categories.First(c => c.Name == "Тенис").Id,
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Отличен продукт!",
+                            Rating = 5
+                        }
+                    }
                 },
-
                 new()
                 {
-                    Title = "Футболна Топка Adidas",
-                    Description = "Официална топка за мачове",
-                    PrimaryImageUrl = "https://example.com/ball.jpg",
-                    RegularPrice = 29.99m,
-                    DiscountedPrice = 29.99m,
+                    Title = "Топки за скуош SPARTAN - двойно жълта точка",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/tenis-na-kort/topki-za-skuosh-S2448-272x270.webp",
+                    RegularPrice = 5.52m,
+                    DiscountPercentage = 11,
+                    DiscountedPrice = 4.86m,
                     Quantity = 20,
-                    Rating = 4,
-                    CategoryId = categories.First(c => c.Name == "Футбол").Id
+                    Rating = 5,
+                    CategoryId = categories.First(c => c.Name == "Тенис").Id,
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Отличен продукт!",
+                            Rating = 5
+                        }
+                    }
                 },
                 new()
                 {
-                    Title = "Футболни обувки Nike",
-                    Description = "Подходящи за изкуствени терени",
-                    PrimaryImageUrl = "https://example.com/boots.jpg",
-                    RegularPrice = 89.99m,
-                    DiscountedPrice = 89.99m,
+                    Title = "Футболна топка SPARTAN Club Junior 3",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/futbol1/topki/futbolna-topka-spartan-s42-272x270.webp",
+                    RegularPrice = 47.38m,
+                    DiscountPercentage = 12,
+                    DiscountedPrice = 41.69m,
+                    Quantity = 20,
+                    Rating = 5,
+                    CategoryId = categories.First(c => c.Name == "Футбол").Id,
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Отличен продукт!",
+                            Rating = 5
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Футболна врата SPARTAN Quick Set Up 270 x 150 cm",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/s1137S1137_23-272x270.webp",
+                    RegularPrice = 145.36m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
                     Quantity = 12,
+                    Rating = 0,
+                    CategoryId = categories.First(c => c.Name == "Футбол").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/s1137S1137_23a-74x74.webp" },
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Пълна нула!",
+                            Rating = 0
+                        }
+                    }
+                },
+                new()
+                {
+                    Title = "Футболна врата MASTER Д: 182 x В: 122 x Ш: 61см",
+                    Description = "",
+                    MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/master-pic-upload/futbolna-vrata-MASSPSO-0006-272x270.webp",
+                    RegularPrice = 79.58m,
+                    DiscountPercentage = 0,
+                    DiscountedPrice = 0m,
+                    Quantity = 123,
                     Rating = 5,
-                    CategoryId = categories.First(c => c.Name == "Футбол").Id
+                    CategoryId = categories.First(c => c.Name == "Футбол").Id,
+                    SecondaryImages = new List<Image>
+                    {
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspso-0006MASSPSO-0006-74x74.webp" },
+                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspso-0006MASSPSO-0006a-74x74.webp" },
+                    },
+                    Reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            UserId = users.First().Id,
+                            Content = "Отличен продукт!",
+                            Rating = 5
+                        }
+                    }
                 },
-
-                new()
-                {
-                    Title = "Баскетболна Топка Spalding",
-                    Description = "NBA реплика",
-                    PrimaryImageUrl = "https://example.com/basketball.jpg",
-                    RegularPrice = 34.99m,
-                    DiscountedPrice = 34.99m,
-                    Quantity = 12,
-                    Rating = 5,
-                    CategoryId = categories.First(c => c.Name == "Баскетбол").Id
-                },
-                new()
-                {
-                    Title = "Мрежа за баскетболен кош",
-                    Description = "Издръжлива и устойчива на атмосферни условия",
-                    PrimaryImageUrl = "https://example.com/net.jpg",
-                    RegularPrice = 12.99m,
-                    DiscountedPrice = 12.99m,
-                    Quantity = 30,
-                    Rating = 3,
-                    CategoryId = categories.First(c => c.Name == "Баскетбол").Id
-                },
-
-                new()
-                {
-                    Title = "Шосеен велосипед",
-                    Description = "Лек и бърз колоездачен велосипед",
-                    PrimaryImageUrl = "https://example.com/bike.jpg",
-                    RegularPrice = 599.99m,
-                    DiscountedPrice = 599.99m,
-                    Quantity = 3,
-                    Rating = 4,
-                    CategoryId = categories.First(c => c.Name == "Колоездене").Id
-                },
-                new()
-                {
-                    Title = "Каска за колоездене",
-                    Description = "Вентилирана каска с регулируем ремък",
-                    PrimaryImageUrl = "https://example.com/helmet.jpg",
-                    RegularPrice = 39.99m,
-                    DiscountedPrice = 39.99m,
-                    Quantity = 10,
-                    Rating = 4,
-                    CategoryId = categories.First(c => c.Name == "Колоездене").Id
-                },
-
-                new()
-                {
-                    Title = "Боксови ръкавици Everlast",
-                    Description = "Професионални кожени ръкавици",
-                    PrimaryImageUrl = "https://example.com/gloves.jpg",
-                    RegularPrice = 49.99m,
-                    DiscountedPrice = 49.99m,
-                    Quantity = 10,
-                    Rating = 5,
-                    CategoryId = categories.First(c => c.Name == "Бокс").Id
-                },
-                new()
-                {
-                    Title = "Боксов чувал 25kg",
-                    Description = "Здрав чувал за домашни тренировки",
-                    PrimaryImageUrl = "https://example.com/punching-bag.jpg",
-                    RegularPrice = 89.99m,
-                    DiscountedPrice = 89.99m,
-                    Quantity = 7,
-                    Rating = 4,
-                    CategoryId = categories.First(c => c.Name == "Бокс").Id
-                }
+                
             ];
 
             db.Products.AddRange(products);

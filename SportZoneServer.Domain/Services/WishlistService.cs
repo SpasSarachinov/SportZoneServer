@@ -23,7 +23,7 @@ public class WishlistService(IAuthService authService, IWishlistRepository wishl
             Id = wi.Product.Id,
             Title = wi.Product.Title,
             Description = wi.Product.Description,
-            MainImageUrl = wi.Product.PrimaryImageUrl,
+            MainImageUrl = wi.Product.MainImageUrl,
             RegularPrice = wi.Product.RegularPrice,
             DiscountPercentage = wi.Product.DiscountPercentage,
             DiscountedPrice = wi.Product.DiscountedPrice,

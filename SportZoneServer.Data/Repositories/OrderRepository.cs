@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using SportZoneServer.Core.Enums;
+using SportZoneServer.Core.Exceptions;
 using SportZoneServer.Data.Entities;
 using SportZoneServer.Data.Interfaces;
 
@@ -34,6 +35,20 @@ public class OrderRepository(ApplicationDbContext context) : Repository<Order>(c
         await context.SaveChangesAsync();
         
         return newOrder;
+    }
+
+    public async Task<Order> ChangeStatusAsync(Guid orderId, OrderStatus newStatus)
+    {
+        Order? dbOrder = await context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+
+        if (dbOrder == null)
+        {
+            throw new AppException("Order not found").SetStatusCode(404);
+        }
+
+        dbOrder.Status = newStatus;
+        await context.SaveChangesAsync();
+        return dbOrder;
     }
     
     public override async ValueTask<Order?> UpdateAsync(Order order)
@@ -86,7 +101,7 @@ public class OrderRepository(ApplicationDbContext context) : Repository<Order>(c
             }
         }
 
-        foreach (var existingItem in existingOrder.Items.ToList())
+        foreach (OrderItem existingItem in existingOrder.Items.ToList())
         {
             if (!order.Items.Any(i => i.Id == existingItem.Id))
             {

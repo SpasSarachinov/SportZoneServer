@@ -30,7 +30,19 @@ public class AuthController(IAuthService authService) : ControllerBase
 
         return Ok(result);
     }
-
+    
+    [Authorize]
+    [HttpDelete("logout")]
+    public async Task<ActionResult<TokenResponse>> Logout()
+    {
+        if (!await authService.LogoutAsync())
+        {
+            return Unauthorized();
+        }
+        
+        return Ok();
+    }
+    
     [HttpPost("refresh-token")]
     public async Task<ActionResult<TokenResponse>> RefreshToken(RefreshTokenRequest request)
     {

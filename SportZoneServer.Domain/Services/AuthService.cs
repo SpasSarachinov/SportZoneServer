@@ -77,6 +77,23 @@ public class AuthService(ApplicationDbContext context, IUserRepository userRepos
         return await CreateTokenResponse(user);
         
     }
+
+    public async Task<bool> LogoutAsync()
+    {
+        Guid currentUserId = Guid.Parse(await GetCurrentUserId());
+        User? user = await context.Users.FirstOrDefaultAsync(u => u.Id == currentUserId);
+
+        if (user == null)
+        {
+            throw new AppException("User not found.").SetStatusCode(404);
+        }
+
+        user.RefreshToken = null;
+        user.RefreshTokenExpiryTime = null;
+        await context.SaveChangesAsync();
+        
+        return true;
+    }
     
     private async Task<User?> ValidateRefreshTokenAsync(Guid userId, string refreshToken)
     {

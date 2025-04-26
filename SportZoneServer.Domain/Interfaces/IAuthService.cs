@@ -11,5 +11,6 @@ public interface IAuthService
     Task<string?> GetCurrentUserRole();
     Task<string?> GetCurrentUserEmail();
     Task<string?> GetCurrentUserId();
+    Task<bool> LogoutAsync();
 
 }

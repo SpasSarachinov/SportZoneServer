@@ -205,7 +205,9 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
                 Quantity = i.Quantity,
                 PrimaryImageUri = i.PrimaryImageUri,
                 Title = i.Title
-            }).ToList()
+            })
+                .OrderBy(i => i.Title)
+                .ToList()
         };
     }
 }

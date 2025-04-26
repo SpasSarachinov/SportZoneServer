@@ -104,13 +104,22 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         }
         else
         {
+            decimal singlePrice;
+            if (product.DiscountedPrice != 0m)
+            {
+                singlePrice = product.DiscountedPrice;
+            }
+            else
+            {
+                singlePrice = product.RegularPrice;
+            }
             OrderItem newOrderItem = new()
             {
                 OrderId = order.Id,
                 ProductId = request.ProductId,
                 Quantity = request.Quantity,
-                SinglePrice = product.DiscountedPrice,
-                TotalPrice = request.Quantity * product.DiscountedPrice,
+                SinglePrice = singlePrice,
+                TotalPrice = request.Quantity * singlePrice,
                 PrimaryImageUri = product.MainImageUrl,
                 Title = product.Title,
             };

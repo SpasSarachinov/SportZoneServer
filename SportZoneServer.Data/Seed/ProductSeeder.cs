@@ -20,7 +20,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Регулируеми дъмбели Bodyflex 2x15кг + допълнителен лост щанга",
-                    Description = "",
+                    Description = "<ul>\n\t<li><strong>Комплект дъмбели Bodyflex 2 бр х 15кг = 30кг&nbsp;+ допълнителен трети лост-конектор. Който</strong>&nbsp;позволява да ползвате дъмбелите като щанга.</li>\n\t<li>Ръкохватката при захвата е покрита с твърдо гумено покритие, за лесно захващане и за да не наранява дланите на трениращия.</li>\n\t<li>Двата дъмбела са разглобяеми и <strong>комплектът&nbsp;включва:</strong><br>\n\tДискове с отвор Ф28: 4бр.х1,25кг, 4бр.х1,5кг, 4бр.х2,0кг; 4бр.х2,5кг.<br>\n\tРъкохватка 2бр. (25см)&nbsp;и 4 гайки.<br>\n\tДопълнителен лост-адаптор (41 см), с който може сглобите щанга.&nbsp;</li>\n\t<li>Произведен е от нетоксични материали.</li>\n\t<li>По дисковете може да има следи от прах в следствие на производството.</li>\n\t<li>Дисковете на дъмбела са със здраво PVC винилово покритие.</li>\n\t<li>Снимките са информативни и цветовете могат да варират в зависимост от дисплея, на който ги гледате.&nbsp;</li>\n\t<li>Цената е за 2 броя&nbsp;дъмбели комплект + лост конектор.</li>\n\t<li>Tегло на дълбелите: 2x15 = 30кг.<br>\n\t<br>\n\t➤ 【<strong>РЕГУЛИРАНЕ НА ТЕГЛОТО</strong>】: Дъмбелите може да се свържат чрез лостове, за да станат щанги, които са&nbsp;твърди&nbsp;и здрави. Този комплект домашен фитнес уред има много възможности за тренировка може да отговори напълно на нуждите от упражнения за горни и долни крайници. Този комплект Ви позволява&nbsp;да тренирате по всяко време и навсякъде!<br>\n\t➤ <strong>【ПРОТИВОХЛЪЗГАЩ ДИЗАЙН】</strong>: Ръкохватките&nbsp;са&nbsp;покрити с гумено покритие, за да се осигури здраво захващане, което помага за по-добра и безопасна&nbsp;тренировка.&nbsp;Дисковете имат&nbsp;захват за пръстите за лесно преместване.<br>\n\t➤ 【<strong>ЗДРАВИ И ФИТНЕС</strong>】: Нашият фитнес комплект с тежести и&nbsp;щанга Bodyflex&nbsp;работи чудесно и дава възможости за десетки&nbsp;фитнес упражнения. Помага за трениране и укрепване на вашите прасци, гърди, глутеуси, седалище, корем, бицепс, трицепс, крака и колене у дома. С това толкова ефективното фитнес оборудване изгарянето&nbsp;на мазнини и оформянето на мускулатурата&nbsp;е съвсем&nbsp;лесно.<br>\n\t➤ 【<strong>ЛЕСНО ЗА СЪХРАНЕНИЕ И УПОТРЕБА</strong>】: &nbsp;Дъмбелите&nbsp;могат да бъдат сглобени и разглобени&nbsp;за секунди. Свързващият прът е покрит със специално покритие, за да осигури удобно захващане, дръжката на гирите е покрита с гума, за да се предотврати лесно плъзгане от ръцете. Материалът на уреда при правилна употреба не подлежи на износване. Покритието на дъмбелите предпазва пода от нараняване по време на тренировка.<br>\n\t➤ 【<strong>РАЗМЕР НА ДИСКОВЕТЕ</strong>】<strong>:</strong>&nbsp;2.50 кг&nbsp;- 21.3 x 4.0 cm; 2.00 кг&nbsp;- 19.5 x 3.7 cm; 1.50 кг&nbsp;- 18.1 x 3.2 cm; 1.25 кг&nbsp;- 17.5 x 2.9 cm<br>\n\t<br>\n\t<u><strong><a href=\"/dokumenti/upatvane-dambel-bodyflex-cd30-2x15kg.pdf\">УПЪТВАНЕ ЗА ЕКСПЛОАТАЦИЯ</a></strong></u><br>\n\t<br>\n\t&nbsp;\n\t<div data-oembed-url=\"https://youtu.be/UDP0IP9TW7I\">\n\t<div style=\"margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; max-width:320px\"><!-- You're using demo endpoint of Iframely API commercially. Max-width is limited to 320px. Please get your own API key at https://iframely.com. -->\n\t<div style=\"height:0; left:0; padding-bottom:56.25%; position:relative; width:100%\"></div>\n\t</div>\n\t</div>\n\n\t<p>&nbsp;</p>\n\t</li>\n</ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-adaptor----272x270.webp",
                     RegularPrice = 205m,
                     DiscountPercentage = 46,
@@ -49,7 +49,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Комбиниран уред MASTER Poseidon",
-                    Description = "",
+                    Description = "<ul>\n\t<li>Гладиатор с регулируема конструкция, подходящ за доста от най-популярнитеупржнения.</li>\n\t<li>Могат да се правят най-популярните упражнения за всички мускулни групи: пеперуда, лег, дърпане, упражниения за крака, гребане, бицепс, трицепс и много други.</li>\n\t<li>Има стойка за кофички и регулируема лежанка прикрепени към уреда.</li>\n\t<li>Регулируема скотова пейка.</li>\n\t<li>Здрава стоманена конструкция.</li>\n\t<li>Висококачествено покритие на металните части</li>\n\t<li>Покрити, вградени тежести 65 кг.</li>\n\t<li>Ролките са с лагери.</li>\n\t<li>Това е силов комбиниран фитнес уред, при който чрез насочено упражнение към дадена мускулна група се получава желаният ефект за оформянето и.</li>\n\t<li>&nbsp;Максимално тегло на потребителя: 120 кг</li>\n\t<li>&nbsp;Максимална височина на трениращия: 190см</li>\n\t<li>&nbsp;Размери: 168 х 172 х 203 см</li>\n\t<li>&nbsp;Тегло: 154кг</li>\n\t<li>&nbsp;Вариант: сив / червен (EAN: 8592833001153)</li>\n\t<li>&nbsp;Брой кашони в опаковка: 4</li>\n\t<li>&nbsp;Размери опаковка (Д x Ш x В):</li>\n</ul>\n\n<p>&nbsp;</p>\n\n<ol>\n\t<li style=\"margin-left: 40px;\">&nbsp;<span style=\"line-height:1.0\">28 х 165 х 55 см</span></li>\n\t<li style=\"margin-left: 40px;\"><span style=\"line-height:1.0\">&nbsp;20 х 201 х 35 см</span></li>\n\t<li style=\"margin-left: 40px;\"><span style=\"line-height:1.0\">&nbsp;27 х 40 х 20 см</span></li>\n\t<li style=\"margin-left: 40px;\"><span style=\"line-height:1.0\">&nbsp;27 х 40 х 20 см</span></li>\n</ol>\n\n<p style=\"margin-left:40px\">&nbsp;</p>\n\n<p><u><strong><a href=\"https://sportensklad.bg/dokumenti/Upatvane-gladiator_master74784.pdf\"><span style=\"color:#000000\">Упътване за експлоатация</span></a></strong></u></p>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/kombinirani-uredi/MAS-HG1104-kombiniran-ured-master-poseidon-272x270.webp",
                     RegularPrice = 1883.24m,
                     DiscountPercentage = 0,
@@ -78,7 +78,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Бягаща пътека Bodyflex Run 1200, електрическа",
-                    Description = "",
+                    Description = "<ul> <li><strong>Мотор: до 1,3&nbsp;к.с</strong> и<strong>&nbsp;</strong>Скорост 1-6 км/ч.</li> <li>Бягаща повърхност: 103 х 39 cm.<br> &nbsp;</li> <li><strong>Най-добра цена:</strong> В съотношение на характеристики и цена, гарантирано на-добрата цена на пазара.</li> <li><strong>LCD дисплей:</strong> Показва скорост, време, изминато разстояние и изгорени калории.</li> <li><strong>Дистанционно управление:</strong> Удобство и контрол върху пътеката и дисплея.</li> <li><strong>Поставка за лаптоп или телефон:</strong> Позволява мултитаскинг по време на тренировка.</li> <li><strong>Скоростни настройки:</strong> Гъвкава скорост от 1 до 6 км/ч е&nbsp;идеална както за бързо ходене, така и за лек крос.&nbsp; Електричски мотор до 1,3к.с за дълга употреба.&nbsp;</li> <li><strong>Просторна бягаща повърхност:</strong> Размери 103 х 39 см, осигуряващи достатъчно пространство за комфортна тренировка.<br> &nbsp;</li> <li><strong>Здравословен ефект:</strong> Подобрява физическата издръжливост, укрепва сърцето и белите дробове, и допринася за загубата на излишни килограми.</li> <li><strong>Сгъваема и компактна:</strong> Лесно се съхранява и премества с транспортните колела, като заема минимално пространство. Може да се съхранява под леглото.</li> <li><strong>Максимално тегло на потребителя:</strong> До 100 кг.</li> <li><strong>Сертифицирана безопасност:</strong> Отговаря на стандартите HC-EN957 и CE.<br> &nbsp;</li> <li><strong>Разгъната:</strong> (ДШВ) 122 х 58 х 106 см.</li> <li><strong>Размер на кашона:</strong> (ДШВ) 141 х 61 х 15 см.</li> <li><strong>Тегло:</strong> 25 кг.<br> <br> BODYFLEX RUN 1200 е идеалният избор за всеки, който иска да поддържа активен и здравословен начин на живот в уюта на собствения си дом. Забравете за скучните тренировки и се насладете на вълнуващите и ефективни упражнения с тази високотехнологична бягаща пътека.&nbsp;<br> Превърнете дома си в личен фитнес със съвременната и високоефективна бягаща пътека. Този продукт е създаден, за да отговори на всички вашите тренировъчни нужди, като съчетава ергономичност, функционалност и удобство.<br> <br> <span style=\"color:#000000\"></span></li> <li> <p><u><strong><a href=\"/smazvane-biagasta-pateka\"><span style=\"color:#000000\">СМАЗВАНЕ НА ПЪТЕКАТА</span></a></strong></u></p> </li> <li> <p><a href=\"/dokumenti/bodyflex/upatvane-biagasta-pateka-bodyflex-run-1200--BF-39004.pdf\"><u><strong>УПЪТВАНЕ ЗА ЕКСПЛОАТАЦИЯ</strong></u></a></p> </li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004-272x270.webp",
                     RegularPrice = 790m,
                     DiscountPercentage = 39,
@@ -107,7 +107,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Мрежа MASTER Kombi, с регулируема височина",
-                    Description = "",
+                    Description = "<ul> <li><span class=\"VIiyi\"><span class=\"ChMk0b JLqJ4b\"><span>Мултифункционалната мрежа MASTER Kombi с регулируема височина е подходяща за бадминтон, волейбол или тенис.</span></span></span></li> <li>Мрежа: 300 х 73 см.</li> <li><span class=\"VIiyi\"> <span class=\"ChMk0b JLqJ4b\"><span>Размер на окото: 18 x 18 мм</span></span></span></li> <li><span class=\"VIiyi\"><span class=\"ChMk0b JLqJ4b\"><span>Метална конструкция с регулируема височина 250/150/82 см </span></span></span></li> <li><span class=\"VIiyi\"><span class=\"ChMk0b JLqJ4b\"><span>Диаметър на металните тръби: 1,8 см</span></span></span></li> <li>Тегло: 1,500 кг</li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065-272x270.webp",
                     RegularPrice = 156.40m,
                     DiscountPercentage = 12,
@@ -134,7 +134,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Тенис грип Spartan Soft 60",
-                    Description = "",
+                    Description = "<ul> <li><span><span></span> <span></span><span>Цвят син.</span></span></li> <li><span><span>дебелина</span> <span>0,75</span> <span>мм</span></span></li> <li><span><span></span><span>60 броя</span> <span>в</span> <span>опаковка</span></span></li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/tenis-na-kort/tenis-grip-spartan-soft-60-272x270.webp",
                     RegularPrice = 111.78m,
                     DiscountPercentage = 0,
@@ -155,7 +155,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Топки за скуош SPARTAN - двойно жълта точка",
-                    Description = "",
+                    Description = " <p>Топки за скуош с възможни цветове точки:</p> <ul> <li>Синя - бърза</li> <li>Червена - средна</li> <li>Бяла - бавна</li> <li>Жълта - много бавна</li> <li>Двойно жълта - много екстра бавна</li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/tenis-na-kort/topki-za-skuosh-S2448-272x270.webp",
                     RegularPrice = 5.52m,
                     DiscountPercentage = 11,
@@ -176,7 +176,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Футболна топка SPARTAN Club Junior 3",
-                    Description = "",
+                    Description = "<ul> <li>Футбол топка размер 3.</li> <li>Панели: 32</li> <li>Материал: изкуствена кожа</li> <li>Моля, разгънете топката преди да я напомпате.</li> <li>Тегло:500 г</li> </ul> <p>&nbsp;</p> <p>&nbsp;</p>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/futbol1/topki/futbolna-topka-spartan-s42-272x270.webp",
                     RegularPrice = 47.38m,
                     DiscountPercentage = 12,
@@ -197,7 +197,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Футболна врата SPARTAN Quick Set Up 270 x 150 cm",
-                    Description = "",
+                    Description = "<p>Олекотена, компактна, лесна за транспортиране футболна врата SPARTAN Quick Set.</p> <p>Технически данни:</p> <ul> <li>Футболна врата в комплект с мрежа,чанта, щифтове за закрепяне към земята</li> <li>Размери: 270 х 150 см</li> <li>Предназначена за тренировка и забавления</li> <li>Подходяща за открито</li> <li>Лесно транспортиране</li> <li>Лесно съхранение</li> <li>Бързо сглобяване и разглобяване</li> <li>Посочената цена за 1 бр.</li> <li>Тегло: 2.8 кг</li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/s1137S1137_23-272x270.webp",
                     RegularPrice = 145.36m,
                     DiscountPercentage = 0,
@@ -222,7 +222,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Футболна врата MASTER Д: 182 x В: 122 x Ш: 61см",
-                    Description = "",
+                    Description = "<ul> <li>Футболна стоманена врата с мрежа.</li> <li>Размер: Д: 182 x В: 122 см х Ш: 61 см</li> <li>Щифтове с диаметър 22 мм</li> <li>Фиксиращи щифтове</li> <li>Прахово покритие</li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/master-pic-upload/futbolna-vrata-MASSPSO-0006-272x270.webp",
                     RegularPrice = 79.58m,
                     DiscountPercentage = 0,

@@ -248,7 +248,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Баскетболна топка SPALDING Silver Series,",
-                    Description = "",
+                    Description = "<ul> <li>Баскетболна топка размер 7 за тренировки&nbsp;на открито и&nbsp;закрито.</li> <li>Гуменият материал е много приятен на допир и в същото време достатъчно здрав, за да позволи игра на открито</li> <li>Може да с",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/basketbol/basketbolna-topka-spalding-silver-series-razmer-7-272x270.webp",
                     RegularPrice = 82.86m,
                     DiscountPercentage = 11,
@@ -269,7 +269,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Баскетболен ринг MASTER 45 см с мрежа",
-                    Description = "",
+                    Description = "<ul> <li>Баскетболен ринг с мрежа.</li> <li>Диаметър на ринга 45 см ( подходящ за топка размер 7) .</li> <li>Материал: стомана 16 мм</li> <li>Размер на планката за закрепяне: <span class=\"VIiyi\" jsaction=\"mouseup:BR6jm\" jsname=\"jqKxS\" lang=\"bg\"><span class=\"JLqJ4b ChMk0b\" data-language-for-alternatives=\"bg\" data-language-to-translate-into=\"en\" data-number-of-phrases=\"23\"= data-phrase-index=\"12\" jsaction=\"agoMJf:PFBcW;usxOmf:aWLT7;jhKsnd:P7O7bd,F8DmGf;Q4AGo:Gm7gYd,qAKMYb;uFUCPb:pvnm0e,pfE8Hb,PFBcW;f56efd:dJXsye;EnoYf:KNzws,ZJsZZ,JgVSJc;zdMJQc:cCQNKb,ZJsZZ,zchEXc;Ytrrj:JJDvdc;tNR8yc:GeFvjb;oFN6Ye:hij5Wb;bmeZHc:iURhpf;Oxj3Xe:qAKMYb,yaf12d\" jscontroller=\"Zl5N8\" jsdata=\"uqLsIf;_;$25\" jsmodel=\"SsMkhd\" jsname=\"txFAF\"><span class=\"Q4iAWc\" jsaction=\"click:qtZ4nf,GFf3ac,tMZCfe; contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:qtZ4nf,c2aHje\" jsname=\"W297wb\">11 х 12 см</span></span><span class=\"JLqJ4b\" data-language-for-alternatives=\"bg\" data-language-to-translate-into=\"en\" data-number-of-phrases=\"23\" data-phrase-index=\"13\" jsaction=\"agoMJf:PFBcW;usxOmf:aWLT7;jhKsnd:P7O7bd,F8DmGf;Q4AGo:Gm7gYd,qAKMYb;uFUCPb:pvnm0e,pfE8Hb,PFBcW;f56efd:dJXsye;EnoYf:KNzws,ZJsZZ,JgVSJc;zdMJQc:cCQNKb,ZJsZZ,zchEXc;Ytrrj:JJDvdc;tNR8yc:GeFvjb;oFN6Ye:hij5Wb;bmeZHc:iURhpf;Oxj3Xe:qAKMYb,yaf12d\" jscontroller=\"Zl5N8\" jsdata=\"uqLsIf;_;$26\" jsmodel=\"SsMkhd\" jsname=\"txFAF\"><span class=\"Q4iAWc\" jsaction=\"click:qtZ4nf,GFf3ac,tMZCfe; contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:qtZ4nf,c2aHje\" jsname=\"W297wb\"></span></span></span></li> <li><span class=\"VIiyi\" jsaction=\"mouseup:BR6jm\" jsname=\"jqKxS\" lang=\"bg\"><span class=\"JLqJ4b ChMk0b\" data-language-for-alternatives=\"bg\" data-language-to-translate-into=\"en\" data-number-of-phrases=\"23\" data-phrase-index=\"8\" jsaction=\"agoMJf:PFBcW;usxOmf:aWLT7;jhKsnd:P7O7bd,F8DmGf;Q4AGo:Gm7gYd,qAKMYb;uFUCPb:pvnm0e,pfE8Hb,PFBcW;f56efd:dJXsye;EnoYf:KNzws,ZJsZZ,JgVSJc;zdMJQc:cCQNKb,ZJsZZ,zchEXc;Ytrrj:JJDvdc;tNR8yc:GeFvjb;oFN6Ye:hij5Wb;bmeZHc:iURhpf;Oxj3Xe:qAKMYb,yaf12d\" jscontroller=\"Zl5N8\" jsdata=\"uqLsIf;_;$21\" jsmodel=\"SsMkhd\" jsname=\"txFAF\"><span class=\"Q4iAWc\" jsaction=\"click:qtZ4nf,GFf3ac,tMZCfe; contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:qtZ4nf,c2aHje\" jsname=\"W297wb\">Разстояние между отворите за закрепяне: 10 х 7 см</span></span><span class=\"JLqJ4b\" data-language-for-alternatives=\"bg\" data-language-to-translate-into=\"en\" data-number-of-phrases=\"23\" data-phrase-index=\"9\" jsaction=\"agoMJf:PFBcW;usxOmf:aWLT7;jhKsnd:P7O7bd,F8DmGf;Q4AGo:Gm7gYd,qAKMYb;uFUCPb:pvnm0e,pfE8Hb,PFBcW;f56efd:dJXsye;EnoYf:KNzws,ZJsZZ,JgVSJc;zdMJQc:cCQNKb,ZJsZZ,zchEXc;Ytrrj:JJDvdc;tNR8yc:GeFvjb;oFN6Ye:hij5Wb;bmeZHc:iURhpf;Oxj3Xe:qAKMYb,yaf12d\" jscontroller=\"Zl5N8\" jsdata=\"uqLsIf;_;$22\" jsmodel=\"SsMkhd\" jsname=\"txFAF\"><span class=\"Q4iAWc\" jsaction=\"click:qtZ4nf,GFf3ac,tMZCfe; contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:qtZ4nf,c2aHje\" jsname=\"W297wb\"></span></span></span></li> <li>Диаметър на отвора: 1 см</li> <li><span class=\"VIiyi\" jsaction=\"mouseup:BR6jm\" jsname=\"jqKxS\" lang=\"bg\"><span class=\"JLqJ4b ChMk0b\" data-language-for-alternatives=\"bg\" data-language-to-translate-into=\"en\" data-number-of-phrases=\"23\" data-phrase-index=\"16\" jsaction=\"agoMJf:PFBcW;usxOmf:aWLT7;jhKsnd:P7O7bd,F8DmGf;Q4AGo:Gm7gYd,qAKMYb;uFUCPb:pvnm0e,pfE8Hb,PFBcW;f56efd:dJXsye;EnoYf:KNzws,ZJsZZ,JgVSJc;zdMJQc:cCQNKb,ZJsZZ,zchEXc;Ytrrj:JJDvdc;tNR8yc:GeFvjb;oFN6Ye:hij5Wb;bmeZHc:iURhpf;Oxj3Xe:qAKMYb,yaf12d\" jscontroller=\"Zl5N8\" jsdata=\"uqLsIf;_;$29\" jsmodel=\"SsMkhd\" jsname=\"txFAF\"><span class=\"Q4iAWc\" jsaction=\"click:qtZ4nf,GFf3ac,tMZCfe; contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:qtZ4nf,c2aHje\" jsname=\"W297wb\">Включени елементи за монтаж.</span></span></span></li> <li><span class=\"VIiyi\" jsaction=\"mouseup:BR6jm\" jsname=\"jqKxS\" lang=\"bg\"><span class=\"JLqJ4b\" data-language-for-alternatives=\"bg\" data-language-to-translate-into=\"en\" data-number-of-phrases=\"23\" data-phrase-index=\"17\" jsaction=\"agoMJf:PFBcW;usxOmf:aWLT7;jhKsnd:P7O7bd,F8DmGf;Q4AGo:Gm7gYd,qAKMYb;uFUCPb:pvnm0e,pfE8Hb,PFBcW;f56efd:dJXsye;EnoYf:KNzws,ZJsZZ,JgVSJc;zdMJQc:cCQNKb,ZJsZZ,zchEXc;Ytrrj:JJDvdc;tNR8yc:GeFvjb;oFN6Ye:hij5Wb;bmeZHc:iURhpf;Oxj3Xe:qAKMYb,yaf12d\" jscontroller=\"Zl5N8\" jsdata=\"uqLsIf;_;$30\" jsmodel=\"SsMkhd\" jsname=\"txFAF\"><span class=\"Q4iAWc\" jsaction=\"click:qtZ4nf,GFf3ac,tMZCfe; contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:qtZ4nf,c2aHje\" jsname=\"W297wb\"></span></span><span class=\"JLqJ4b ChMk0b\" data-language-for-alternatives=\"bg\" data-language-to-translate-into=\"en\" data-number-of-phrases=\"23\" data-phrase-index=\"18\" jsaction=\"agoMJf:PFBcW;usxOmf:aWLT7;jhKsnd:P7O7bd,F8DmGf;Q4AGo:Gm7gYd,qAKMYb;uFUCPb:pvnm0e,pfE8Hb,PFBcW;f56efd:dJXsye;EnoYf:KNzws,ZJsZZ,JgVSJc;zdMJQc:cCQNKb,ZJsZZ,zchEXc;Ytrrj:JJDvdc;tNR8yc:GeFvjb;oFN6Ye:hij5Wb;bmeZHc:iURhpf;Oxj3Xe:qAKMYb,yaf12d\" jscontroller=\"Zl5N8\" jsdata=\"uqLsIf;_;$31\" jsmodel=\"SsMkhd\" jsname=\"txFAF\"><span class=\"Q4iAWc\" jsaction=\"click:qtZ4nf,GFf3ac,tMZCfe; contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:qtZ4nf,c2aHje\" jsname=\"W297wb\"> Максимално натоварване: 50 кг</span></span></span></li> <li>Тегло: 2,5 кг.</li> <li>EAN: 8592833003232</li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/basketbol/MASSPSB-01-basketball-ring-16-mm-with-net-1-272x270.webp",
                     RegularPrice = 39.56m,
                     DiscountPercentage = 0,
@@ -288,7 +288,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Баскетболна топка SPALDING Varsity TF150",
-                    Description = "",
+                    Description = "<div class=\"flex flex-grow flex-col gap-3 max-w-full\"> <div class=\"min-h-[20px] flex flex-col items-start gap-3 overflow-x-auto whitespace-pre-wrap break-words\"> <div class=\"markdown prose w-full break-words dark:prose-invert light\"> <p>Баскетболната топка SPALDING Varsity TF150 размер 6 е подходяща за&nbsp; игра на открито.</p> <p>Технически данни:</p> <ul> <li>Размер: 6</li> <li>Предназначена за тренировки, развлечение и училищен спорт.</li> <li>Подходяща за игра на закрито и открито</li> <li>Материал: гума.</li> </ul> </div> </div> </div>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/spg84325zSPG84325Z-272x270.webp",
                     RegularPrice = 65.32m,
                     DiscountPercentage = 0,
@@ -309,11 +309,11 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Предпазна каска MASTER Flip, S,",
-                    Description = "",
+                    Description = "<ul> <li>Каската е подходяща за колоездене, скейтборд, тротинетка, ролкови кънки и други спортове.</li> <li>Конструкция против мухъл.</li> <li>6 вентилационни отвора</li> <li>Велкро фиксирани вътрешни подплънки</li> <li>Цвят: жълт</li> <li>Размер: S (48-52 см)</li> <li>Тегло 204гр.</li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/master-pic-upload/kaska-mas-b200-yellow-272x270.webp",
                     RegularPrice = 22.54m,
                     DiscountPercentage = 11,
-                    DiscountedPrice = 0m,
+                    DiscountedPrice = 19.84m,
                     Quantity = 13,
                     Rating = 2,
                     CategoryId = categories.First(c => c.Name == "Колоездене").Id,
@@ -336,7 +336,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Протектори MASTER Kinder, L, комплект",
-                    Description = "",
+                    Description = "<ul> <li>Детски комплект протектори за колена, длани и лакти.</li> <li>Външната обвивка е изработена от твърда пластмаса, а вътрешността от мека и гъвкава подплата.</li> </ul><div class=\"tab-content\"> <div class=\"active tab-pane\" id=\"tab-description\"> <div class=\"active tab-pane\" id=\"tab-description\"> <div class=\"active tab-pane\" id=\"tab-description\"> <ul> <li>Поставят се посредством велкро лепенки.</li> <li>Ширина на лакътя 11 см, височина 15,5 см.</li> <li>Ширина на коляното 12 см, височина 17 см.</li> <li>Дължина на дланта 14 см.</li> <li>L&nbsp; (за деца с височина) 150-165 см и/или 25-50 кг.</li> <li>Тегло: 0,350 кг.<br> &nbsp; <div data-oembed-url=\"https://youtu.be/C-r7raSbv78\"> <div style=\"margin-bottom:0px; margin-left:0px; margin-right:0px; margin-top:0px; max-width:320px\"> <div style=\"height:0; left:0; padding-bottom:56.25%; position:relative; width:100%\"></div> </div> </div> <p>&nbsp;</p> </li> </ul> </div> </div> </div> </div>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b022-lMAS-B022_2017-272x270.webp",
                     RegularPrice = 17.94m,
                     DiscountPercentage = 0,
@@ -357,7 +357,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Велосипед Sprint Monza Team 28'', 550мм,",
-                    Description = "",
+                    Description = "<p>Шосеен велосипед с алуминиева рамка 550 мм, V-Brake спирачки.</p><ul> <li> <p><strong>Вилката е: </strong>JHT, 700C, RACING, CALIPER BRAKE, CARBON LEGS, INTEGRATED 56mm, ALLOY STEM 1-1/8\"-1.5\"x300mm THREADLESS</p> </li> <li> <p><strong>Чашките за вилката са: </strong>FSA, ORBIT C-40-ACB 1-1/8 ACB Top, 1.5\" ACB Btm, Standard 15mm top cover, HEIGHT 16.3mm</p> </li> <li> <p><strong>Кормилото е: </strong>ZOOM DR-AL- 210B-BT FOV(31.8) (ISO-R), RACING, 420mm</p> </li> <li> <p><strong>Колчето за кормилото е: </strong>ZOOM, TDS-RD507B-8FOV (ISO-M), EXT: 90mm.x28.6mm, BAR BORE 31.8, ALLOY, RISE:-7D, HEIGHT: 41mm</p> </li> <li> <p><strong>Спирачките са: </strong>PROMAX RC-482 FRONT AND REAR</p> </li> <li> <p><strong>Курбелът е: </strong>SHIMANO, FC-R7000, 105, FOR REAR 11-SPEED, HOLLOWTECH 2, 170MM, 50-34T W/O CG, W/O BB PARTS</p> </li> <li> <p><strong>Педалите са: </strong>VP-R77, Fiber glass body, ROAD PEDAL W/VP-ARC5 CLEAT</p> </li> <li> <p><strong>Предният дерайльор е: </strong>SHIMANO, FD-R7000-L, 105, FOR REAR 11-SPEED, DOWN-SWING, 31.8MM BAND, CS-ANGLE:61-66, FOR TOP GEAR:46-53T, CL:43.5MM</p> </li> <li> <p><strong>Задният дерайльор е: </strong>SHIMANO, RD-R7000, 105, SS 11-SPEED, TOP NORMAL SHADOW DESIGN, DIRECT ATTACHMENT</p> </li> <li> <p><strong>Зъбният блок е: </strong>SHIMANO, CASSETTE SPROCKET, CS-R7000, 105, 11-SPEED, 11-12-13-14-15-17-19-21-23-25-28T</p> </li> <li> <p><strong>Командите са: </strong>SHIMANO, SHIFT/BRAKE LEVER, ST-R7000, 105</p> </li> <li> <p><strong>Веригата е: </strong>SHIMANO, BICYCLE CHAIN, CN-HG601-11, FOR 11-SPEED</p> </li> <li> <p><strong>Шината е: </strong>SHIMANO, WHEEL, WH-RS100, F:20H/R:24H, FOR 11/10-S</p> </li> <li> <p><strong>Гумите са: </strong>SCHWALBE, LUGANO K GUARD, 700Cx25</p> </li> <li> <p><strong>Седалката е: </strong>ACTIVE DDK-517</p> </li> <li> <p><strong>Колчето за седалката е: </strong>ZOOM, SP-D297N, ALLOY 3D FORGED, 27.2x350</p> </li> <li> <p><strong>Размерът&nbsp; на колелото е: </strong>28\"</p> </li> <li> <p><strong>Тегло</strong>: 10,800 кг</p> </li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/shockblaze./75a9dd3eb836018f91626eadf675b3e5-272x270.webp",
                     RegularPrice = 1752m,
                     DiscountPercentage = 0,
@@ -378,7 +378,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Боксов тренажор Bodyflex, 160cm, надуваем",
-                    Description = "",
+                    Description = "<ul> <li>Надуваем боксов тренажор с включена помпа.</li> <li>Подходящ&nbsp;за игра или тренировка.</li> <li>Материал: мек, издръжлив и подсилен PVC</li> <li>Височина: 160 см</li> <li>Диаметър: 30 см</li> <li>За оптимална стабилност и здравина на основата я напълнете с вода или пясък – колкото повече, толкова по-стабилна ще е тя. След това надуйте горната част с въздух.</li> <li>Тренажорът има обозначени таргети (мишени), които да използвате за създаване на комбинации от удари и съответно последователност в спаринга.&nbsp;</li> <li>За вътрешна употреба.&nbsp;</li> </ul><p><br> Надуваемият боксов тренажор е допълнение към традиционния боксов тренажор и е отлична опция за хора, които искат да тренират у дома или на открито. Те са лесни за сглобяване и могат да бъдат съхранявани и пренасяни лесно.</p><p>Тези тренажори обикновено са изработени от здрав PVC материал, който може да устои на удари и въздействието на въздушен поток при удари. В зависимост от модела, те могат да бъдат настроени в различни размери и форми, като много от тях имат реалистична форма на боксов меш или на човешко тяло.</p><p>Тези тренажори обикновено са изработени от здрав PVC материал, който може да устои на удари и въздействието на въздушен поток при удари. В зависимост от модела, те могат да бъдат настроени в различни размери и форми, като много от тях имат реалистична форма на боксов меш или на човешко тяло.</p><p>Надуваемите боксови тренажори са отличен начин за трениране на боксьорски техники, като удари, блокове и движения, както и за подобряване на кардио възможностите и издръжливостта. Те могат да бъдат използвани както от начинаещи, така и от напреднали боксьори.</p><p>Тези тренажори предлагат също и много гъвкавост в тренировките, тъй като могат да бъдат използвани както за индивидуални тренировки, така и за тренировки с партньор. Могат да бъдат използвани както за бокс, така и за други бойни изкуства, като кикбокс и ММА.</p><p>Една от големите предимства на надуваемия боксов тренажор е, че те са безопасни и не представляват риск от наранявания. Те са идеални за употреба от деца и начинаещи боксьори, които все още не са сигурни в своите удари.</p><p>В заключение, надуваемият боксов тренажор е добро допълнение към традиционните боксови тренажори и предлага много гъвкавост в тренировките. Те са лесни за сглобяване и съхранение, като предлагат безопасна и ефективна опция за трениране на боксьорски техники и подобряване на физическата форма</p>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-2-272x270.webp",
                     RegularPrice = 46.90m,
                     DiscountPercentage = 0,
@@ -406,7 +406,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Боксови ръкавици MASTER TG12",
-                    Description = "",
+                    Description = "<p>Боксови ръкавици MASTER TG12 MAS-DB012.</p><ul> <li>Материал: изкуствена кожа, PU</li> <li>Размер: 12 oz</li> <li>Velcro закопчаване</li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/master-pic-upload/boksovi-rakavici-master-mas-db012-272x270.webp",
                     RegularPrice = 43.70m,
                     DiscountPercentage = 0,
@@ -434,7 +434,7 @@ namespace SportZoneServer.Data.Seed
                 new()
                 {
                     Title = "Боксов чувал SPARTAN 90 cм, 20 кг",
-                    Description = "",
+                    Description = "<ul> <li>Материал: изкуствена кожа устойчива на износване и скъсване.</li> <li>Пълнеж: кожа / текстилни изрезки.</li> <li>Еднаква твърдост по цялата повърхност и перфектна абсорбция на удари.</li> <li>Окачване: четири стоманени вериги симетрично разположени.</li> <li>Размери: 90х30 см</li> <li>Тегло: 20кг</li> </ul>",
                     MainImageUrl = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/s1194S1194-272x270.webp",
                     RegularPrice = 261.28m,
                     DiscountPercentage = 0,

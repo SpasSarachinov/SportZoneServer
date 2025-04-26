@@ -10,7 +10,7 @@ public class ProductResponse
 
     public required string Description { get; set; }
     
-    public required string PrimaryImageUrl { get; set; }
+    public required string MainImageUrl { get; set; }
 
     public decimal RegularPrice { get; set; }
     

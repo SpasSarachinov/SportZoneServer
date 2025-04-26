@@ -1,3 +1,5 @@
+using SportZoneServer.Common.Responses.Image;
+
 namespace SportZoneServer.Common.Responses.Product;
 
 public class ProductsResponse
@@ -8,7 +10,7 @@ public class ProductsResponse
 
     public required string Description { get; set; }
     
-    public required string PrimaryImageUrl { get; set; }
+    public required string MainImageUrl { get; set; }
 
     public decimal RegularPrice { get; set; }
     
@@ -21,4 +23,7 @@ public class ProductsResponse
     public Guid CategoryId { get; set; }
     
     public required string CategoryName { get; set; }
+    
+    public ICollection<ImageResponse> SecondaryImages { get; set; } 
+
 }

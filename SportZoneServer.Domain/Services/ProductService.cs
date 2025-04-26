@@ -22,7 +22,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Id = product.Id,
             Title = product.Title,
             Description = product.Description,
-            PrimaryImageUrl = product.PrimaryImageUrl,
+            MainImageUrl = product.PrimaryImageUrl,
             RegularPrice = product.RegularPrice,
             DiscountPercentage = product.DiscountPercentage,
             DiscountedPrice = product.DiscountedPrice,
@@ -49,7 +49,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Id = product.Id,
             Title = product.Title,
             Description = product.Description,
-            PrimaryImageUrl = product.PrimaryImageUrl,
+            MainImageUrl = product.PrimaryImageUrl,
             RegularPrice = product.RegularPrice,
             DiscountPercentage = product.DiscountPercentage,
             DiscountedPrice = product.DiscountedPrice,
@@ -79,7 +79,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Id = product.Id,
             Title = product.Title,
             Description = product.Description,
-            PrimaryImageUrl = product.PrimaryImageUrl,
+            MainImageUrl = product.PrimaryImageUrl,
             RegularPrice = product.RegularPrice,
             DiscountPercentage = product.DiscountPercentage,
             DiscountedPrice = product.DiscountedPrice,
@@ -154,7 +154,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
             Id = product.Id,
             Title = product.Title,
             Description = product.Description,
-            PrimaryImageUrl = product.PrimaryImageUrl,
+            MainImageUrl = product.PrimaryImageUrl,
             RegularPrice = product.RegularPrice,
             DiscountPercentage = product.DiscountPercentage,
             DiscountedPrice = product.DiscountedPrice,
@@ -235,7 +235,7 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
         Id = updatedProduct.Id,
         Title = updatedProduct.Title,
         Description = updatedProduct.Description,
-        PrimaryImageUrl = updatedProduct.PrimaryImageUrl,
+        MainImageUrl = updatedProduct.PrimaryImageUrl,
         RegularPrice = updatedProduct.RegularPrice,
         DiscountPercentage = updatedProduct.DiscountPercentage,
         DiscountedPrice = updatedProduct.DiscountedPrice,
@@ -300,15 +300,21 @@ public class ProductService(IProductRepository productRepository, ICategoryRepos
                 Id = product.Id,
                 Title = product.Title,
                 Description = product.Description,
-                PrimaryImageUrl = product.PrimaryImageUrl,
+                MainImageUrl = product.PrimaryImageUrl,
                 RegularPrice = product.RegularPrice,
                 DiscountPercentage = product.DiscountPercentage,
                 DiscountedPrice = product.DiscountedPrice,
                 Quantity = product.Quantity,
                 Rating = product.Rating,
                 CategoryId = product.CategoryId,
-                CategoryName = product.Category?.Name
-                
+                CategoryName = product.Category?.Name,
+                SecondaryImages = product.SecondaryImages
+                    .Select(si => new ImageResponse
+                    {
+                        Id = si.Id,
+                        Uri = si.Uri
+                    })
+                    .ToList()                
             };
 
             responses.Add(response);

@@ -13,7 +13,11 @@ using SportZoneServer.Domain.Interfaces;
 
 namespace SportZoneServer.Domain.Services;
 
-public class OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IAuthService authService, IOrderItemRepository orderItemRepository) : IOrderService
+public class OrderService(
+    IOrderRepository orderRepository,
+    IProductRepository productRepository,
+    IAuthService authService,
+    IOrderItemRepository orderItemRepository) : IOrderService
 {
     public async Task<bool> ChangeStatusAsync(ChangeOrderStatusRequest request)
     {
@@ -26,16 +30,9 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
 
         if (request.OrderStatus != OrderStatus.Cancelled && order.Status == OrderStatus.Created)
         {
-            foreach (OrderItem item in order.Items)
-            {
-                Product? product = await productRepository.GetByIdAsync(item.ProductId);
-                
-                product!.Quantity -= (uint)item.Quantity;
-                
-                await productRepository.UpdateAsync(product);
-            }   
+            await DecreaseProductQuantitiesAsync(order);
         }
-        
+
         await orderRepository.ChangeStatusAsync(request.OrderId, request.OrderStatus);
         return true;
     }
@@ -50,9 +47,9 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
                 throw new AppException("Forbidden").SetStatusCode(403);
             }
         }
+
         Filter<Order> filter = new()
         {
-           
             Predicate = request.GetPredicate(),
             PageNumber = request.PageNumber ?? 1,
             PageSize = request.PageSize ?? 10,
@@ -83,9 +80,9 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
             TotalCount = result.TotalCount
         };
 
-        return paginated;    
+        return paginated;
     }
-    
+
     public async Task<OrderResponse> GetAsync()
     {
         Guid userId = Guid.Parse(await authService.GetCurrentUserId());
@@ -103,7 +100,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
     {
         Guid userId = Guid.Parse(await authService.GetCurrentUserId());
         Order? order = await orderRepository.GetByUserIdAsync(userId);
-        
+
         if (order == null)
         {
             order = await orderRepository.AddAsync(userId);
@@ -114,7 +111,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         {
             throw new AppException("Product not found").SetStatusCode(404);
         }
-        
+
         OrderItem? existingItem = order.Items.FirstOrDefault(i => i.ProductId == request.ProductId);
         if (existingItem != null)
         {
@@ -132,6 +129,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
             {
                 singlePrice = product.RegularPrice;
             }
+
             OrderItem newOrderItem = new()
             {
                 OrderId = order.Id,
@@ -201,7 +199,7 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         {
             throw new AppException("Order not found").SetStatusCode(404);
         }
-
+        
         order.Names = request.Names;
         order.PostalCode = request.PostalCode;
         order.Country = request.Country;
@@ -211,9 +209,10 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         order.Status = OrderStatus.PendingVerification;
 
         await orderRepository.UpdateAsync(order);
+        await DecreaseProductQuantitiesAsync(order);
         return true;
     }
-    
+
     private void UpdateOrderPrices(Order order)
     {
         order.OrderTotalPrice = order.Items.Sum(i => i.TotalPrice);
@@ -224,18 +223,30 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
         return new OrderResponse
         {
             Id = order.Id,
-         OrderTotalPrice = order.OrderTotalPrice,
+            OrderTotalPrice = order.OrderTotalPrice,
             Items = order.Items.Select(i => new OrderItemResponse
-            {
-                ProductId = i.ProductId,
-                SinglePrice = i.SinglePrice,
-                TotalPrice = i.TotalPrice,
-                Quantity = i.Quantity,
-                PrimaryImageUri = i.PrimaryImageUri,
-                Title = i.Title
-            })
+                {
+                    ProductId = i.ProductId,
+                    SinglePrice = i.SinglePrice,
+                    TotalPrice = i.TotalPrice,
+                    Quantity = i.Quantity,
+                    PrimaryImageUri = i.PrimaryImageUri,
+                    Title = i.Title
+                })
                 .OrderBy(i => i.Title)
                 .ToList()
         };
+    }
+
+    private async Task DecreaseProductQuantitiesAsync(Order order)
+    {
+        foreach (OrderItem item in order.Items)
+        {
+            Product? product = await productRepository.GetByIdAsync(item.ProductId);
+
+            product!.Quantity -= (uint)item.Quantity;
+
+            await productRepository.UpdateAsync(product);
+        }
     }
 }

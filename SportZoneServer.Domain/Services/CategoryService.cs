@@ -16,12 +16,11 @@ public class CategoryService(ICategoryRepository categoryRepository, IImageRepos
         List<CategoryResponse> response = new();
         foreach (Category category in categories)
         {
-            Image? image = await imageRepository.GetByIdAsync(category.ImageId);
             response.Add(new()
             {
                 Id = category.Id,
                 Name = category.Name,
-                ImageURI = image.Uri
+                ImageURI = category.ImageUri
             });
         }
         return response;
@@ -39,23 +38,16 @@ public class CategoryService(ICategoryRepository categoryRepository, IImageRepos
         {
             Id = category.Id,
             Name = category.Name,
-            ImageURI = (await imageRepository.GetByIdAsync(category.ImageId)).Uri,
+            ImageURI = category.ImageUri,
         };
     }
 
     public async Task<CategoryResponse?> CreateAsync(CreateCategoryRequest request)
     {
-        Image newImage = new Image()
-        {
-            Uri = request.ImageURI,
-        };
-        
-        await imageRepository.AddAsync(newImage);
-        
         Category category = new()
         {
             Name = request.Name,
-            ImageId = newImage.Id,
+            ImageUri = request.ImageURI,
         };
 
         category = (await categoryRepository.AddAsync(category))!;
@@ -64,7 +56,7 @@ public class CategoryService(ICategoryRepository categoryRepository, IImageRepos
         {
             Id = category.Id,
             Name = category.Name,
-            ImageURI = newImage.Uri,
+            ImageURI = category.ImageUri,
         };
     }
 
@@ -77,29 +69,15 @@ public class CategoryService(ICategoryRepository categoryRepository, IImageRepos
         }
 
         existingCategory.Name = request.Name;
+        existingCategory.ImageUri = request.ImageURI;
         
-        string imageUri = (await imageRepository.GetByIdAsync(existingCategory.ImageId)).Uri;
-        
-        if (request.ImageURI != null)
-        {
-            await imageRepository.DeleteAsync(existingCategory.ImageId);
-
-            Image newImage = new()
-            {
-                Uri = request.ImageURI,
-            };
-            
-            existingCategory.ImageId = newImage.Id;
-            
-            imageUri = request.ImageURI;
-        }
         Category updatedCategory = (await categoryRepository.UpdateAsync(existingCategory))!;
 
         return new()
         {
             Id = updatedCategory.Id,
             Name = updatedCategory.Name,
-            ImageURI = imageUri,
+            ImageURI = updatedCategory.ImageUri,
         };
     }
 
@@ -110,8 +88,6 @@ public class CategoryService(ICategoryRepository categoryRepository, IImageRepos
         {
             throw new AppException("Category not found.").SetStatusCode(404);
         }
-
-        await imageRepository.DeleteAsync(category.ImageId);
         return await categoryRepository.DeleteAsync(id);
     }
 }

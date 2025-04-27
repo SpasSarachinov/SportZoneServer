@@ -12,7 +12,7 @@ using SportZoneServer.Data;
 namespace SportZoneServer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250426123458_Init")]
+    [Migration("20250427103402_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -34,8 +34,8 @@ namespace SportZoneServer.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("ImageUri")
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -48,8 +48,6 @@ namespace SportZoneServer.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
 
                     b.ToTable("Categories");
                 });
@@ -344,17 +342,6 @@ namespace SportZoneServer.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("WishlistItems");
-                });
-
-            modelBuilder.Entity("SportZoneServer.Data.Entities.Category", b =>
-                {
-                    b.HasOne("SportZoneServer.Data.Entities.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("SportZoneServer.Data.Entities.Image", b =>

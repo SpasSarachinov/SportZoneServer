@@ -17,6 +17,25 @@ public class OrderService(IOrderRepository orderRepository, IProductRepository p
 {
     public async Task<bool> ChangeStatusAsync(ChangeOrderStatusRequest request)
     {
+        Order? order = await orderRepository.GetByIdAsync(request.OrderId);
+
+        if (order == null)
+        {
+            throw new AppException("Order not found").SetStatusCode(404);
+        }
+
+        if (request.OrderStatus != OrderStatus.Cancelled && order.Status == OrderStatus.Created)
+        {
+            foreach (OrderItem item in order.Items)
+            {
+                Product? product = await productRepository.GetByIdAsync(item.ProductId);
+                
+                product!.Quantity -= (uint)item.Quantity;
+                
+                await productRepository.UpdateAsync(product);
+            }   
+        }
+        
         await orderRepository.ChangeStatusAsync(request.OrderId, request.OrderStatus);
         return true;
     }

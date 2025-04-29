@@ -17,9 +17,9 @@ public class OrderItemRepositoryTests
 
     public OrderItemRepositoryTests()
     {
-        DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(databaseName: "OrderItemRepositoryTestsDb")
-            .Options;
+        DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new();
+        optionsBuilder.UseInMemoryDatabase(databaseName: "OrderItemRepositoryTestsDb");
+        DbContextOptions<ApplicationDbContext> options = optionsBuilder.Options;
 
         _context = new(options);
         _repository = new(_context);
@@ -28,51 +28,37 @@ public class OrderItemRepositoryTests
     [Fact]
     public async Task AddRange_ShouldReturnFalse_WhenOrderItemsIsNull()
     {
-        // Arrange
         ICollection<OrderItem>? orderItems = null;
-
-        // Act
         bool result = await _repository.AddRange(orderItems);
-
-        // Assert
         Assert.False(result);
     }
 
     [Fact]
     public async Task AddRange_ShouldReturnFalse_WhenOrderItemsIsEmpty()
     {
-        // Arrange
         ICollection<OrderItem> orderItems = new List<OrderItem>();
-
-        // Act
         bool result = await _repository.AddRange(orderItems);
-
-        // Assert
         Assert.False(result);
     }
 
     [Fact]
     public async Task AddRange_ShouldReturnTrue_WhenOrderItemsAreValid()
     {
-        // Arrange
-        ICollection<OrderItem> orderItems = new List<OrderItem>
+        List<OrderItem> orderItems = new();
+        
+        OrderItem orderItem = new()
         {
-            new()
-            {
-                OrderId = Guid.NewGuid(),
-                ProductId = Guid.NewGuid(),
-                Quantity = 2,
-                SinglePrice = 100m,
-                TotalPrice = 200m,
-                Title = "Sample Product",
-                PrimaryImageUri = "http://example.com/image.jpg"
-            }
+            OrderId = Guid.NewGuid(),
+            ProductId = Guid.NewGuid(),
+            Quantity = 2,
+            SinglePrice = 100m,
+            TotalPrice = 200m,
+            Title = "Sample Product",
+            PrimaryImageUri = "http://example.com/image.jpg"
         };
+        orderItems.Add(orderItem);
 
-        // Act
         bool result = await _repository.AddRange(orderItems);
-
-        // Assert
         Assert.True(result);
 
         List<OrderItem> addedOrderItems = _context.OrderItems.ToList();

@@ -25,11 +25,11 @@ namespace SportZoneServer.Tests.Unit.Services
 
         public ReviewServiceTests()
         {
-            reviewRepositoryMock = new Mock<IReviewRepository>();
-            productRepositoryMock = new Mock<IProductRepository>();
-            authServiceMock = new Mock<IAuthService>();
-            userRepositoryMock = new Mock<IUserRepository>();
-            reviewService = new ReviewService(
+            reviewRepositoryMock = new();
+            productRepositoryMock = new();
+            authServiceMock = new();
+            userRepositoryMock = new();
+            reviewService = new(
                 reviewRepositoryMock.Object,
                 productRepositoryMock.Object,
                 authServiceMock.Object,
@@ -39,7 +39,7 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task UpdateAsync_ReviewNotFound_ShouldThrowNotFound()
         {
-            UpdateReviewRequest request = new UpdateReviewRequest
+            UpdateReviewRequest request = new()
             {
                 Id = Guid.NewGuid(),
                 Content = null,
@@ -53,14 +53,14 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task UpdateAsync_ValidReview_ShouldReturnUpdatedReview()
         {
-            UpdateReviewRequest request = new UpdateReviewRequest
+            UpdateReviewRequest request = new()
             {
                 Id = Guid.NewGuid(),
                 Content = "Updated Content",
                 Rating = 5
             };
 
-            Review existingReview = new Review { Id = request.Id, Content = "Old Content", Rating = 3 };
+            Review existingReview = new() { Id = request.Id, Content = "Old Content", Rating = 3 };
             reviewRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(existingReview);
             reviewRepositoryMock.Setup(r => r.UpdateAsync(It.IsAny<Review>())).ReturnsAsync(existingReview);
             userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(new User
@@ -80,7 +80,7 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task CreateAsync_ValidReview_ShouldReturnCreatedReview()
         {
-            CreateReviewRequest request = new CreateReviewRequest
+            CreateReviewRequest request = new()
             {
                 ProductId = Guid.NewGuid(),
                 Content = "Great Product",
@@ -106,7 +106,7 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task CreateAsync_Review_ShouldRecalculateProductRating()
         {
-            CreateReviewRequest request = new CreateReviewRequest
+            CreateReviewRequest request = new()
             {
                 ProductId = Guid.NewGuid(),
                 Content = "Excellent Product",
@@ -140,7 +140,7 @@ namespace SportZoneServer.Tests.Unit.Services
         public async Task DeleteAsync_UserNotOwner_ShouldThrowForbidden()
         {
             Guid reviewId = Guid.NewGuid();
-            Review review = new Review { Id = reviewId, UserId = Guid.NewGuid() };
+            Review review = new() { Id = reviewId, UserId = Guid.NewGuid() };
             reviewRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(review);
             authServiceMock.Setup(a => a.GetCurrentUserId()).ReturnsAsync(Guid.NewGuid().ToString());
 
@@ -151,7 +151,7 @@ namespace SportZoneServer.Tests.Unit.Services
         public async Task DeleteAsync_ValidReview_ShouldDeleteReview()
         {
             Guid reviewId = Guid.NewGuid();
-            Review review = new Review { Id = reviewId, UserId = Guid.NewGuid() };
+            Review review = new() { Id = reviewId, UserId = Guid.NewGuid() };
             reviewRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(review);
             authServiceMock.Setup(a => a.GetCurrentUserId()).ReturnsAsync(review.UserId.ToString());
             reviewRepositoryMock.Setup(r => r.DeleteAsync(It.IsAny<Guid>())).ReturnsAsync(true);
@@ -164,7 +164,7 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task SearchReviewsAsync_ValidRequest_ShouldReturnPaginatedReviews()
         {
-            SearchReviewsRequest request = new SearchReviewsRequest
+            SearchReviewsRequest request = new()
             {
                 PageNumber = 1,
                 PageSize = 10,
@@ -173,7 +173,7 @@ namespace SportZoneServer.Tests.Unit.Services
 
             reviewRepositoryMock.Setup(r => r.SearchAsync(It.IsAny<Filter<Review>>())).ReturnsAsync(new Paginated<Review>
             {
-                Items = new List<Review> { new Review { Id = Guid.NewGuid(), Content = "Amazing!" } },
+                Items = new List<Review> { new() { Id = Guid.NewGuid(), Content = "Amazing!" } },
                 TotalCount = 1
             });
 

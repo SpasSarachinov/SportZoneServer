@@ -25,10 +25,10 @@ namespace SportZoneServer.Tests.Unit.Services
 
         public ProductServiceTests()
         {
-            productRepositoryMock = new Mock<IProductRepository>();
-            categoryRepositoryMock = new Mock<ICategoryRepository>();
-            imageRepositoryMock = new Mock<IImageRepository>();
-            productService = new ProductService(
+            productRepositoryMock = new();
+            categoryRepositoryMock = new();
+            imageRepositoryMock = new();
+            productService = new(
                 productRepositoryMock.Object,
                 categoryRepositoryMock.Object,
                 imageRepositoryMock.Object);
@@ -37,10 +37,10 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task GetAsync_ShouldReturnProducts()
         {
-            List<Product> products = new List<Product>
+            List<Product> products = new()
             {
-                new Product { Id = Guid.NewGuid(), Title = "Product1" },
-                new Product { Id = Guid.NewGuid(), Title = "Product2" }
+                new() { Id = Guid.NewGuid(), Title = "Product1" },
+                new() { Id = Guid.NewGuid(), Title = "Product2" }
             };
 
             productRepositoryMock.Setup(r => r.GetAllAsync()).ReturnsAsync(products);
@@ -56,10 +56,10 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task GetBestSellersAsync_ShouldReturnBestSellers()
         {
-            List<Product> bestSellers = new List<Product>
+            List<Product> bestSellers = new()
             {
-                new Product { Id = Guid.NewGuid(), Title = "BestSeller1" },
-                new Product { Id = Guid.NewGuid(), Title = "BestSeller2" }
+                new() { Id = Guid.NewGuid(), Title = "BestSeller1" },
+                new() { Id = Guid.NewGuid(), Title = "BestSeller2" }
             };
 
             productRepositoryMock.Setup(r => r.GetBestSellersAsync(2)).ReturnsAsync(bestSellers);
@@ -75,7 +75,7 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task GetByIdAsync_ExistingProduct_ShouldReturnProduct()
         {
-            Product product = new Product { Id = Guid.NewGuid(), Title = "Product1" };
+            Product product = new() { Id = Guid.NewGuid(), Title = "Product1" };
 
             productRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(product);
 
@@ -96,7 +96,7 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task CreateAsync_ValidProduct_ShouldCreateProduct()
         {
-            CreateProductRequest request = new CreateProductRequest
+            CreateProductRequest request = new()
             {
                 Title = "New Product",
                 Description = "Description",
@@ -106,7 +106,7 @@ namespace SportZoneServer.Tests.Unit.Services
                 DiscountedPrice = 90,
                 Quantity = 10,
                 CategoryId = Guid.NewGuid(),
-                SecondaryImages = new List<CreateImageRequest> { new CreateImageRequest { Uri = "url1" } }
+                SecondaryImages = new List<CreateImageRequest> { new() { Uri = "url1" } }
             };
 
             categoryRepositoryMock.Setup(r => r.GetByIdAsync(request.CategoryId)).ReturnsAsync(new Category { Id = request.CategoryId, Name = "Category", ImageUri = "adfljasd"});
@@ -122,7 +122,7 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task CreateAsync_InvalidCategory_ShouldThrowException()
         {
-            CreateProductRequest request = new CreateProductRequest
+            CreateProductRequest request = new()
             {
                 CategoryId = Guid.NewGuid(),
                 Title = null,
@@ -138,7 +138,7 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task UpdateAsync_ValidProduct_ShouldUpdateProduct()
         {
-            UpdateProductRequest request = new UpdateProductRequest
+            UpdateProductRequest request = new()
             {
                 Id = Guid.NewGuid(),
                 Title = "Updated Product",
@@ -149,7 +149,7 @@ namespace SportZoneServer.Tests.Unit.Services
                 DiscountedPrice = 102,
                 Quantity = 15,
                 CategoryId = Guid.NewGuid(),
-                SecondaryImages = new List<UpdateImageRequest> { new UpdateImageRequest { Uri = "updated_url1" } }
+                SecondaryImages = new List<UpdateImageRequest> { new() { Uri = "updated_url1" } }
             };
 
             productRepositoryMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(new Product { Id = request.Id });
@@ -172,7 +172,7 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task UpdateAsync_ProductNotFound_ShouldThrowNotFound()
         {
-            UpdateProductRequest request = new UpdateProductRequest
+            UpdateProductRequest request = new()
             {
                 Id = Guid.NewGuid(),
                 Title = null,
@@ -209,11 +209,11 @@ namespace SportZoneServer.Tests.Unit.Services
         [Fact]
         public async Task SearchProductsAsync_ValidRequest_ShouldReturnPaginatedProducts()
         {
-            SearchProductsRequest request = new SearchProductsRequest { PageNumber = 1, PageSize = 10 };
+            SearchProductsRequest request = new() { PageNumber = 1, PageSize = 10 };
 
             productRepositoryMock.Setup(r => r.SearchAsync(It.IsAny<Filter<Product>>())).ReturnsAsync(new Paginated<Product>
             {
-                Items = new List<Product> { new Product { Id = Guid.NewGuid(), Title = "Product" } },
+                Items = new List<Product> { new() { Id = Guid.NewGuid(), Title = "Product" } },
                 TotalCount = 1
             });
 

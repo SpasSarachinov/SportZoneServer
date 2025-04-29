@@ -220,7 +220,7 @@ public class OrderService(
 
     private OrderResponse MapOrderToResponse(Order order)
     {
-        return new OrderResponse
+        return new()
         {
             Id = order.Id,
             OrderTotalPrice = order.OrderTotalPrice,

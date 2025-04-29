@@ -30,15 +30,15 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Фитнес").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_3_-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_8_-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_5_-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_2_-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_4_-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_3_-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_8_-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_5_-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_2_-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/tejesti/reguliruemi-dambeli-bodyflex-2x15kg-i-lost-stanga%20_4_-700x700.webp" },
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Отличен продукт!",
@@ -59,15 +59,15 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Фитнес").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22b-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22c-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22d-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22d_2-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22b-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22c-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22d-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-hg1104MAS-HG1104_22d_2-700x700.webp" },
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Отличен продукт!",
@@ -88,15 +88,15 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Фитнес").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004--3-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004--6-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/byagashta-pateka-bodyflex-run-1200-elektricheska-13-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/byagashta-pateka-bodyflex-run-1200-elektricheska-9-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004--3-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004--6-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/byagashta-pateka-bodyflex-run-1200-elektricheska-13-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/biagasta-pateka-bodyflex-run-1200--BF-39004-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/FITNES_UREDI/biagashti-pateki/byagashta-pateka-bodyflex-run-1200-elektricheska-9-700x700.webp" },
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Много добър продукт.",
@@ -117,13 +117,13 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Тенис").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065a-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065_new-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065c-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065a-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065_new-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b065MAS-B065c-700x700.webp" },
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Отличен продукт!",
@@ -144,7 +144,7 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Тенис").Id,
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Отличен продукт!",
@@ -165,7 +165,7 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Тенис").Id,
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Отличен продукт!",
@@ -186,7 +186,7 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Футбол").Id,
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Отличен продукт!",
@@ -207,11 +207,11 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Футбол").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/s1137S1137_23a-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/s1137S1137_23a-700x700.webp" },
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Пълна нула!",
@@ -232,12 +232,12 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Футбол").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspso-0006MASSPSO-0006-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspso-0006MASSPSO-0006a-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspso-0006MASSPSO-0006-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspso-0006MASSPSO-0006a-700x700.webp" },
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Отличен продукт!",
@@ -258,7 +258,7 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Баскетбол").Id,
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Добър продукт.",
@@ -279,10 +279,10 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Баскетбол").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01-20c-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01-20a-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01-20b-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01_newc-700x700.webp" }
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01-20c-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01-20a-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01-20b-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/masspsb-01MASSPSB-01_newc-700x700.webp" }
                     }
                 },
                 new()
@@ -298,7 +298,7 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Баскетбол").Id,
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Добър продукт.",
@@ -319,13 +319,13 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Колоездене").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b200-s-yellowMAS-B200-yellowa-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b200-s-yellowMAS-B200-yellowb-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b200-s-yellowMAS-B200-yellowc-700x700.webp" }
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b200-s-yellowMAS-B200-yellowa-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b200-s-yellowMAS-B200-yellowb-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-b200-s-yellowMAS-B200-yellowc-700x700.webp" }
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Среден продукт.",
@@ -346,7 +346,7 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Колоездене").Id,
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Много добър продукт.",
@@ -367,7 +367,7 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Колоездене").Id,
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Отличен продукт!",
@@ -388,14 +388,14 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Бокс").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem--700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-2-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-1-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-4-700x700.webp" }
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem--700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-2-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-1-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/BF-046-boksov-trenazhor-bodyflex-160cm-naduvaem-4-700x700.webp" }
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Отличен продукт!",
@@ -416,14 +416,14 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Бокс").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB008a-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB010_new-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB010_newa-700x700.webp" },
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB010_newb-700x700.webp" }
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB008a-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB010_new-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB010_newa-700x700.webp" },
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/mastersport/mas-db012MAS-DB010_newb-700x700.webp" }
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Много добър продукт.",
@@ -444,11 +444,11 @@ namespace SportZoneServer.Data.Seed
                     CategoryId = categories.First(c => c.Name == "Бокс").Id,
                     SecondaryImages = new List<Image>
                     {
-                        new Image { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/boksov-chuval-spartan-90-sm-20-kg-700x700.webp" }
+                        new() { Uri = "https://sportensklad.bg/image/cache/webp/catalog/SPORTNI_STOKI/boks/boksov-chuval-spartan-90-sm-20-kg-700x700.webp" }
                     },
                     Reviews = new List<Review>
                     {
-                        new Review
+                        new()
                         {
                             UserId = users.First().Id,
                             Content = "Много добър продукт.",

@@ -17,8 +17,8 @@ public class CategoryRepositoryTests
         DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseInMemoryDatabase(databaseName: "CategoryRepositoryTestsDb")
             .Options;
-        _context = new ApplicationDbContext(options);
-        _repository = new CategoryRepository(_context);
+        _context = new(options);
+        _repository = new(_context);
     }
 
     [Fact]
@@ -26,7 +26,7 @@ public class CategoryRepositoryTests
     {
         // Arrange
         string name = "test@example.com";
-        User existingUser = new User { Email = name, IsDeleted = false, Names = "test", Phone = "test", PasswordHash = "test" };
+        User existingUser = new() { Email = name, IsDeleted = false, Names = "test", Phone = "test", PasswordHash = "test" };
         await _context.Users.AddAsync(existingUser);
         await _context.SaveChangesAsync();
 
@@ -55,7 +55,7 @@ public class CategoryRepositoryTests
     {
         // Arrange
         string name = "test@example.com";
-        User existingUser = new User { Email = name, IsDeleted = true, Names = "test", Phone = "test", PasswordHash = "test" };
+        User existingUser = new() { Email = name, IsDeleted = true, Names = "test", Phone = "test", PasswordHash = "test" };
         await _context.Users.AddAsync(existingUser);
         await _context.SaveChangesAsync();
 

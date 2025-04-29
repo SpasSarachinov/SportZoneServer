@@ -20,9 +20,9 @@ public class ReviewRepositoryTests
         DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
-        ApplicationDbContext context = new ApplicationDbContext(options);
+        ApplicationDbContext context = new(options);
         _context = context;
-        ReviewRepository repository = new ReviewRepository(_context);
+        ReviewRepository repository = new(_context);
         _repository = repository;
     }
 
@@ -30,11 +30,11 @@ public class ReviewRepositoryTests
     public async Task GetReviews_ShouldReturnReviews_WhenReviewsExistForProduct()
     {
         Guid productId = Guid.NewGuid();
-        Review review1 = new Review();
+        Review review1 = new();
         review1.ProductId = productId;
         review1.Content = "Great product!";
         review1.Rating = 5;
-        Review review2 = new Review();
+        Review review2 = new();
         review2.ProductId = productId;
         review2.Content = "Not bad";
         review2.Rating = 3;
@@ -57,12 +57,12 @@ public class ReviewRepositoryTests
     public async Task GetReviews_ShouldNotReturnDeletedReviews()
     {
         Guid productId = Guid.NewGuid();
-        Review review1 = new Review();
+        Review review1 = new();
         review1.ProductId = productId;
         review1.Content = "Great product!";
         review1.Rating = 5;
         review1.IsDeleted = true;
-        Review review2 = new Review();
+        Review review2 = new();
         review2.ProductId = productId;
         review2.Content = "Not bad";
         review2.Rating = 3;

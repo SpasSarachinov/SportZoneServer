@@ -26,16 +26,20 @@ public class UserRepositoryTests : RepositoryTestGenerics
     {
         await ClearDatabaseAsync<User>();
 
-        // Arrange
         string email = "test@example.com";
-        User existingUser = new() { Email = email, IsDeleted = false, Names = "test", Phone = "test", PasswordHash = "test" };
+        User existingUser = new()
+        {
+            Email = email,
+            IsDeleted = false,
+            Names = "test",
+            Phone = "test",
+            PasswordHash = "test"
+        };
         _context.Users.Add(existingUser);
         await _context.SaveChangesAsync();
 
-        // Act
         bool result = await _repository.IsEmailAlreadyUsed(email);
 
-        // Assert
         Assert.True(result);
     }
 
@@ -44,13 +48,10 @@ public class UserRepositoryTests : RepositoryTestGenerics
     {
         await ClearDatabaseAsync<User>();
         
-        // Arrange
         string email = "test@example.com";
 
-        // Act
         bool result = await _repository.IsEmailAlreadyUsed(email);
 
-        // Assert
         Assert.False(result);
     }
 
@@ -59,19 +60,23 @@ public class UserRepositoryTests : RepositoryTestGenerics
     {
         await ClearDatabaseAsync<User>();
 
-        // Arrange
         string email = "test@example.com";
-        User existingUser = new() { Email = email, IsDeleted = false, Names = "test", Phone = "test", PasswordHash = "test" };
+        User existingUser = new()
+        {
+            Email = email,
+            IsDeleted = false,
+            Names = "test",
+            Phone = "test",
+            PasswordHash = "test"
+        };
         _context.Users.Add(existingUser);
         await _context.SaveChangesAsync();
         
         existingUser.IsDeleted = true;
         await _context.SaveChangesAsync();
 
-        // Act
         bool result = await _repository.IsEmailAlreadyUsed(email);
 
-        // Assert
         Assert.False(result);
     }
 }

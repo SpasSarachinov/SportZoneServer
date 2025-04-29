@@ -16,6 +16,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\SportZoneServer.Data\SportZoneServer.Data.csproj" />
+      <ProjectReference Include="..\SportZoneServer.Domain\SportZoneServer.Domain.csproj" />
     </ItemGroup>
 
 </Project>

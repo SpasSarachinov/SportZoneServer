@@ -67,7 +67,11 @@ public class RepositoryTests
         await ClearDatabaseAsync();
 
         Image image1 = new() { Uri = "http://example.com/image1.jpg" };
-        Image image2 = new() { Uri = "http://example.com/image2.jpg", IsDeleted = true };
+        Image image2 = new()
+        {
+            Uri = "http://example.com/image2.jpg",
+            IsDeleted = true
+        };
         await _repository.AddAsync(image1);
         await _repository.AddAsync(image2);
 
@@ -97,7 +101,11 @@ public class RepositoryTests
     {
         await ClearDatabaseAsync();
 
-        Image image = new() { Uri = "http://example.com/image.jpg", IsDeleted = true };
+        Image image = new()
+        {
+            Uri = "http://example.com/image.jpg",
+            IsDeleted = true
+        };
         Image? addedImage = await _repository.AddAsync(image);
 
         Image? result = await _repository.GetByIdAsync(addedImage.Id);
@@ -122,7 +130,7 @@ public class RepositoryTests
 
     [Fact]
     public async Task DeleteAsync_ShouldRemoveEntity_WhenPropertyDoesNotExist()
-    {      
+    {
         await ClearDatabaseAsync();
 
         Image image = new() { Uri = "http://example.com/image.jpg" };
@@ -244,6 +252,86 @@ public class RepositoryTests
         Assert.Contains(result.Items, img => img.Id == image1.Id);
     }
 
+    [Fact]
+    public async Task AddAsync_ShouldReturnNull_WhenEntityIsNull()
+    {
+        await ClearDatabaseAsync();
+
+        Image? result = await _repository.AddAsync(null);
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ShouldReturnNull_WhenEntityNotFound()
+    {
+        await ClearDatabaseAsync();
+
+        Image? result = await _repository.GetByIdAsync(Guid.NewGuid());
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ShouldReturnNull_WhenEntityIsNull()
+    {
+        await ClearDatabaseAsync();
+
+        Image? result = await _repository.UpdateAsync(null);
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_ShouldReturnFalse_WhenEntityNotFound()
+    {
+        await ClearDatabaseAsync();
+
+        bool result = await _repository.DeleteAsync(Guid.NewGuid());
+
+        Assert.False(result);
+    }
+
+    [Fact]
+    public async Task SearchAsync_ShouldReturnEmpty_WhenPredicateIsInvalid()
+    {
+        await ClearDatabaseAsync();
+
+        Filter<Image> filter = new()
+        {
+            Predicate = x => x.Uri.Contains("nonexistent"),
+            PageNumber = 1,
+            PageSize = 1
+        };
+
+        Paginated<Image> result = await _repository.SearchAsync(filter);
+
+        Assert.Empty(result.Items);
+    }
+
+    [Fact]
+    public async Task SearchAsync_ShouldReturnAllEntities_WhenNoFilterIsApplied()
+    {
+        await ClearDatabaseAsync();
+
+        Image image1 = new() { Uri = "http://example.com/image1.jpg" };
+        Image image2 = new() { Uri = "http://example.com/image2.jpg" };
+        await _repository.AddAsync(image1);
+        await _repository.AddAsync(image2);
+
+        Filter<Image> filter = new()
+        {
+            Predicate = x => true,
+            PageNumber = 1,
+            PageSize = 10
+        };
+
+        Paginated<Image> result = await _repository.SearchAsync(filter);
+
+        Assert.Equal(2, result.TotalCount);
+        Assert.Equal(2, result.Items.Count());
+    }
+    
     private async Task ClearDatabaseAsync()
     {
         _context.Images.RemoveRange(_context.Images); 

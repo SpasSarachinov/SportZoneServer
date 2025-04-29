@@ -21,6 +21,11 @@ namespace SportZoneServer.Data.Repositories
 
         public virtual async ValueTask<TEntity?> AddAsync(TEntity entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
+            
             await _context.Set<TEntity>().AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
@@ -84,7 +89,13 @@ namespace SportZoneServer.Data.Repositories
 
         public virtual async ValueTask<TEntity?> UpdateAsync(TEntity entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
+            
             Guid entityId = (Guid)entity.GetType().GetProperty("Id").GetValue(entity);
+            
             TEntity? currentEntity = await _context.Set<TEntity>().FindAsync(entityId);
 
             if (currentEntity == null)
@@ -135,7 +146,7 @@ namespace SportZoneServer.Data.Repositories
             int count = query.Count(request.Predicate);
 
             if (request.PageNumber != null)
-            {
+            {   
                 int page = (int)request.PageNumber!;
                 int itemsPerPage = (int)request.PageSize!;
                 int skip = (page - 1) * itemsPerPage;

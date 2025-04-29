@@ -24,58 +24,38 @@ public class CategoryRepositoryTests
     [Fact]
     public async Task IsNameAlreadyUsed_ShouldReturnTrue_WhenNameIsUsed()
     {
-        // Arrange
         string name = "test@example.com";
         User existingUser = new() { Email = name, IsDeleted = false, Names = "test", Phone = "test", PasswordHash = "test" };
         await _context.Users.AddAsync(existingUser);
         await _context.SaveChangesAsync();
-
-        // Act
         bool result = await _repository.IsNameAlreadyUsed(name);
-
-        // Assert
         Assert.True(result);
     }
 
     [Fact]
     public async Task IsNameAlreadyUsed_ShouldReturnFalse_WhenNameIsNotUsed()
     {
-        // Arrange
         string name = "test@example.com";
-
-        // Act
         bool result = await _repository.IsNameAlreadyUsed(name);
-
-        // Assert
         Assert.False(result);
     }
 
     [Fact]
     public async Task IsNameAlreadyUsed_ShouldReturnFalse_WhenUserIsDeleted()
     {
-        // Arrange
         string name = "test@example.com";
         User existingUser = new() { Email = name, IsDeleted = true, Names = "test", Phone = "test", PasswordHash = "test" };
         await _context.Users.AddAsync(existingUser);
         await _context.SaveChangesAsync();
-
-        // Act
         bool result = await _repository.IsNameAlreadyUsed(name);
-
-        // Assert
         Assert.False(result);
     }
 
     [Fact]
     public async Task IsNameAlreadyUsed_ShouldReturnFalse_WhenNameIsNullOrEmpty()
     {
-        // Arrange
         string name = "";
-
-        // Act
         bool result = await _repository.IsNameAlreadyUsed(name);
-
-        // Assert
         Assert.False(result);
     }
 }

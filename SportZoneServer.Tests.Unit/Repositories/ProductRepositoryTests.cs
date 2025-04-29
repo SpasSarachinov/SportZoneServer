@@ -29,7 +29,6 @@ public class ProductRepositoryTests
     [Fact]
     public async Task SearchAsync_ShouldReturnPaginatedResults_WhenFilterIsApplied()
     {
-        // Arrange
         Filter<Product> filter = new()
         {
             Predicate = p => p.Quantity > 0,
@@ -65,10 +64,8 @@ public class ProductRepositoryTests
         _context.Products.Add(product2);
         await _context.SaveChangesAsync();
 
-        // Act
         Paginated<Product> result = await _repository.SearchAsync(filter);
 
-        // Assert
         Assert.Equal(2, result.TotalCount);
         Assert.Equal(2, result.Items.Count());
     }
@@ -76,7 +73,6 @@ public class ProductRepositoryTests
     [Fact]
     public async Task GetByIdAsync_ShouldReturnProduct_WhenProductExists()
     {
-        // Arrange
         Guid productId = Guid.NewGuid();
         Category category = new() { Name = "Test Category", ImageUri = "http://example.com/category.jpg" };
         
@@ -93,10 +89,8 @@ public class ProductRepositoryTests
         _context.Products.Add(product);
         await _context.SaveChangesAsync();
 
-        // Act
         Product? result = await _repository.GetByIdAsync(productId);
 
-        // Assert
         Assert.NotNull(result);
         Assert.Equal(productId, result?.Id);
     }
@@ -104,7 +98,6 @@ public class ProductRepositoryTests
     [Fact]
     public async Task GetByIdAsync_ShouldReturnNull_WhenProductIsDeleted()
     {
-        // Arrange
         Guid productId = Guid.NewGuid();
         Category category = new() { Name = "Test Category", ImageUri = "http://example.com/category.jpg" };
         
@@ -122,17 +115,14 @@ public class ProductRepositoryTests
         _context.Products.Add(product);
         await _context.SaveChangesAsync();
 
-        // Act
         Product? result = await _repository.GetByIdAsync(productId);
 
-        // Assert
         Assert.Null(result);
     }
 
     [Fact]
     public async Task GetBestSellersAsync_ShouldReturnBestSellers_WhenCalled()
     {
-        // Arrange
         Category category1 = new() { Name = "Category 1", ImageUri = "http://example.com/category1.jpg" };
         Category category2 = new() { Name = "Category 2", ImageUri = "http://example.com/category2.jpg" };
 
@@ -159,17 +149,14 @@ public class ProductRepositoryTests
         _context.Products.Add(product2);
         await _context.SaveChangesAsync();
 
-        // Act
-        IEnumerable<Product> result = await _repository.GetBestSellersAsync(2);  // Expecting two items
+        IEnumerable<Product> result = await _repository.GetBestSellersAsync(2);
 
-        // Assert
-        Assert.Equal(2, result.Count());  // Check that two products are returned
+        Assert.Equal(2, result.Count());
     }
 
     [Fact]
     public async Task UpdateRatingAsync_ShouldUpdateProductRating_WhenCalled()
     {
-        // Arrange
         Guid productId = Guid.NewGuid();
         Category category = new() { Name = "Test Category", ImageUri = "http://example.com/category.jpg" };
         
@@ -186,10 +173,8 @@ public class ProductRepositoryTests
         _context.Products.Add(product);
         await _context.SaveChangesAsync();
 
-        // Act
         await _repository.UpdateRatingAsync(productId, 4.5);
 
-        // Assert
         Product updatedProduct = await _repository.GetByIdAsync(productId);
         Assert.Equal(4.5, updatedProduct?.Rating);
     }

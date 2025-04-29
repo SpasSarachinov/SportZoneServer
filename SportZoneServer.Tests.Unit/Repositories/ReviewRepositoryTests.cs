@@ -20,56 +20,56 @@ public class ReviewRepositoryTests
         DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
-        _context = new(options);
-        _repository = new(_context);
+        ApplicationDbContext context = new ApplicationDbContext(options);
+        _context = context;
+        ReviewRepository repository = new ReviewRepository(_context);
+        _repository = repository;
     }
 
     [Fact]
     public async Task GetReviews_ShouldReturnReviews_WhenReviewsExistForProduct()
     {
-        // Arrange
         Guid productId = Guid.NewGuid();
-        Review review1 = new() { ProductId = productId, Content = "Great product!", Rating = 5 };
-        Review review2 = new() { ProductId = productId, Content = "Not bad", Rating = 3 };
+        Review review1 = new Review();
+        review1.ProductId = productId;
+        review1.Content = "Great product!";
+        review1.Rating = 5;
+        Review review2 = new Review();
+        review2.ProductId = productId;
+        review2.Content = "Not bad";
+        review2.Rating = 3;
         _context.Reviews.Add(review1);
         _context.Reviews.Add(review2);
         await _context.SaveChangesAsync();
-
-        // Act
         IEnumerable<Review> result = await _repository.GetReviews(productId);
-
-        // Assert
         Assert.Equal(2, result.Count());
     }
 
     [Fact]
     public async Task GetReviews_ShouldReturnEmpty_WhenNoReviewsExistForProduct()
     {
-        // Arrange
         Guid productId = Guid.NewGuid();
-
-        // Act
         IEnumerable<Review> result = await _repository.GetReviews(productId);
-
-        // Assert
         Assert.Empty(result);
     }
 
     [Fact]
     public async Task GetReviews_ShouldNotReturnDeletedReviews()
     {
-        // Arrange
         Guid productId = Guid.NewGuid();
-        Review review1 = new() { ProductId = productId, Content = "Great product!", Rating = 5, IsDeleted = true };
-        Review review2 = new() { ProductId = productId, Content = "Not bad", Rating = 3 };
+        Review review1 = new Review();
+        review1.ProductId = productId;
+        review1.Content = "Great product!";
+        review1.Rating = 5;
+        review1.IsDeleted = true;
+        Review review2 = new Review();
+        review2.ProductId = productId;
+        review2.Content = "Not bad";
+        review2.Rating = 3;
         _context.Reviews.Add(review1);
         _context.Reviews.Add(review2);
         await _context.SaveChangesAsync();
-
-        // Act
         IEnumerable<Review> result = await _repository.GetReviews(productId);
-
-        // Assert
         Assert.Single(result);
         Assert.Equal("Not bad", result.First().Content);
     }

@@ -75,7 +75,9 @@ public class WishlistRepositoryTests : RepositoryTestGenerics, IDisposable
         
         Guid userId = user.Id;
 
-        Product product = new() { Title = "Test Product", Quantity = 10, Description = "Description for test product", MainImageUrl = "http://example.com/image.jpg" };
+        Category category = new() { Name = "Test Category", ImageUri = "test"};
+        
+        Product product = new() { Title = "Test Product", Quantity = 10, Description = "Description for test product", MainImageUrl = "http://example.com/image.jpg", Category = category};
         _context.Products.Add(product);
         await _context.SaveChangesAsync();
         

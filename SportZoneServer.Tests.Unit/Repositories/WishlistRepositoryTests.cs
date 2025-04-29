@@ -34,31 +34,31 @@ public class WishlistRepositoryTests : RepositoryTestGenerics, IDisposable
     [Fact]
     public async Task IsProductAlreadyInWishlist_ShouldReturnTrue_WhenProductIsInWishlist()
     {
-        // Arrange
-        Guid productId = Guid.NewGuid();
-        Guid wishlistId = Guid.NewGuid();
-        WishlistItem wishlistItem = new() { ProductId = productId, Id = wishlistId, IsDeleted = false };
+        WishlistItem wishlistItem = new();
+        wishlistItem.Product = new() {  };
+        wishlistItem.Product.Title = "Test Product";
+        wishlistItem.Product.Quantity = 10;
+        wishlistItem.Product.Description = "Description for test product";
+        wishlistItem.Product.MainImageUrl = "http://example.com/image.jpg";
+        wishlistItem.Product.Category = new() { Name = "Test Category", ImageUri = "test" };
+        wishlistItem.User = new() { Email = "<EMAIL>", Names = "Test", Phone = "123456789", PasswordHash = "<PASSWORD>" };
+        wishlistItem.IsDeleted = false;
         _context.WishlistItems.Add(wishlistItem);
         await _context.SaveChangesAsync();
 
-        // Act
-        bool result = await _repository.IsProductAlreadyInWishlist(productId, wishlistId);
+        bool result = await _repository.IsProductAlreadyInWishlist(wishlistItem.ProductId, wishlistItem.Id);
 
-        // Assert
         Assert.True(result);
     }
 
     [Fact]
     public async Task IsProductAlreadyInWishlist_ShouldReturnFalse_WhenProductIsNotInWishlist()
     {
-        // Arrange
         Guid productId = Guid.NewGuid();
         Guid wishlistId = Guid.NewGuid();
 
-        // Act
         bool result = await _repository.IsProductAlreadyInWishlist(productId, wishlistId);
 
-        // Assert
         Assert.False(result);
     }
 
@@ -68,57 +68,69 @@ public class WishlistRepositoryTests : RepositoryTestGenerics, IDisposable
         await ClearDatabaseAsync<Product>();
         await ClearDatabaseAsync<User>();
         
-        // Arrange
-        User user = new() { Email = "<EMAIL>", Names = "Test", Phone = "123456789", PasswordHash = "<PASSWORD>" };
+        User user = new()
+        {
+            Email = "<EMAIL>",
+            Names = "Test",
+            Phone = "123456789",
+            PasswordHash = "<PASSWORD>"
+        };
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
         
         Guid userId = user.Id;
 
-        Category category = new() { Name = "Test Category", ImageUri = "test"};
-        
-        Product product = new() { Title = "Test Product", Quantity = 10, Description = "Description for test product", MainImageUrl = "http://example.com/image.jpg", Category = category};
+        Category category = new()
+        {
+            Name = "Test Category",
+            ImageUri = "test"
+        };
+
+        Product product = new();
+        product.Title = "Test Product";
+        product.Quantity = 10;
+        product.Description = "Description for test product";
+        product.MainImageUrl = "http://example.com/image.jpg";
+        product.Category = category;
         _context.Products.Add(product);
         await _context.SaveChangesAsync();
         
-        WishlistItem wishlistItem = new() { UserId = userId, ProductId = product.Id, IsDeleted = false };
+        WishlistItem wishlistItem = new();
+        wishlistItem.UserId = userId;
+        wishlistItem.ProductId = product.Id;
+        wishlistItem.IsDeleted = false;
         _context.WishlistItems.Add(wishlistItem);
         await _context.SaveChangesAsync();
 
-        // Act
         ICollection<WishlistItem> result = await _repository.GetAllByUserIdAsync(userId);
 
-        // Assert
         Assert.NotEmpty(result);
     }
 
     [Fact]
     public async Task GetAllByUserIdAsync_ShouldReturnEmpty_WhenNoWishlistItemsExist()
     {
-        // Arrange
         Guid userId = Guid.NewGuid();
 
-        // Act
         ICollection<WishlistItem> result = await _repository.GetAllByUserIdAsync(userId);
 
-        // Assert
         Assert.Empty(result);
     }
 
     [Fact]
     public async Task GetWishlistItemIdAsync_ShouldReturnWishlistItemId_WhenItemExistsInWishlist()
     {
-        // Arrange
         Guid userId = Guid.NewGuid();
         Guid productId = Guid.NewGuid();
-        WishlistItem wishlistItem = new() { UserId = userId, ProductId = productId, IsDeleted = false };
+        WishlistItem wishlistItem = new();
+        wishlistItem.UserId = userId;
+        wishlistItem.ProductId = productId;
+        wishlistItem.IsDeleted = false;
         _context.WishlistItems.Add(wishlistItem);
         await _context.SaveChangesAsync();
 
-        // Act
         Guid? result = await _repository.GetWishlistItemIdAsync(userId, productId);
 
-        // Assert
         Assert.NotNull(result);
         Assert.Equal(wishlistItem.Id, result);
     }
@@ -126,14 +138,11 @@ public class WishlistRepositoryTests : RepositoryTestGenerics, IDisposable
     [Fact]
     public async Task GetWishlistItemIdAsync_ShouldReturnNull_WhenItemDoesNotExistInWishlist()
     {
-        // Arrange
         Guid userId = Guid.NewGuid();
         Guid productId = Guid.NewGuid();
 
-        // Act
         Guid? result = await _repository.GetWishlistItemIdAsync(userId, productId);
 
-        // Assert
         Assert.Null(result);
     }
 }

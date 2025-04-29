@@ -38,20 +38,29 @@ public class ProductRepositoryTests
             SortBy = "Title",
             SortDescending = false
         };
+        
+        Category category1 = new() { Name = "Category 1", ImageUri = "http://example.com/category1.jpg" };
+        Category category2 = new() { Name = "Category 2", ImageUri = "http://example.com/category2.jpg" };
+
         Product product1 = new()
         {
             Title = "Product 1",
             Quantity = 10,
             Description = "Description for product 1",
-            MainImageUrl = "http://example.com/image1.jpg"
+            MainImageUrl = "http://example.com/image1.jpg",
+            Category = category1
         };
         Product product2 = new()
         {
             Title = "Product 2",
             Quantity = 20,
             Description = "Description for product 2",
-            MainImageUrl = "http://example.com/image2.jpg"
+            MainImageUrl = "http://example.com/image2.jpg",
+            Category = category2
         };
+        
+        _context.Categories.Add(category1);
+        _context.Categories.Add(category2);
         _context.Products.Add(product1);
         _context.Products.Add(product2);
         await _context.SaveChangesAsync();
@@ -69,14 +78,18 @@ public class ProductRepositoryTests
     {
         // Arrange
         Guid productId = Guid.NewGuid();
+        Category category = new() { Name = "Test Category", ImageUri = "http://example.com/category.jpg" };
+        
         Product product = new()
         {
             Id = productId,
             Title = "Test Product",
             Quantity = 10,
             Description = "Description for test product",
-            MainImageUrl = "http://example.com/image.jpg"
+            MainImageUrl = "http://example.com/image.jpg",
+            Category = category
         };
+        _context.Categories.Add(category);
         _context.Products.Add(product);
         await _context.SaveChangesAsync();
 
@@ -93,6 +106,8 @@ public class ProductRepositoryTests
     {
         // Arrange
         Guid productId = Guid.NewGuid();
+        Category category = new() { Name = "Test Category", ImageUri = "http://example.com/category.jpg" };
+        
         Product product = new()
         {
             Id = productId,
@@ -100,8 +115,10 @@ public class ProductRepositoryTests
             Quantity = 10,
             IsDeleted = true,
             Description = "Description for test product",
-            MainImageUrl = "http://example.com/image.jpg"
+            MainImageUrl = "http://example.com/image.jpg",
+            Category = category
         };
+        _context.Categories.Add(category);
         _context.Products.Add(product);
         await _context.SaveChangesAsync();
 
@@ -116,20 +133,28 @@ public class ProductRepositoryTests
     public async Task GetBestSellersAsync_ShouldReturnBestSellers_WhenCalled()
     {
         // Arrange
+        Category category1 = new() { Name = "Category 1", ImageUri = "http://example.com/category1.jpg" };
+        Category category2 = new() { Name = "Category 2", ImageUri = "http://example.com/category2.jpg" };
+
         Product product1 = new()
         { 
             Title = "Product 1", 
             Quantity = 10, 
             Description = "Description for product 1", 
-            MainImageUrl = "http://example.com/image1.jpg" 
+            MainImageUrl = "http://example.com/image1.jpg", 
+            Category = category1 
         };
         Product product2 = new()
         { 
             Title = "Product 2", 
             Quantity = 20, 
             Description = "Description for product 2", 
-            MainImageUrl = "http://example.com/image2.jpg" 
+            MainImageUrl = "http://example.com/image2.jpg", 
+            Category = category2 
         };
+        
+        _context.Categories.Add(category1);
+        _context.Categories.Add(category2);
         _context.Products.Add(product1);
         _context.Products.Add(product2);
         await _context.SaveChangesAsync();
@@ -146,14 +171,18 @@ public class ProductRepositoryTests
     {
         // Arrange
         Guid productId = Guid.NewGuid();
+        Category category = new() { Name = "Test Category", ImageUri = "http://example.com/category.jpg" };
+        
         Product product = new()
         {
             Id = productId,
             Title = "Test Product",
             Rating = 3.0,
             Description = "Description for test product",
-            MainImageUrl = "http://example.com/image.jpg"
+            MainImageUrl = "http://example.com/image.jpg",
+            Category = category
         };
+        _context.Categories.Add(category);
         _context.Products.Add(product);
         await _context.SaveChangesAsync();
 

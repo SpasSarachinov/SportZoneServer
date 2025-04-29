@@ -22,193 +22,231 @@ public class RepositoryTests
         DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseInMemoryDatabase(databaseName: "TestDb")
             .Options;
-        _context = new ApplicationDbContext(options);
-        _repository = new Repository<Image>(_context);
+        _context = new(options);
+        _repository = new(_context);
     }
 
     [Fact]
-    public async Task AddAsync_ShouldAddEntity_WhenEntityIsValid()
+    public async Task AddAsync_ShouldAddEntity()
     {
-        // Arrange
-        Image entity = new()
+        await ClearDatabaseAsync();
+
+        Image image = new()
         {
-            Id = Guid.NewGuid(),
-            Uri = "test"
+            Uri = "http://example.com/image.jpg",
+            ProductId = Guid.NewGuid()
         };
 
-        // Act
-        Image? result = await _repository.AddAsync(entity);
+        Image? result = await _repository.AddAsync(image);
 
-        // Assert
-        Assert.Equal(entity, result);
-        await _context.SaveChangesAsync();
+        Assert.NotNull(result);
+        Assert.Equal(image.Uri, result.Uri);
+        Assert.False(result.IsDeleted);
     }
 
     [Fact]
-    public async Task GetAllAsync_ShouldReturnEntities_WhenEntitiesExist()
+    public async Task AddAsync_ShouldAddMultipleEntities()
     {
-        // Arrange
-        List<Image> entities = new()
-        {
-            new()
-            {
-                Id = Guid.NewGuid(),
-                Uri = "test"
-            }
-        };
-        _context.Images.AddRange(entities);
-        await _context.SaveChangesAsync();
+        await ClearDatabaseAsync();
 
-        // Act
+        Image image1 = new() { Uri = "http://example.com/image1.jpg" };
+        Image image2 = new() { Uri = "http://example.com/image2.jpg" };
+        await _repository.AddAsync(image1);
+        await _repository.AddAsync(image2);
+
         IEnumerable<Image> result = await _repository.GetAllAsync();
 
-        // Assert
-        Assert.NotEmpty(result);
+        Assert.Equal(2, result.Count());
+        Assert.Contains(result, img => img.Id == image1.Id);
+        Assert.Contains(result, img => img.Id == image2.Id);
     }
 
     [Fact]
-    public async Task GetByIdAsync_ShouldReturnEntity_WhenEntityExists()
+    public async Task GetAllAsync_ShouldReturnNonDeletedEntities()
     {
-        // Arrange
-        Image entity = new()
-        {
-            Id = Guid.NewGuid(),
-            Uri = "test"
-        };
-        _context.Images.Add(entity);
-        await _context.SaveChangesAsync();
+        await ClearDatabaseAsync();
 
-        // Act
-        Image? result = await _repository.GetByIdAsync(entity.Id);
+        Image image1 = new() { Uri = "http://example.com/image1.jpg" };
+        Image image2 = new() { Uri = "http://example.com/image2.jpg", IsDeleted = true };
+        await _repository.AddAsync(image1);
+        await _repository.AddAsync(image2);
 
-        // Assert
-        Assert.Equal(entity, result);
+        IEnumerable<Image> result = await _repository.GetAllAsync();
+
+        Assert.Single(result);
+        Assert.Contains(result, img => img.Id == image1.Id);
+        Assert.DoesNotContain(result, img => img.Id == image2.Id);
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ShouldReturnEntity_WhenNotDeleted()
+    {
+        await ClearDatabaseAsync();
+
+        Image image = new() { Uri = "http://example.com/image.jpg" };
+        Image? addedImage = await _repository.AddAsync(image);
+
+        Image? result = await _repository.GetByIdAsync(addedImage.Id);
+
+        Assert.NotNull(result);
+        Assert.Equal(addedImage.Id, result?.Id);
     }
 
     [Fact]
     public async Task GetByIdAsync_ShouldReturnNull_WhenEntityIsDeleted()
     {
-        // Arrange
-        Image entity = new()
-        {
-            Id = Guid.NewGuid(),
-            IsDeleted = true,
-            Uri = "test"
-        };
-        _context.Images.Add(entity);
-        await _context.SaveChangesAsync();
+        await ClearDatabaseAsync();
 
-        // Act
-        Image? result = await _repository.GetByIdAsync(entity.Id);
+        Image image = new() { Uri = "http://example.com/image.jpg", IsDeleted = true };
+        Image? addedImage = await _repository.AddAsync(image);
 
-        // Assert
+        Image? result = await _repository.GetByIdAsync(addedImage.Id);
+
         Assert.Null(result);
     }
 
     [Fact]
-    public async Task DeleteAsync_ShouldReturnTrue_WhenEntityIsDeletedSuccessfully()
+    public async Task DeleteAsync_ShouldMarkEntityAsDeleted_WhenPropertyExists()
     {
-        // Arrange
-        Image entity = new()
-        {
-            Id = Guid.NewGuid(),
-            Uri = "test"
-        };
-        _context.Images.Add(entity);
-        await _context.SaveChangesAsync();
+        await ClearDatabaseAsync();
 
-        // Act
-        bool result = await _repository.DeleteAsync(entity.Id);
+        Image image = new() { Uri = "http://example.com/image.jpg" };
+        Image? addedImage = await _repository.AddAsync(image);
 
-        // Assert
+        bool result = await _repository.DeleteAsync(addedImage.Id);
+
         Assert.True(result);
-        await _context.SaveChangesAsync(); // Ensure the delete is persisted
+        Image? deletedImage = await _repository.GetByIdAsync(addedImage.Id);
+        Assert.Null(deletedImage);
     }
 
     [Fact]
-    public async Task DeleteAsync_ShouldReturnFalse_WhenEntityNotFound()
-    {
-        // Arrange
-        _context.Images.Add(new Image
-        {
-            Id = Guid.NewGuid(),
-            Uri = "test"
-        });
-        await _context.SaveChangesAsync();
+    public async Task DeleteAsync_ShouldRemoveEntity_WhenPropertyDoesNotExist()
+    {      
+        await ClearDatabaseAsync();
 
-        // Act
+        Image image = new() { Uri = "http://example.com/image.jpg" };
+        Image? addedImage = await _repository.AddAsync(image);
+
+        bool result = await _repository.DeleteAsync(addedImage.Id);
+
+        Assert.True(result);
+
+        Image? deletedImage = await _repository.GetByIdAsync(addedImage.Id);
+        Assert.Null(deletedImage);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_ShouldReturnFalse_WhenEntityDoesNotExist()
+    {
+        await ClearDatabaseAsync();
+
         bool result = await _repository.DeleteAsync(Guid.NewGuid());
 
-        // Assert
         Assert.False(result);
     }
 
     [Fact]
-    public async Task UpdateAsync_ShouldReturnUpdatedEntity_WhenEntityExists()
+    public async Task UpdateAsync_ShouldUpdateEntity()
     {
-        // Arrange
-        Image entity = new()
-        {
-            Id = Guid.NewGuid(),
-            Uri = "test"
-        };
-        _context.Images.Add(entity);
-        await _context.SaveChangesAsync();
+        await ClearDatabaseAsync();
 
-        // Act
-        Image? result = await _repository.UpdateAsync(entity);
+        Image image = new() { Uri = "http://example.com/image.jpg" };
+        Image? addedImage = await _repository.AddAsync(image);
 
-        // Assert
-        Assert.Equal(entity, result);
+        addedImage.Uri = "http://example.com/updated_image.jpg";
+        Image? updatedImage = await _repository.UpdateAsync(addedImage);
+
+        Assert.NotNull(updatedImage);
+        Assert.Equal("http://example.com/updated_image.jpg", updatedImage?.Uri);
     }
 
     [Fact]
     public async Task UpdateAsync_ShouldReturnNull_WhenEntityDoesNotExist()
     {
-        // Arrange
-        Image entity = new()
-        {
-            Id = Guid.NewGuid(),
-            Uri = "test"
-        };
+        await ClearDatabaseAsync();
 
-        // Act
-        Image? result = await _repository.UpdateAsync(entity);
+        Image image = new() { Uri = "http://example.com/image.jpg" };
 
-        // Assert
+        Image? result = await _repository.UpdateAsync(image);
+
         Assert.Null(result);
     }
 
     [Fact]
-    public async Task SearchAsync_ShouldReturnPaginatedResults_WhenValidRequest()
+    public async Task SearchAsync_ShouldReturnCorrectPaginatedResults()
     {
-        // Arrange
+        await ClearDatabaseAsync();
+
+        Image image1 = new() { Uri = "http://example.com/image1.jpg" };
+        Image image2 = new() { Uri = "http://example.com/image2.jpg" };
+        await _repository.AddAsync(image1);
+        await _repository.AddAsync(image2);
+
         Filter<Image> filter = new()
         {
-            Predicate = x => x.Uri.Contains("test"),
+            Predicate = x => true,
             PageNumber = 1,
-            PageSize = 10,
-            SortBy = "CreatedOn",
-            SortDescending = false,
+            PageSize = 1
         };
-
-        List<Image> items = new()
-        {
-            new()
-            {
-                Id = Guid.NewGuid(),
-                Uri = "test",
-                CreatedOn = DateTime.UtcNow
-            }
-        };
-
-        _context.Images.AddRange(items);
-        await _context.SaveChangesAsync();
-
-        // Act
         Paginated<Image> result = await _repository.SearchAsync(filter);
 
-        // Assert
-        Assert.Equal(items.Count, result.TotalCount);
+        Assert.Equal(2, result.TotalCount);
+        Assert.Single(result.Items);
+    }
+
+    [Fact]
+    public async Task SearchAsync_ShouldReturnSortedResults()
+    {
+        await ClearDatabaseAsync();
+
+        Image image1 = new() { Uri = "http://example.com/image1.jpg" };
+        Image image2 = new() { Uri = "http://example.com/image2.jpg" };
+        await _repository.AddAsync(image1);
+        await _repository.AddAsync(image2);
+
+        Filter<Image> filter = new()
+        {
+            Predicate = x => true,
+            SortBy = "Uri",
+            SortDescending = true,
+            PageNumber = 1,
+            PageSize = 2
+        };
+
+        Paginated<Image> result = await _repository.SearchAsync(filter);
+
+        Assert.Equal(2, result.TotalCount);
+        Assert.Equal("http://example.com/image2.jpg", result.Items.First().Uri);
+        Assert.Equal("http://example.com/image1.jpg", result.Items.Last().Uri);
+    }
+
+    [Fact]
+    public async Task SearchAsync_ShouldReturnFilteredResults()
+    {
+        await ClearDatabaseAsync();
+
+        Image image1 = new() { Uri = "http://example.com/image1.jpg" };
+        Image image2 = new() { Uri = "http://example.com/image2.jpg" };
+        await _repository.AddAsync(image1);
+        await _repository.AddAsync(image2);
+
+        Filter<Image> filter = new()
+        {
+            Predicate = x => x.Uri.Contains("image1"),
+            PageNumber = 1,
+            PageSize = 1
+        };
+
+        Paginated<Image> result = await _repository.SearchAsync(filter);
+
+        Assert.Single(result.Items);
+        Assert.Contains(result.Items, img => img.Id == image1.Id);
+    }
+
+    private async Task ClearDatabaseAsync()
+    {
+        _context.Images.RemoveRange(_context.Images); 
+        await _context.SaveChangesAsync();
     }
 }

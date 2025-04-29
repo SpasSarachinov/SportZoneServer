@@ -59,12 +59,13 @@ namespace SportZoneServer.Data.Repositories
         public virtual async Task<bool> DeleteAsync(Guid id)
         {
             TEntity? entity = await _context.Set<TEntity>().FindAsync(id);
-            PropertyInfo? propertyInfo = entity.GetType().GetProperty("IsDeleted");
-
+            
             if (entity == null)
             {
                 return false;
             }
+            
+            PropertyInfo? propertyInfo = entity.GetType().GetProperty("IsDeleted");
 
             if (propertyInfo != null && propertyInfo.PropertyType == typeof(bool))
             {

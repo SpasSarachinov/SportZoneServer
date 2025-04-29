@@ -23,11 +23,11 @@ public class CategoryServiceTests
 
     public CategoryServiceTests()
     {
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
 
-        _dbContext = new ApplicationDbContext(options);
+        _dbContext = new(options);
         _categoryRepository = new CategoryRepository(_dbContext);
         _categoryService = new CategoryService(_categoryRepository, new ImageRepository(_dbContext));
     }
@@ -43,12 +43,12 @@ public class CategoryServiceTests
     {
         await ClearDatabaseAsync();
 
-        Category category1 = new Category
+        Category category1 = new()
         {
             Name = "Category 1",
             ImageUri = "http://example.com/category1.jpg"
         };
-        Category category2 = new Category
+        Category category2 = new()
         {
             Name = "Category 2",
             ImageUri = "http://example.com/category2.jpg"
@@ -68,7 +68,7 @@ public class CategoryServiceTests
     {
         await ClearDatabaseAsync();
 
-        Category category = new Category
+        Category category = new()
         {
             Name = "Test Category",
             ImageUri = "http://example.com/category.jpg"
@@ -87,7 +87,7 @@ public class CategoryServiceTests
     {
         await ClearDatabaseAsync();
 
-        CreateCategoryRequest request = new CreateCategoryRequest
+        CreateCategoryRequest request = new()
         {
             Name = "New Category",
             ImageURI = "http://example.com/new_category.jpg"
@@ -105,13 +105,13 @@ public class CategoryServiceTests
     {
         await ClearDatabaseAsync();
 
-        Category category = new Category
+        Category category = new()
         {
             Name = "Old Category",
             ImageUri = "http://example.com/old_category.jpg"
         };
         Category? addedCategory = await _categoryRepository.AddAsync(category);
-        UpdateCategoryRequest request = new UpdateCategoryRequest
+        UpdateCategoryRequest request = new()
         {
             Id = addedCategory.Id,
             Name = "Updated Category",
@@ -130,7 +130,7 @@ public class CategoryServiceTests
     {
         await ClearDatabaseAsync();
 
-        Category category = new Category
+        Category category = new()
         {
             Name = "Category To Delete",
             ImageUri = "http://example.com/delete_category.jpg"
@@ -160,7 +160,7 @@ public class CategoryServiceTests
     {
         await ClearDatabaseAsync();
 
-        UpdateCategoryRequest request = new UpdateCategoryRequest { Id = Guid.NewGuid(), Name = "Updated Category", ImageURI = "http://example.com/updated_category.jpg" };
+        UpdateCategoryRequest request = new() { Id = Guid.NewGuid(), Name = "Updated Category", ImageURI = "http://example.com/updated_category.jpg" };
 
         await Assert.ThrowsAsync<AppException>(() => _categoryService.UpdateAsync(request));
     }

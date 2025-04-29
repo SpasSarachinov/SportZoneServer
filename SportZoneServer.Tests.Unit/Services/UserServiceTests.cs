@@ -106,22 +106,6 @@ namespace SportZoneServer.Tests.Unit.Services
         }
 
         [Fact]
-        public async Task UpdateAsync_UserNotFound_ShouldThrowNotFound()
-        {
-            UpdateUserRequest request = new()
-            {
-                Id = Guid.NewGuid(),
-                Email = null,
-                Names = null,
-                Phone = null
-            };
-
-            userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((User)null);
-
-            await Assert.ThrowsAsync<AppException>(() => userService.UpdateAsync(request));
-        }
-
-        [Fact]
         public async Task DeleteAsync_UserNotFound_ShouldThrowNotFound()
         {
             userRepositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((User)null);

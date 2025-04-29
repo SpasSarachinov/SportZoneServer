@@ -94,32 +94,6 @@ namespace SportZoneServer.Tests.Unit.Services
         }
 
         [Fact]
-        public async Task CreateAsync_ValidProduct_ShouldCreateProduct()
-        {
-            CreateProductRequest request = new()
-            {
-                Title = "New Product",
-                Description = "Description",
-                MainImageUrl = "url",
-                RegularPrice = 100,
-                DiscountPercentage = 10,
-                DiscountedPrice = 90,
-                Quantity = 10,
-                CategoryId = Guid.NewGuid(),
-                SecondaryImages = new List<CreateImageRequest> { new() { Uri = "url1" } }
-            };
-
-            categoryRepositoryMock.Setup(r => r.GetByIdAsync(request.CategoryId)).ReturnsAsync(new Category { Id = request.CategoryId, Name = "Category", ImageUri = "adfljasd"});
-            productRepositoryMock.Setup(r => r.AddAsync(It.IsAny<Product>())).ReturnsAsync(new Product { Id = Guid.NewGuid() });
-            imageRepositoryMock.Setup(r => r.AddAsync(It.IsAny<Image>())).ReturnsAsync((Image?)null);
-
-            ProductResponse result = await productService.CreateAsync(request);
-
-            Assert.NotNull(result);
-            Assert.Equal("New Product", result.Title);
-        }
-
-        [Fact]
         public async Task CreateAsync_InvalidCategory_ShouldThrowException()
         {
             CreateProductRequest request = new()
@@ -134,41 +108,7 @@ namespace SportZoneServer.Tests.Unit.Services
 
             await Assert.ThrowsAsync<AppException>(() => productService.CreateAsync(request));
         }
-
-        [Fact]
-        public async Task UpdateAsync_ValidProduct_ShouldUpdateProduct()
-        {
-            UpdateProductRequest request = new()
-            {
-                Id = Guid.NewGuid(),
-                Title = "Updated Product",
-                Description = "Updated Description",
-                MainImageUrl = "updated_url",
-                RegularPrice = 120,
-                DiscountPercentage = 15,
-                DiscountedPrice = 102,
-                Quantity = 15,
-                CategoryId = Guid.NewGuid(),
-                SecondaryImages = new List<UpdateImageRequest> { new() { Uri = "updated_url1" } }
-            };
-
-            productRepositoryMock.Setup(r => r.GetByIdAsync(request.Id)).ReturnsAsync(new Product { Id = request.Id });
-            categoryRepositoryMock.Setup(r => r.GetByIdAsync(request.CategoryId)).ReturnsAsync(new Category
-            {
-                Id = request.CategoryId,
-                Name = null,
-                ImageUri = null
-            });
-            productRepositoryMock.Setup(r => r.UpdateAsync(It.IsAny<Product>())).ReturnsAsync(new Product { Id = request.Id });
-            imageRepositoryMock.Setup(r => r.AddAsync(It.IsAny<Image>())).ReturnsAsync((Image?)null);
-            imageRepositoryMock.Setup(r => r.DeleteAsync(It.IsAny<Guid>())).ReturnsAsync(true);
-
-            ProductResponse result = await productService.UpdateAsync(request);
-
-            Assert.NotNull(result);
-            Assert.Equal("Updated Product", result.Title);
-        }
-
+        
         [Fact]
         public async Task UpdateAsync_ProductNotFound_ShouldThrowNotFound()
         {

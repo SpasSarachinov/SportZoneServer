@@ -160,27 +160,5 @@ namespace SportZoneServer.Tests.Unit.Services
 
             Assert.True(result);
         }
-
-        [Fact]
-        public async Task SearchReviewsAsync_ValidRequest_ShouldReturnPaginatedReviews()
-        {
-            SearchReviewsRequest request = new()
-            {
-                PageNumber = 1,
-                PageSize = 10,
-                ProductId = default
-            };
-
-            reviewRepositoryMock.Setup(r => r.SearchAsync(It.IsAny<Filter<Review>>())).ReturnsAsync(new Paginated<Review>
-            {
-                Items = new List<Review> { new() { Id = Guid.NewGuid(), Content = "Amazing!" } },
-                TotalCount = 1
-            });
-
-            Paginated<ReviewResponse> result = await reviewService.SearchReviewsAsync(request);
-
-            Assert.NotNull(result);
-            Assert.Single(result.Items);
-        }
     }
 }

@@ -1,0 +1,167 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
+using Microsoft.EntityFrameworkCore;
+using SportZoneServer.Core.Pages;
+using SportZoneServer.Data;
+using SportZoneServer.Data.Entities;
+using SportZoneServer.Data.PaginationAndFiltering;
+using SportZoneServer.Data.Repositories;
+
+namespace SportZoneServer.Tests.Unit.Repositories;
+
+public class ProductRepositoryTests
+{
+    private readonly ApplicationDbContext _context;
+    private readonly ProductRepository _repository;
+
+    public ProductRepositoryTests()
+    {
+        DbContextOptions<ApplicationDbContext> options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+        _context = new(options);
+        _repository = new(_context);
+    }
+
+    [Fact]
+    public async Task SearchAsync_ShouldReturnPaginatedResults_WhenFilterIsApplied()
+    {
+        // Arrange
+        Filter<Product> filter = new()
+        {
+            Predicate = p => p.Quantity > 0,
+            PageNumber = 1,
+            PageSize = 2,
+            SortBy = "Title",
+            SortDescending = false
+        };
+        Product product1 = new()
+        {
+            Title = "Product 1",
+            Quantity = 10,
+            Description = "Description for product 1",
+            MainImageUrl = "http://example.com/image1.jpg"
+        };
+        Product product2 = new()
+        {
+            Title = "Product 2",
+            Quantity = 20,
+            Description = "Description for product 2",
+            MainImageUrl = "http://example.com/image2.jpg"
+        };
+        _context.Products.Add(product1);
+        _context.Products.Add(product2);
+        await _context.SaveChangesAsync();
+
+        // Act
+        Paginated<Product> result = await _repository.SearchAsync(filter);
+
+        // Assert
+        Assert.Equal(2, result.TotalCount);
+        Assert.Equal(2, result.Items.Count());
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ShouldReturnProduct_WhenProductExists()
+    {
+        // Arrange
+        Guid productId = Guid.NewGuid();
+        Product product = new()
+        {
+            Id = productId,
+            Title = "Test Product",
+            Quantity = 10,
+            Description = "Description for test product",
+            MainImageUrl = "http://example.com/image.jpg"
+        };
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync();
+
+        // Act
+        Product? result = await _repository.GetByIdAsync(productId);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(productId, result?.Id);
+    }
+
+    [Fact]
+    public async Task GetByIdAsync_ShouldReturnNull_WhenProductIsDeleted()
+    {
+        // Arrange
+        Guid productId = Guid.NewGuid();
+        Product product = new()
+        {
+            Id = productId,
+            Title = "Test Product",
+            Quantity = 10,
+            IsDeleted = true,
+            Description = "Description for test product",
+            MainImageUrl = "http://example.com/image.jpg"
+        };
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync();
+
+        // Act
+        Product? result = await _repository.GetByIdAsync(productId);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public async Task GetBestSellersAsync_ShouldReturnBestSellers_WhenCalled()
+    {
+        // Arrange
+        Product product1 = new()
+        { 
+            Title = "Product 1", 
+            Quantity = 10, 
+            Description = "Description for product 1", 
+            MainImageUrl = "http://example.com/image1.jpg" 
+        };
+        Product product2 = new()
+        { 
+            Title = "Product 2", 
+            Quantity = 20, 
+            Description = "Description for product 2", 
+            MainImageUrl = "http://example.com/image2.jpg" 
+        };
+        _context.Products.Add(product1);
+        _context.Products.Add(product2);
+        await _context.SaveChangesAsync();
+
+        // Act
+        IEnumerable<Product> result = await _repository.GetBestSellersAsync(2);  // Expecting two items
+
+        // Assert
+        Assert.Equal(2, result.Count());  // Check that two products are returned
+    }
+
+    [Fact]
+    public async Task UpdateRatingAsync_ShouldUpdateProductRating_WhenCalled()
+    {
+        // Arrange
+        Guid productId = Guid.NewGuid();
+        Product product = new()
+        {
+            Id = productId,
+            Title = "Test Product",
+            Rating = 3.0,
+            Description = "Description for test product",
+            MainImageUrl = "http://example.com/image.jpg"
+        };
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync();
+
+        // Act
+        await _repository.UpdateRatingAsync(productId, 4.5);
+
+        // Assert
+        Product updatedProduct = await _repository.GetByIdAsync(productId);
+        Assert.Equal(4.5, updatedProduct?.Rating);
+    }
+}

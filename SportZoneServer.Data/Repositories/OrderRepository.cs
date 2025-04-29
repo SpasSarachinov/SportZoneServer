@@ -26,6 +26,11 @@ public class OrderRepository(ApplicationDbContext context) : Repository<Order>(c
 
     public async Task<Order> AddAsync(Guid userId)
     {
+        if (context.Users.Any(u => u.Id == userId && u.IsDeleted == false) == false)
+        {
+            throw new AppException("User not found").SetStatusCode(404);   
+        }
+        
         Order newOrder = new()
         {
             UserId = userId,

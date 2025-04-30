@@ -7,6 +7,8 @@ COPY SportZoneServer.Data/*.csproj ./SportZoneServer.Data/
 COPY SportZoneServer.Domain/*.csproj ./SportZoneServer.Domain/
 COPY SportZoneServer.Core/*.csproj ./SportZoneServer.Core/
 COPY SportZoneServer.Common/*.csproj ./SportZoneServer.Common/
+COPY SportZoneServer.Tests.Unit/*.csproj ./SportZoneServer.Tests.Unit/
+
 
 RUN dotnet restore
 
